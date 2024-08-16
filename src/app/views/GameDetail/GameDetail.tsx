@@ -34,24 +34,22 @@ const GameDetail = () => {
     console.log('GameDetail', game);
 
     return (
-        <>
-            <div className="GameDetail">
-                <button
-                    onClick={async () => {
-                        game.players.push({
-                            id: crypto.randomUUID(),
-                            name: `Player ${game.players.length + 1}`,
-                            games: []
-                        });
+        <div className="GameDetail">
+            <button
+                onClick={async () => {
+                    game.players.push({
+                        id: crypto.randomUUID(),
+                        name: `Player ${game.players.length + 1}`,
+                        games: []
+                    });
 
-                        await store.actions.save(game);
-                    }}
-                >
-                    push random player
-                </button>
-                <pre>{JSON.stringify(game, null, 2)}</pre>
-            </div>
-        </>
+                    await store.actions.save(game);
+                }}
+            >
+                push random player
+            </button>
+            <pre>{JSON.stringify(game, null, 2)}</pre>
+        </div>
     );
 };
 
