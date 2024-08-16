@@ -17,4 +17,11 @@ export class Game extends Entity implements GameProps {
         super(value);
         this.players = value.players;
     }
+
+    static create(id: GameProps['id']) {
+        return new Game({
+            id,
+            players: []
+        });
+    }
 }

@@ -1,12 +1,7 @@
 import './App.css';
-import GameView from './app/views/GameView';
 
 function App() {
-    return (
-        <div className="App">
-            <GameView />
-        </div>
-    );
+    return <div className="App">App</div>;
 }
 
 export default App;

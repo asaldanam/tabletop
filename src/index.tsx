@@ -1,14 +1,33 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
+import './index.css';
+
+import GameList from 'app/views/GameList';
+import GameDetail from 'app/views/GameDetail';
+
+const router = createBrowserRouter([
+    {
+        path: '/games',
+        element: <GameList />
+    },
+    {
+        path: '/game/:gameId',
+        element: <GameDetail />
+    },
+    {
+        path: '/',
+        element: <App />
+    }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <>
-        <App />
+        <RouterProvider router={router} />
     </>
 );
 

@@ -7,4 +7,12 @@ export class GameService {
     async save(game: Game) {
         return this.repository.save(game);
     }
+
+    async findById(id: Game['id']) {
+        return this.repository.findById(id);
+    }
+
+    async findAll() {
+        return this.repository.findAll();
+    }
 }
