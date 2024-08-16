@@ -25,5 +25,5 @@ export function createStore<Store extends object>() {
         return object;
     };
 
-    return { Provider, use: useObject, Context };
+    return { Provider, use: useObject };
 }
