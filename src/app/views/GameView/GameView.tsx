@@ -1,15 +1,21 @@
-import { useContext, useEffect } from 'react';
-import { GameContext } from './GameContext';
+import { useEffect } from 'react';
+import { GameStore } from './GameStore';
+import { Game } from 'core/modules/game';
 
 const GameView = () => {
-    const service = useContext(GameContext);
-    const game = service.game;
+    const store = GameStore.use();
 
     useEffect(() => {
-        service.create();
+        store.game = new Game({
+            id: crypto.randomUUID(),
+            players: []
+        });
     }, []);
 
-    if (!game) return null;
+    if (!store.game) return null;
+    const game = store.game;
+
+    console.log('GameView', game);
 
     return (
         <>
@@ -22,7 +28,7 @@ const GameView = () => {
                             games: []
                         });
 
-                        await service.save();
+                        await store.actions.save(game);
                     }}
                 >
                     push random player
