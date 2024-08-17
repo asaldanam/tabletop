@@ -3,10 +3,13 @@ import { useParams } from 'react-router-dom';
 
 import { Game } from 'core/modules/game';
 import { GameDetailStore } from './GameDetailStore';
+import { Player } from 'core/modules/game/domain/Player';
+import { uuid } from 'app/lib/uuid';
+import PlayerInvitation from './components/PlayerInvitation';
 
 const GameDetail = () => {
     const { gameId } = useParams<{ gameId: string }>();
-    const store = GameDetailStore.use();
+    const store = GameDetailStore.useState();
 
     useEffect(() => {
         const load = async () => {
@@ -14,7 +17,6 @@ const GameDetail = () => {
             const game = await store.actions.findById(gameId);
 
             if (game) {
-                console.log('load');
                 store.game = game;
                 return;
             }
@@ -31,23 +33,22 @@ const GameDetail = () => {
     if (!store.game) return null;
     const game = store.game;
 
-    console.log('GameDetail', game);
-
     return (
         <div className="GameDetail">
             <button
                 onClick={async () => {
-                    game.players.push({
-                        id: crypto.randomUUID(),
-                        name: `Player ${game.players.length + 1}`,
-                        games: []
-                    });
-
-                    await store.actions.save(game);
+                    await store.actions.addPlayer(
+                        game,
+                        Player.create({
+                            id: uuid(),
+                            name: 'player-' + game.players.length
+                        })
+                    );
                 }}
             >
                 push random player
             </button>
+            <PlayerInvitation />
             <pre>{JSON.stringify(game, null, 2)}</pre>
         </div>
     );

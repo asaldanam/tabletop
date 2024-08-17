@@ -1,13 +1,10 @@
 import { Entity } from '../../../shared/domain/Entity';
 import { Uuid } from '../../../shared/domain/Uuid';
+import { Player } from './Player';
 
 type GameProps = {
     id: Uuid;
-    players: Array<{
-        id: Uuid;
-        name: string;
-        games: Uuid[];
-    }>;
+    players: Array<Player>;
 };
 
 export class Game extends Entity implements GameProps {

@@ -15,4 +15,9 @@ export class GameService {
     async findAll() {
         return this.repository.findAll();
     }
+
+    async addPlayer(game: Game, player: Game['players'][0]) {
+        game.players.push(player);
+        return this.repository.save(game);
+    }
 }

@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
-import { createObjectMutationObserver } from '../utils/createObjectMutationObserver';
+import { createObjectMutationObserver } from '../createObjectMutationObserver';
 
 export function createStore<Store extends object>() {
     const Context = createContext<Store>(null as any);
@@ -20,10 +20,10 @@ export function createStore<Store extends object>() {
         );
     };
 
-    const useObject = () => {
+    const _useState = () => {
         const object = useContext(Context);
         return object;
     };
 
-    return { Provider, use: useObject };
+    return { Provider, useState: _useState };
 }

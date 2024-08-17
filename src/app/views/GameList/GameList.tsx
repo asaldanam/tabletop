@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
-import { GameListStore } from './GameListStore';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import { uuid } from 'app/lib/uuid';
+import { GameListStore } from './GameListStore';
 
 const GameList = () => {
-    const store = GameListStore.use();
+    const store = GameListStore.useState();
 
     useEffect(() => {
         const load = async () => {
@@ -23,7 +25,7 @@ const GameList = () => {
                 ))}
 
                 <li>
-                    <Link to={`/game/${crypto.randomUUID()}`}>New Game</Link>
+                    <Link to={`/game/${uuid()}`}>New Game</Link>
                 </li>
             </ul>
         </div>
