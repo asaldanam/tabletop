@@ -10,14 +10,13 @@ export function createObjectMutationObserver<O extends object>(
 
     function handler(): ProxyHandler<O> {
         return {
-            get: function (target, prop, received) {
+            get: function (target, prop) {
                 //@ts-ignore
                 const value = target[prop];
                 const valueType = Object.prototype.toString.call(value);
                 const isObject = ['[object Object]', '[object Array]'].includes(valueType);
 
                 if (isObject) {
-                    console.log('proxify', prop, value);
                     return new DeepProxy(value, handler() as any);
                 }
 
