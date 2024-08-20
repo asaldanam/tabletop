@@ -11,7 +11,7 @@ export class GameService {
 
     async save() {
         if (!this.data) return;
-        this.repository.save(this.data);
+        await this.repository.save(this.data);
         await this.eventBus.publish([new GameSavedDomainEvent(this.data)]);
     }
 
@@ -22,7 +22,8 @@ export class GameService {
 
     async create(id: Game['id']) {
         this.data = Game.create(id);
-        return this.save();
+        this.save();
+        return this.data;
     }
 
     async findAll() {

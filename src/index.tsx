@@ -35,11 +35,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <>
-        <CommunicationContext.Provider value={{}}>
-            <EventBusContext.Provider value={new EventEmmiterEventBus()}>
+        <EventBusContext.Provider value={new EventEmmiterEventBus()}>
+            <CommunicationContext.Provider value={{}}>
                 <RouterProvider router={router} />
-            </EventBusContext.Provider>
-        </CommunicationContext.Provider>
+            </CommunicationContext.Provider>
+        </EventBusContext.Provider>
     </>
 );
 

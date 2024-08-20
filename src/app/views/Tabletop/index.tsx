@@ -3,11 +3,11 @@ import { LocalstorageGameRepository } from 'app/repository/modules/game/Localsto
 import { GameService } from 'core/modules/game';
 import Tabletop from './Tabletop';
 import { EventEmmiterEventBus } from 'app/repository/shared/EventEmmiterEventBus';
-import { GameStore } from './GameStore';
+import { GameContext } from '../../context/GameContext';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
-    <GameStore.Provider value={new GameService(new LocalstorageGameRepository(), new EventEmmiterEventBus())}>
+    <GameContext.Provider value={new GameService(new LocalstorageGameRepository(), new EventEmmiterEventBus())}>
         <Tabletop />
-    </GameStore.Provider>
+    </GameContext.Provider>
 );

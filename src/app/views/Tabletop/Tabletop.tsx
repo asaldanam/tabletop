@@ -4,21 +4,17 @@ import { useParams } from 'react-router-dom';
 import { uuid } from 'app/lib/uuid';
 import { useEvents } from 'app/context/EventBusContext';
 import PlayerInvitation from './components/PlayerInvitation';
-import { GameStore } from './GameStore';
+import { GameContext } from '../../context/GameContext';
 
 const Tabletop = () => {
     const { gameId } = useParams<{ gameId: string }>();
     const [event] = useEvents();
-    const game = GameStore.useState();
+    const game = GameContext.useState();
 
     useEffect(() => {
-        const load = async () => {
-            if (!gameId) return;
-            const savedGame = await game.loadById(gameId);
-            if (!savedGame) await game.create(gameId);
-        };
-
-        load();
+        (async () => {
+            if (gameId) (await game.loadById(gameId)) || (await game.create(gameId));
+        })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameId]);
 
