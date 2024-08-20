@@ -3,11 +3,11 @@ import { DomainEvent } from 'core/shared/domain/DomainEvent';
 import { EventBus } from 'core/shared/domain/EventBus';
 import { useEffect, useState } from 'react';
 
-export const EventBusStore = createStore<EventBus>();
+export const EventBusContext = createStore<EventBus>();
 
 export function useEvents<P extends any>(selector?: (event: DomainEvent<P>) => boolean): Array<DomainEvent<P>> {
     const [events, setEvents] = useState([] as Array<DomainEvent<P>>);
-    const { subscribe } = EventBusStore.useState();
+    const { subscribe } = EventBusContext.useState();
 
     useEffect(() => {
         subscribe<P>((event) => {

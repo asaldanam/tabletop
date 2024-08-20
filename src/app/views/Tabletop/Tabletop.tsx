@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { GameDetailStore } from './GameDetailStore';
 import { uuid } from 'app/lib/uuid';
+import { useEvents } from 'app/context/EventBusContext';
 import PlayerInvitation from './components/PlayerInvitation';
-import { useEvents } from 'app/stores/EventBusStore';
+import { GameStore } from './GameStore';
 
-const GameDetail = () => {
+const Tabletop = () => {
     const { gameId } = useParams<{ gameId: string }>();
     const [event] = useEvents();
-    const game = GameDetailStore.useState();
+    const game = GameStore.useState();
 
     useEffect(() => {
         const load = async () => {
@@ -25,7 +25,7 @@ const GameDetail = () => {
     if (!game.data) return <div>Loading...</div>;
 
     return (
-        <div className="GameDetail">
+        <div className="Tabletop">
             <button
                 onClick={async () => {
                     await game.addPlayer(uuid(), `Player ${(game.data?.players.length || 0) + 1}`);
@@ -42,4 +42,4 @@ const GameDetail = () => {
     );
 };
 
-export default GameDetail;
+export default Tabletop;

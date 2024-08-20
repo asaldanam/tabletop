@@ -1,8 +1,8 @@
-import { CommunicationStore } from 'app/stores/CommunicationStore';
+import { CommunicationContext } from 'app/context/CommunicationContext';
 import { useEffect } from 'react';
 
 const PlayerInvitation = () => {
-    const communications = CommunicationStore.useState();
+    const communications = CommunicationContext.useState();
 
     useEffect(() => {}, []);
 

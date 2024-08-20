@@ -7,10 +7,10 @@ import App from './App';
 import './index.css';
 
 import GameList from 'app/views/GameList';
-import GameDetail from 'app/views/GameDetail';
+import Tabletop from 'app/views/Tabletop';
 import Invitation from 'app/views/Invitation';
-import { CommunicationStore } from 'app/stores/CommunicationStore';
-import { EventBusStore } from 'app/stores/EventBusStore';
+import { CommunicationContext } from 'app/context/CommunicationContext';
+import { EventBusContext } from 'app/context/EventBusContext';
 import { EventEmmiterEventBus } from 'app/repository/shared/EventEmmiterEventBus';
 
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/game/:gameId',
-        element: <GameDetail />
+        element: <Tabletop />
     },
     {
         path: '/invitation/:id',
@@ -35,11 +35,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <>
-        <CommunicationStore.Provider value={{}}>
-            <EventBusStore.Provider value={new EventEmmiterEventBus()}>
+        <CommunicationContext.Provider value={{}}>
+            <EventBusContext.Provider value={new EventEmmiterEventBus()}>
                 <RouterProvider router={router} />
-            </EventBusStore.Provider>
-        </CommunicationStore.Provider>
+            </EventBusContext.Provider>
+        </CommunicationContext.Provider>
     </>
 );
 
