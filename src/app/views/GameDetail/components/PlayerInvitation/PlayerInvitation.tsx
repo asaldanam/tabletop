@@ -7,13 +7,15 @@ const PlayerInvitation = () => {
 
     useEffect(() => {}, []);
 
+    console.log(communications);
+
     return (
         <>
             <div>Connections</div>
             <ul>
                 {Object.entries(communications.conections).map(([id, connection]) => {
                     return (
-                        <li key={id}>
+                        <li key={connection.signal}>
                             {!connection.signal && <button onClick={() => connection.start()}>START</button>}
                             {connection.signal && (
                                 <Link to={`/invitation/${id}?offer=${connection.signal}`} target="_blank">

@@ -7,7 +7,7 @@ type PlayerProps = {
 };
 
 export class Player extends Entity implements PlayerProps {
-    readonly name: PlayerProps['name'];
+    name: PlayerProps['name'];
 
     constructor(value: PlayerProps) {
         super(value);

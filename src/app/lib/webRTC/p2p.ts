@@ -14,11 +14,7 @@ export class Communication {
         return { id, connection };
     }
 
-    async broadcast(data: string) {
-        for (const id in this.conections) {
-            this.conections[id].send(data);
-        }
-    }
+    async broadcast(data: string) {}
 }
 
 export class Connection {
@@ -30,33 +26,36 @@ export class Connection {
 
     async start(): Promise<Connection> {
         return new Promise((resolve, reject) => {
-            this.peer = new Peer({ ...this.opts, trickle: false });
+            setTimeout(() => {
+                this.peer = new Peer({ ...this.opts, trickle: false });
 
-            this.peer.on('connect', () => {
-                console.log('connect', this);
-                this.status = 'connected';
-            });
+                this.peer.on('connect', () => {
+                    console.log('connect', this);
+                    this.status = 'connected';
+                });
 
-            this.peer.on('error', (error) => {
-                console.error(error);
-                this.status = 'disconnected';
-                reject(error);
-            });
+                this.peer.on('error', (error) => {
+                    console.error(error);
+                    this.status = 'disconnected';
+                    reject(error);
+                });
 
-            this.peer.on('data', (data) => {
-                const text = new TextDecoder().decode(data);
-                console.log(text);
-            });
+                this.peer.on('data', (data) => {
+                    const text = new TextDecoder().decode(data);
+                    console.log(text);
+                });
 
-            if (!this.opts.initiator) resolve(this);
+                if (!this.opts.initiator) resolve(this);
 
-            this.peer.on('signal', (data) => {
-                if (data.type === 'offer' || data.type === 'answer') {
-                    const signal = btoa(JSON.stringify(data));
-                    this.signal = signal;
-                    this.status = 'pending';
-                    resolve(this);
-                }
+                this.peer.on('signal', (data) => {
+                    if (data.type === 'offer' || data.type === 'answer') {
+                        const signal = btoa(JSON.stringify(data));
+                        this.signal = signal;
+                        this.status = 'pending';
+                        console.log(this);
+                        resolve(this);
+                    }
+                });
             });
         });
     }
