@@ -4,9 +4,11 @@ import { useParams } from 'react-router-dom';
 import { GameDetailStore } from './GameDetailStore';
 import { uuid } from 'app/lib/uuid';
 import PlayerInvitation from './components/PlayerInvitation';
+import { useEvents } from 'app/stores/EventBusStore';
 
 const GameDetail = () => {
     const { gameId } = useParams<{ gameId: string }>();
+    const [event] = useEvents();
     const game = GameDetailStore.useState();
 
     useEffect(() => {
@@ -33,6 +35,9 @@ const GameDetail = () => {
             </button>
             <PlayerInvitation />
             <pre>{JSON.stringify(game, null, 2)}</pre>
+
+            <h2>Events:</h2>
+            <pre>{JSON.stringify(event, null, 2)}</pre>
         </div>
     );
 };

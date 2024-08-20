@@ -10,7 +10,8 @@ import GameList from 'app/views/GameList';
 import GameDetail from 'app/views/GameDetail';
 import Invitation from 'app/views/Invitation';
 import { CommunicationStore } from 'app/stores/CommunicationStore';
-import { Communication } from 'app/lib/webRTC/p2p';
+import { EventBusStore } from 'app/stores/EventBusStore';
+import { EventEmmiterEventBus } from 'app/repository/shared/EventEmmiterEventBus';
 
 const router = createBrowserRouter([
     {
@@ -34,8 +35,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <>
-        <CommunicationStore.Provider value={new Communication()}>
-            <RouterProvider router={router} />
+        <CommunicationStore.Provider value={{}}>
+            <EventBusStore.Provider value={new EventEmmiterEventBus()}>
+                <RouterProvider router={router} />
+            </EventBusStore.Provider>
         </CommunicationStore.Provider>
     </>
 );

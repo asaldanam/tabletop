@@ -1,10 +1,11 @@
-import { LocalstorageGameRepository } from 'app/repository/game/LocalstorageGameRepository';
+import { LocalstorageGameRepository } from 'app/repository/modules/game/LocalstorageGameRepository';
 
 import { GameService } from 'core/modules/game';
 import GameDetail from './GameDetail';
 import { GameDetailStore } from './GameDetailStore';
+import { EventEmmiterEventBus } from 'app/repository/shared/EventEmmiterEventBus';
 
-(window as any).tabletop = new GameService(new LocalstorageGameRepository());
+(window as any).tabletop = new GameService(new LocalstorageGameRepository(), new EventEmmiterEventBus());
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (

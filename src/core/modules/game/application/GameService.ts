@@ -1,15 +1,18 @@
+import { EventBus } from 'core/shared/domain/EventBus';
 import { Uuid } from 'core/shared/domain/Uuid';
+import { GameSavedDomainEvent } from '../domain/events/GameSavedDomainEvent';
 import { Game } from '../domain/Game';
 import { GameRepository } from '../domain/GameRepository';
 import { Player } from '../domain/Player';
 
 export class GameService {
     data: Game | null = null;
-    constructor(private readonly repository: GameRepository) {}
+    constructor(private readonly repository: GameRepository, private readonly eventBus: EventBus) {}
 
     async save() {
         if (!this.data) return;
-        return this.repository.save(this.data);
+        this.repository.save(this.data);
+        await this.eventBus.publish([new GameSavedDomainEvent(this.data)]);
     }
 
     async loadById(id: Game['id']) {
