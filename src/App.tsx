@@ -1,12 +1,14 @@
-import Tabletop from 'app/views/Tabletop';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { useEffect } from 'react';
 
 function App() {
-    return (
-        <div className="App">
-            <Tabletop />
-        </div>
-    );
+    const navigate = useNavigate();
+    useEffect(() => {
+        navigate('/games');
+    }, [navigate]);
+
+    return null;
 }
 
 export default App;
