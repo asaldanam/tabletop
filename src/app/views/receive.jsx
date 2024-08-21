@@ -26,14 +26,33 @@ const Receive = () => {
          */
         function initialize() {
             // Create own peer object with connection to shared PeerJS server
-            peer = new Peer(
-                {
-                    config: {
-                        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-                    } /* Sample servers, please use appropriate ones */
-                },
-                { debug: 2 }
-            );
+            peer = new Peer({
+                iceServers: [
+                    {
+                        urls: 'stun:stun.relay.metered.ca:80'
+                    },
+                    {
+                        urls: 'turn:global.relay.metered.ca:80',
+                        username: '72f8d2483176e6a31214a3a0',
+                        credential: 'se8A8xoQLnCi6k+c'
+                    },
+                    {
+                        urls: 'turn:global.relay.metered.ca:80?transport=tcp',
+                        username: '72f8d2483176e6a31214a3a0',
+                        credential: 'se8A8xoQLnCi6k+c'
+                    },
+                    {
+                        urls: 'turn:global.relay.metered.ca:443',
+                        username: '72f8d2483176e6a31214a3a0',
+                        credential: 'se8A8xoQLnCi6k+c'
+                    },
+                    {
+                        urls: 'turns:global.relay.metered.ca:443?transport=tcp',
+                        username: '72f8d2483176e6a31214a3a0',
+                        credential: 'se8A8xoQLnCi6k+c'
+                    }
+                ]
+            });
 
             peer.on('open', function (id) {
                 // Workaround for peer.reconnect deleting previous id
