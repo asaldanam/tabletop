@@ -12,6 +12,8 @@ import Invitation from 'app/views/Invitation';
 import { CommunicationContext } from 'app/context/CommunicationContext';
 import { EventBusContext } from 'app/context/EventBusContext';
 import { EventEmmiterEventBus } from 'app/repository/shared/EventEmmiterEventBus';
+import Receive from 'app/views/receive';
+import Send from 'app/views/send';
 
 const router = createBrowserRouter([
     {
@@ -23,8 +25,16 @@ const router = createBrowserRouter([
         element: <Tabletop />
     },
     {
-        path: '/invitation/:id',
+        path: '/invitation/:hostId',
         element: <Invitation />
+    },
+    {
+        path: '/receive',
+        element: <Receive />
+    },
+    {
+        path: '/send',
+        element: <Send />
     },
     {
         path: '/',
