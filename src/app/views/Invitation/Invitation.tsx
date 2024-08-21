@@ -6,7 +6,7 @@ const Peer = (window as any).Peer as typeof PeerJs;
 const Invitation = () => {
     const { hostId } = useParams<{ hostId: string }>();
 
-    function join() {}
+    // function join() {}
 
     useEffect(() => {
         console.log('hostId', hostId);

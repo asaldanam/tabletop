@@ -113,6 +113,7 @@ const Send = () => {
              * Would have been easier to use location.hash.
              */
             function getUrlParam(name) {
+                // eslint-disable-next-line no-useless-escape
                 name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
                 var regexS = '[\\?&]' + name + '=([^&#]*)';
                 var regex = new RegExp(regexS);
@@ -175,7 +176,7 @@ const Send = () => {
             sendMessageBox.addEventListener('keypress', function (e) {
                 var event = e || window.event;
                 var char = event.which || event.keyCode;
-                if (char == '13') sendButton.click();
+                if (char === '13') sendButton.click();
             });
             // Send message
             sendButton.addEventListener('click', function () {

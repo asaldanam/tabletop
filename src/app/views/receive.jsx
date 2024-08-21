@@ -5,7 +5,7 @@ const Receive = () => {
     useEffect(() => {
         var lastPeerId = null;
         var peer = null; // Own peer object
-        var peerId = null;
+        // var peerId = null;
         var conn = null;
         var recvId = document.getElementById('receiver-id');
         var status = document.getElementById('status');
@@ -175,7 +175,7 @@ const Receive = () => {
         sendMessageBox.addEventListener('keypress', function (e) {
             var event = e || window.event;
             var char = event.which || event.keyCode;
-            if (char == '13') sendButton.click();
+            if (char === '13') sendButton.click();
         });
         // Send message
         sendButton.addEventListener('click', function () {
