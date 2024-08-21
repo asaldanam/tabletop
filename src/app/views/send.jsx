@@ -26,11 +26,19 @@ const Send = () => {
              * Sets up callbacks that handle any events related to our
              * peer object.
              */
-            function initialize() {
+            async function initialize() {
                 // Create own peer object with connection to shared PeerJS server
-                peer = new Peer(null, {
-                    debug: 2
-                });
+                const media = await navigator.mediaDevices?.getUserMedia?.({ audio: true, video: true });
+                console.log({ media });
+
+                peer = new Peer(
+                    {
+                        config: {
+                            iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+                        } /* Sample servers, please use appropriate ones */
+                    },
+                    { debug: 2 }
+                );
 
                 peer.on('open', function (id) {
                     // Workaround for peer.reconnect deleting previous id
@@ -78,7 +86,7 @@ const Send = () => {
              * Sets up callbacks that handle any events related to the
              * connection and data received on it.
              */
-            function join() {
+            async function join() {
                 // Close old connection
                 if (conn) {
                     conn.close();
@@ -87,6 +95,12 @@ const Send = () => {
                 // Create connection to destination peer specified in the input field
                 conn = peer.connect(recvIdInput.value, {
                     reliable: true
+                });
+
+                console.log('Connecting to: ' + recvIdInput.value);
+
+                conn.on('connection', function () {
+                    console.log('connection');
                 });
 
                 conn.on('open', function () {
@@ -187,7 +201,7 @@ const Send = () => {
                     console.log('Sent: ' + msg);
                     addMessage('<span class="selfMsg">Self: </span> ' + msg);
                 } else {
-                    console.log('Connection is closed');
+                    console.log('Connection is closed', conn);
                 }
             });
 

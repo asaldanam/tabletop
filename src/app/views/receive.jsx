@@ -26,9 +26,14 @@ const Receive = () => {
          */
         function initialize() {
             // Create own peer object with connection to shared PeerJS server
-            peer = new Peer(null, {
-                debug: 2
-            });
+            peer = new Peer(
+                {
+                    config: {
+                        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+                    } /* Sample servers, please use appropriate ones */
+                },
+                { debug: 2 }
+            );
 
             peer.on('open', function (id) {
                 // Workaround for peer.reconnect deleting previous id

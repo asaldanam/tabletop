@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        (async () => {
+            const media = await navigator.mediaDevices?.getUserMedia?.({ audio: true, video: true });
+            console.log({ media });
+
+            const peerConnection1 = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+            peerConnection1.addEventListener('signalingstatechange', _ => console.log('1 signaling state ' + peerConnection1.signalingState));
+            peerConnection1.addEventListener('icegatheringstatechange', _ => console.log('1 ICE gathering state ' + peerConnection1.iceGatheringState));
+            peerConnection1.addEventListener('connectionstatechange', _ => console.log('1 connection state ' + peerConnection1.connectionState));
+
+            const peerConnection2 = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
+            peerConnection2.addEventListener('signalingstatechange', _ => console.log('2 signaling state ' + peerConnection1.signalingState));
+            peerConnection2.addEventListener('icegatheringstatechange', _ => console.log('2 ICE gathering state ' + peerConnection1.iceGatheringState));
+            peerConnection2.addEventListener('connectionstatechange', _ => console.log('2 connection state ' + peerConnection1.connectionState));
+
+            const dataChannel = peerConnection1.createDataChannel(null);
+
+            const offer = await peerConnection1.createOffer();
+            await peerConnection1.setLocalDescription(offer);
+            await peerConnection2.setRemoteDescription(offer);
+
+            const answer = await peerConnection2.createAnswer();
+            await peerConnection2.setLocalDescription(answer);
+            await peerConnection1.setRemoteDescription(answer);
+
+            peerConnection1.addEventListener('icecandidate', event => {
+                console.log('1 ICE candidate ' + (event.candidate ? event.candidate.candidate : 'null'))
+                if (event.candidate !== null) {
+                    peerConnection2.addIceCandidate(event.candidate);
+                }
+            });
+
+            peerConnection2.addEventListener('icecandidate', event => {
+                console.log('2 ICE candidate ' + (event.candidate ? event.candidate.candidate : 'null'))
+                if (event.candidate !== null) {
+                    peerConnection1.addIceCandidate(event.candidate);
+                }
+            });
+
+            dataChannel.addEventListener('open', () => {
+                dataChannel.send('message from 1 to 2');
+            });
+
+            dataChannel.addEventListener('message', event => {
+                console.log('2: ' + event.data);
+            });
+
+            peerConnection2.addEventListener('datachannel', event => {
+                monitor(event.channel, 'dc 2');
+                event.channel.addEventListener('open', () => {
+                    event.channel.send('message from 2 to 1');
+                });
+
+                event.channel.addEventListener('message', event => {
+                    console.log('1: ' + event.data);
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
