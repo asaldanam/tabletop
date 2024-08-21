@@ -52,17 +52,17 @@
             });
 
             dataChannel.addEventListener('message', event => {
-                console.log('2: ' + event.data);
+                console.warn('2: ' + event.data);
             });
 
             peerConnection2.addEventListener('datachannel', event => {
-                monitor(event.channel, 'dc 2');
+                console.log(event.channel, 'dc 2');
                 event.channel.addEventListener('open', () => {
                     event.channel.send('message from 2 to 1');
                 });
 
                 event.channel.addEventListener('message', event => {
-                    console.log('1: ' + event.data);
+                    console.warn('1: ' + event.data);
                 });
             });
         })();
