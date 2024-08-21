@@ -29,7 +29,7 @@ const Send = () => {
             async function initialize() {
                 // Create own peer object with connection to shared PeerJS server
                 const media = await navigator.mediaDevices?.getUserMedia?.({ audio: true, video: true });
-                console.log({ media });
+                console.log('GET MEDIA', { media });
 
                 peer = new Peer(
                     {
