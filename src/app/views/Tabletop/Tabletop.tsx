@@ -1,15 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { uuid } from 'app/lib/uuid';
-import { useEvents } from 'app/context/EventBusContext';
 import { GameContext } from '../../context/GameContext';
-import PeerJs from 'peerjs';
-const Peer = (window as any).Peer as typeof PeerJs;
 
 const Tabletop = () => {
     const { gameId } = useParams<{ gameId: string }>();
-    const [event] = useEvents();
     const game = GameContext.useState();
 
     useEffect(() => {
