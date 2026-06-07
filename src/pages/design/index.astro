@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const colors = [
+	['Background', '#020617', 'Global page base'],
+	['Surface', '#07111f', 'Gradient and band layer'],
+	['Panel', 'rgba(15, 23, 42, 0.78)', 'Glass container fill'],
+	['Border', 'rgba(255, 255, 255, 0.1)', 'Panel and control edges'],
+	['Heading', '#f8fafc', 'Titles and primary values'],
+	['Body', '#cbd5e1', 'Default text'],
+	['Muted', '#94a3b8', 'Metadata and helper text'],
+	['Accent', '#67e8f9', 'Primary action and active state'],
+	['Success', '#34d399', 'Positive status'],
+	['Danger', '#fb7185', 'Error state'],
+];
+
+const statuses = [
+	['Renderer', 'React ready', 'bg-emerald-400'],
+	['Routing', '/tabletop/* captured', 'bg-cyan-300'],
+	['Adapter', 'Cloudflare Worker', 'bg-cyan-300'],
+	['SSR', 'Selective route enabled', 'bg-emerald-400'],
+];
+---
+
+<Layout
+	title="Design System | Tabletop"
+	description="Static design system gallery for the Tabletop Midnight Console visual language."
+>
+	<main class="mx-auto max-w-6xl px-6 py-16">
+		<section class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+			<div class="space-y-6">
+				<p class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
+					Tabletop Midnight Console
+				</p>
+				<h1 class="max-w-3xl text-5xl font-semibold leading-none text-white sm:text-6xl">
+					Sistema visual fijado para pantallas estáticas, SSR y SPA.
+				</h1>
+				<p class="max-w-2xl text-lg leading-8 text-slate-300">
+					Esta galería muestra los tokens y componentes base documentados en DESIGN.md. Es una ruta
+					estática de Astro para validar color, tipografía, controles y paneles sin depender de React.
+				</p>
+			</div>
+
+			<div class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Design contract</p>
+				<dl class="mt-5 grid grid-cols-2 gap-4 text-sm">
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<dt class="text-slate-400">Display</dt>
+						<dd class="mt-1 font-semibold text-white">Fraunces</dd>
+					</div>
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<dt class="text-slate-400">Interface</dt>
+						<dd class="mt-1 font-semibold text-white">Manrope</dd>
+					</div>
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<dt class="text-slate-400">Accent</dt>
+						<dd class="mt-1 font-semibold text-cyan-300">Cyan</dd>
+					</div>
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<dt class="text-slate-400">Shape</dt>
+						<dd class="mt-1 font-semibold text-white">Pills + glass</dd>
+					</div>
+				</dl>
+			</div>
+		</section>
+
+		<section class="mt-16 space-y-6">
+			<div class="flex flex-wrap items-end justify-between gap-4">
+				<div>
+					<p class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">Colors</p>
+					<h2 class="mt-3 text-3xl font-semibold text-white">Token palette</h2>
+				</div>
+				<span class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white">
+					DESIGN.md
+				</span>
+			</div>
+
+			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+				{
+					colors.map(([name, value, description]) => (
+						<article class="overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+							<div class="h-24 border-b border-white/10" style={`background: ${value}`}></div>
+							<div class="space-y-1 p-4">
+								<h3 class="font-sans text-sm font-bold tracking-normal text-white">{name}</h3>
+								<p class="font-mono text-xs text-cyan-200">{value}</p>
+								<p class="text-xs leading-5 text-slate-400">{description}</p>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="mt-16 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+			<div class="space-y-5">
+				<p class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">Typography</p>
+				<h2 class="text-4xl font-semibold leading-none text-white">Fraunces carries the voice.</h2>
+				<p class="text-lg leading-8 text-slate-300">
+					Manrope handles all operational copy, controls, labels, and data. Display type stays reserved
+					for screen-level hierarchy.
+				</p>
+			</div>
+
+			<div class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<div class="space-y-6">
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Display large</p>
+						<p class="mt-2 font-serif text-5xl font-semibold leading-none text-white">Command view</p>
+					</div>
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Headline</p>
+						<p class="mt-2 font-serif text-3xl font-semibold leading-tight text-white">Glass panels and status fields</p>
+					</div>
+					<div>
+						<p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Body</p>
+						<p class="mt-2 text-base leading-7 text-slate-300">
+							Use steady rhythm, clear contrast, and compact controls so application screens stay usable.
+						</p>
+					</div>
+					<div>
+						<p class="text-xs font-bold uppercase tracking-[0.28em] text-cyan-300">Label caps</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="mt-16 grid gap-6 lg:grid-cols-2">
+			<div class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Buttons and pills</p>
+				<div class="mt-6 flex flex-wrap gap-3">
+					<button class="rounded-full bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200">
+						Primary action
+					</button>
+					<button class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200">
+						Secondary
+					</button>
+					<button class="rounded-full bg-white/5 px-5 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-white/10">
+						Ghost
+					</button>
+					<button class="cursor-not-allowed rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-slate-500" disabled>
+						Disabled
+					</button>
+				</div>
+				<div class="mt-6 flex flex-wrap gap-3">
+					<span class="rounded-full bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">Active</span>
+					<span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white">Idle</span>
+					<span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200">
+						Chip
+					</span>
+				</div>
+			</div>
+
+			<div class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Status list</p>
+				<ul class="mt-6 space-y-4 text-sm text-slate-200">
+					{
+						statuses.map(([label, value, dot]) => (
+							<li class="flex items-start justify-between gap-4 border-b border-white/10 pb-4 last:border-0 last:pb-0">
+								<span class="flex items-start gap-3">
+									<span class={`mt-1 h-2.5 w-2.5 rounded-full ${dot}`}></span>
+									<span class="text-slate-400">{label}</span>
+								</span>
+								<span class="text-right font-semibold text-white">{value}</span>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+		</section>
+
+		<section class="mt-16 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+			<form class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Forms</p>
+				<div class="mt-6 space-y-5">
+					<label class="block">
+						<span class="text-sm font-semibold text-white">Campaign name</span>
+						<input
+							class="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20"
+							placeholder="Northern table"
+							type="text"
+						/>
+						<span class="mt-2 block text-xs text-slate-400">Use concise labels for dense app screens.</span>
+					</label>
+					<label class="block">
+						<span class="text-sm font-semibold text-white">Table status</span>
+						<select class="mt-2 w-full rounded-2xl border border-white/10 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20">
+							<option>Ready</option>
+							<option>Draft</option>
+							<option>Paused</option>
+						</select>
+					</label>
+					<label class="block">
+						<span class="text-sm font-semibold text-white">Error example</span>
+						<input
+							class="mt-2 w-full rounded-2xl border border-rose-400/60 bg-white/5 px-4 py-3 text-sm text-white outline-none"
+							value="Invalid route"
+							type="text"
+						/>
+						<span class="mt-2 block text-xs text-rose-300">Use danger only when the user must act.</span>
+					</label>
+				</div>
+			</form>
+
+			<div class="rounded-[2rem] border border-white/10 bg-[var(--panel-bg)] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+					<div>
+						<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">App shell sample</p>
+						<h2 class="mt-2 text-3xl font-semibold text-white">Operational panel</h2>
+					</div>
+					<span class="rounded-full bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950">Live</span>
+				</div>
+				<div class="mt-6 grid gap-4 sm:grid-cols-3">
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<p class="text-xs uppercase tracking-[0.28em] text-slate-400">Routes</p>
+						<p class="mt-3 text-3xl font-semibold text-white">14</p>
+					</div>
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<p class="text-xs uppercase tracking-[0.28em] text-slate-400">Workers</p>
+						<p class="mt-3 text-3xl font-semibold text-white">1</p>
+					</div>
+					<div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+						<p class="text-xs uppercase tracking-[0.28em] text-slate-400">Mode</p>
+						<p class="mt-3 text-3xl font-semibold text-white">CSR</p>
+					</div>
+				</div>
+				<div class="mt-6 overflow-hidden rounded-2xl border border-white/10">
+					<div class="grid grid-cols-[1fr_auto] gap-4 border-b border-white/10 bg-white/5 p-4 text-sm">
+						<span class="font-semibold text-white">/tabletop/sessions/live</span>
+						<span class="text-cyan-200">SPA</span>
+					</div>
+					<div class="grid grid-cols-[1fr_auto] gap-4 border-b border-white/10 p-4 text-sm">
+						<span class="font-semibold text-white">/pricing</span>
+						<span class="text-emerald-300">SSR</span>
+					</div>
+					<div class="grid grid-cols-[1fr_auto] gap-4 bg-white/5 p-4 text-sm">
+						<span class="font-semibold text-white">/design</span>
+						<span class="text-cyan-200">Static</span>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
