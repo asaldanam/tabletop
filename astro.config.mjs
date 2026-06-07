@@ -4,12 +4,23 @@ import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
+/**
+ * @returns {import('vite').Plugin}
+ */
 function tabletopSpaFallbackPlugin() {
   return {
     name: 'tabletop-spa-fallback',
     apply: 'serve',
+    /**
+     * @param {import('vite').ViteDevServer} server
+     */
     configureServer(server) {
       const fallbackHeader = 'x-tabletop-spa-fallback';
+      /**
+       * @param {import('node:http').IncomingMessage} req
+       * @param {import('node:http').ServerResponse} res
+       * @param {(error?: unknown) => void} next
+       */
       const rewriteMiddleware = async (req, res, next) => {
         const originalUrl = req.url;
 
