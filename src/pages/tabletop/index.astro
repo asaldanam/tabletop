@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TabletopClient from '../../tabletop/main';
+---
+
+<Layout
+	title="Tabletop SPA"
+	description="Single-page React application mounted under /tabletop and served from one Astro shell."
+>
+	<TabletopClient client:only="react" />
+</Layout>

@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "tabletop",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -9,9 +9,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "cf:preview": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.4.4"
+    "@astrojs/cloudflare": "^13.6.1",
+    "@astrojs/react": "^5.0.7",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.17.0",
+    "tailwindcss": "^4.3.0",
+    "wrangler": "^4.98.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3"
   }
 }

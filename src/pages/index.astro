@@ -1,17 +1,63 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+	title="Tabletop"
+	description="Astro base site with a React SPA mounted at /tabletop and Cloudflare-ready SSR routes."
+>
+	<section class="mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-center px-6 py-16">
+		<div class="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+			<div class="space-y-8">
+				<p class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
+					Astro + React Router + Cloudflare
+				</p>
+				<div class="space-y-4">
+					<h1 class="max-w-3xl text-5xl font-semibold leading-none text-white sm:text-6xl">
+						Sitio estático base con una SPA capturada bajo <span class="text-cyan-300">/tabletop</span>.
+					</h1>
+					<p class="max-w-2xl text-lg leading-8 text-slate-300">
+						La home sigue siendo estática. La SPA vive en un único shell Astro y React Router resuelve
+						las deep links en cliente. Cloudflare queda listo para convivir con rutas SSR puntuales.
+					</p>
+				</div>
+				<div class="flex flex-wrap gap-4">
+					<a
+						class="rounded-full bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+						href="/tabletop"
+					>
+						Abrir la SPA
+					</a>
+					<a
+						class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300 hover:text-cyan-200"
+						href="/pricing"
+					>
+						Ver ruta SSR
+					</a>
+				</div>
+			</div>
+
+			<div class="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+				<p class="text-sm font-semibold uppercase tracking-[0.28em] text-slate-400">Estado actual</p>
+				<ul class="mt-5 space-y-4 text-sm text-slate-200">
+					<li class="flex items-start gap-3">
+						<span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+						<span>React integrado como renderer oficial de Astro.</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+						<span>Tailwind 4 activado vía plugin Vite.</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+						<span>Cloudflare Workers preparado para mezcla static + SSR.</span>
+					</li>
+					<li class="flex items-start gap-3">
+						<span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+						<span>Fallback de `/tabletop/*` al mismo HTML mediante `_redirects`.</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+</Layout>
