@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
@@ -81,6 +82,11 @@ export default defineConfig({
   adapter: cloudflare(),
   integrations: [react()],
   vite: {
+    resolve: {
+      alias: {
+        '@core': fileURLToPath(new URL('../../packages/core/src', import.meta.url)),
+      },
+    },
     plugins: [tailwindcss(), tabletopSpaFallbackPlugin()],
   },
 });
