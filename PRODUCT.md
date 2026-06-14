@@ -6,7 +6,7 @@ Este tablero debe ser agnóstico al sistema de juego y solo proporcionará herra
 
 ## Características principales 
 
-### Sistema de reglas abierto por diseño
+### Sistema de reglas abierto por diseño
 La idea es que `los jugadores no necesiten definir cada atributo, característica o habilidad de sus personajes`. Por ejemplo:
 
 - En vez de definir la distancia de movimiento del personaje, el tablero dejará mover al personaje a cualquier distancia, pedirá confirmar la acción indicando la distancia y el jugador decidirá si es válida o no según las reglas de su sistema de juego.
@@ -169,7 +169,7 @@ El `Jugador` podrá describir una ruta de movimiento para su `Personaje` que pas
 
 El `Jugador` deberá confirmar la ruta de movimiento antes de que el sistema consolide el movimiento del `Personaje`. El `Jugador` podrá cancelar la ruta
 
-### Cesión del turno
+### Cesión del turno
 Durante su turno, el jugador también podra ceder el turno de su `Personaje` a otro `Personaje` del tablero, aunque no sea controlado por el mismo jugador.
 
 1. El jugador seleccionará el `Personaje` al que desea ceder el turno y confirmará la acción.
@@ -190,12 +190,12 @@ Si el `Personaje A` cede su turno al `Personaje C`, el orden de iniciativa de la
 4. Personaje B inicia y finaliza su turno propio
 5. Personaje C inicia y finaliza su turno propio
 
-### Finalización del turno
+### Finalización del turno
 El `Jugador` cuyo `Personaje` tiene el turno podrá finalizar su turno en cualquier momento, incluso si no ha realizado ninguna acción o movimiento. 
 
 Una vez finalizado el turno, el sistema notificará al siguiente `Personaje` en la lista de turnos que es su turno y comenzará el siguiente turno
 
-## Mapa (Map)
+## Mapa (Map)
 El `Mapa` es el espacio donde los `Personajes` y otros elementos del juego interactúan. El `Mapa` está compuesto por una cuadrícula de casillas que representan el terreno del juego.
 
 Los mapas podrán ser diseñados fuera de una `Partida` y luego ser añadidos a una `Partida` por el `GM`. Los mapas podrán ser reutilizados en diferentes partidas.
@@ -224,7 +224,7 @@ Una `Casilla` es un cuadrado de la `Cuadrícula` que representa una unidad de te
 
 En una `Casilla` podrá ser ocupada por o bien un único `Personaje`, o bien un `Obstáculo`, pero no ambos al mismo tiempo.
 
-### Obstáculo (Obstacle)
+### Obstáculo (Obstacle)
 Un `Obstáculo` representa un elemento del mapa que impide que los `Personajes` puedan situarse en la `Casilla` que ocupa o moverse a través de ellos, como por ejemplo paredes, ríos, árboles, entre otros.
 
 Los `Obstáculos` podrán ser definidos por cualquier `Usuario` fuera de una `Partida` durante el diseño del `Mapa`, después de haber definido el tamaño de la `Cuadrícula` y haber añadido una `Imagen` de fondo al `Mapa`.
@@ -245,7 +245,7 @@ Cuando un `Personaje` entra en la partida, el jugador deberá realizar una `Tira
 
 En cualquier momento (sea o no su `Turno`), el jugador podrá volver a realizar la `Tirada` de iniciativa para su personaje y el sistema actualizará automáticamente la posición del personaje en la lista de turnos según el resultado de la nueva tirada.
 
-### Actualización dinámica del orden de iniciativa
+### Actualización dinámica del orden de iniciativa
 El `Orden de Iniciativa` es dinámico y podrá cambiar en cualquier momento durante el transcurso de la `Ronda` si un `Personaje` realiza una nueva `Tirada` de iniciativa. El sistema actualizará automáticamente la posición del `Personaje` en la lista de turnos según el resultado de la nueva tirada.
 
 Por ejemplo, supongamos que tenemos los siguientes personajes. A raiz de sus `Tiradas` de iniciativa, el `Orden de Iniciativa` será el siguiente:
