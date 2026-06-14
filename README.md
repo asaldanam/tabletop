@@ -1,14 +1,7 @@
 # Tabletop
+Tablero para TTRPG (Tabletop Role-Playing Game)
 
-Monorepo with Turborepo.
-
-## Structure
-
-```txt
-apps/
-  main/      Astro + React + Tailwind app
-packages/   Shared packages, currently empty
-```
+- [Product](PRODUCT.md)
 
 ## Commands
 
