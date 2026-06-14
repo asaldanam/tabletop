@@ -17,7 +17,6 @@ La idea es que `los jugadores no necesiten definir cada atributo, característic
 
 Sin embargo la aplicación permitirá definir algunos parámetros tanto para los mapas como los personajes que permitan resolver más fácilmente las interacciones entre jugadores y el tablero (se describirán a continuación en cada sección)
 
-
 ### Histórico auditable de la partida
 Cada modificación del estado de los personajes y del tablero quedará registrada durante la partida, permitiendo a los jugadores auditar el histórico de la partida y verificar que las acciones realizadas por los jugadores son válidas según las reglas de su sistema de juego.
 
@@ -60,25 +59,6 @@ Una partida tendrá:
 - `Mapa`: Un `Mapa` que representa el terreno de juego donde los `Personajes` y otros elementos del juego interactúan.
 - `Orden de Iniciativa`: Lista de `Personajes` ordenados según su `Tirada` de iniciativa.
 - `Turno de Personaje`: El `Personaje` que tiene el turno de realizar acciones y movimientos en la partida.
-
-### Iniciativa (Initiative)
-La iniciativa es un valor numérico que determina el orden de turno de los personajes en la partida. Cada `Personaje` deberá realizar una `Tirada` de iniciativa al entrar en la partida para determinar su posición en la lista de turnos. 
-
-Como resultado de todas las `Tiradas` de iniciativa, se generará un `Orden de Iniciativa` que será utilizado para determinar el orden de turno de los personajes en la partida.
-
-#### Tirada de iniciativa
-Cuando un `Personaje` entra en la partida, el jugador deberá realizar una `Tirada` de iniciativa para determinar el orden de turno de los personajes en la partida. El sistema colocará automáticamente al personaje en la lista de turnos según el resultado de la tirada.
-
-En cualquier momento (sea o no su `Turno`), el jugador podrá volver a realizar la `Tirada` de iniciativa para su personaje y el sistema actualizará automáticamente la posición del personaje en la lista de turnos según el resultado de la nueva tirada.
-
-#### Actualización dinámica del orden de iniciativa
-El `Orden de Iniciativa` es dinámico y podrá cambiar en cualquier momento durante el transcurso de la `Ronda` si un `Personaje` realiza una nueva `Tirada` de iniciativa. El sistema actualizará automáticamente la posición del `Personaje` en la lista de turnos según el resultado de la nueva tirada.
-
-Por ejemplo, supongamos que tenemos los siguientes personajes. A raiz de sus `Tiradas` de iniciativa, el `Orden de Iniciativa` será el siguiente:
-- **Personaje A**: 15
-- **Personaje B**: 12
-- **Personaje C**: 18
-- **Personaje D**: 10
 
 ## Ronda (Round)
 Una `Ronda` es un ciclo completo de turnos donde cada `Personaje` tiene la oportunidad de realizar acciones y movimientos. 
@@ -169,6 +149,8 @@ Toda `Acción` deberá tener definida una `Tirada` (ver fórmula en la sección 
 
 <!-- TODO: Complete definition -->
 
+
+
 ## Turno (Turn)
 <!-- TODO: Complete definition -->
 
@@ -243,10 +225,55 @@ Una `Casilla` es un cuadrado de la `Cuadrícula` que representa una unidad de te
 En una `Casilla` podrá ser ocupada por o bien un único `Personaje`, o bien un `Obstáculo`, pero no ambos al mismo tiempo.
 
 ### Obstáculo (Obstacle)
-<!-- TODO: Complete definition -->
+Un `Obstáculo` representa un elemento del mapa que impide que los `Personajes` puedan situarse en la `Casilla` que ocupa o moverse a través de ellos, como por ejemplo paredes, ríos, árboles, entre otros.
+
+Los `Obstáculos` podrán ser definidos por cualquier `Usuario` fuera de una `Partida` durante el diseño del `Mapa`, después de haber definido el tamaño de la `Cuadrícula` y haber añadido una `Imagen` de fondo al `Mapa`.
 
 ### Area (Area)
-Un `Area` es un espacio del mapa cuyas casillas están delimitadas por un polígono. Cada `Area` puede tener un nombre y una descripción que los jugadores podrán ver.
+Un `Area` es un espacio del mapa de varias casillas contiguas entre sí que puede ser utilizado para: 
+- Representar zonas de efecto `Acciones` o `Reacciones` de los `Personajes`.
 
+<!-- TODO: Definir tipos de área: radial, cónica, rectangular -->
 
+## Iniciativa (Initiative)
+La iniciativa es un valor numérico que determina el orden de turno de los personajes en la partida. Cada `Personaje` deberá realizar una `Tirada` de iniciativa al entrar en la partida para determinar su posición en la lista de turnos. 
 
+Como resultado de todas las `Tiradas` de iniciativa, se generará un `Orden de Iniciativa` que será utilizado para determinar el orden de turno de los personajes en la partida.
+
+### Tirada de iniciativa
+Cuando un `Personaje` entra en la partida, el jugador deberá realizar una `Tirada` de iniciativa para determinar el orden de turno de los personajes en la partida. El sistema colocará automáticamente al personaje en la lista de turnos según el resultado de la tirada.
+
+En cualquier momento (sea o no su `Turno`), el jugador podrá volver a realizar la `Tirada` de iniciativa para su personaje y el sistema actualizará automáticamente la posición del personaje en la lista de turnos según el resultado de la nueva tirada.
+
+### Actualización dinámica del orden de iniciativa
+El `Orden de Iniciativa` es dinámico y podrá cambiar en cualquier momento durante el transcurso de la `Ronda` si un `Personaje` realiza una nueva `Tirada` de iniciativa. El sistema actualizará automáticamente la posición del `Personaje` en la lista de turnos según el resultado de la nueva tirada.
+
+Por ejemplo, supongamos que tenemos los siguientes personajes. A raiz de sus `Tiradas` de iniciativa, el `Orden de Iniciativa` será el siguiente:
+- **Personaje A**: *18*
+- **Personaje B**: *15*
+- **Personaje C**: *12*
+- **Personaje D**: *10*
+
+Durante el transcurso del `Turno` del `Personaje B`, el `Jugador` que controla al `Personaje D` realiza una nueva `Tirada` de iniciativa para su personaje y obtiene un resultado de *20*. 
+
+El sistema actualizará automáticamente el `Orden de Iniciativa` de la siguiente manera para la `Ronda` actual:
+
+Personajes que ya han tenido su turno en la `Ronda` actual:
+- **Personaje A**: *18*
+
+Personajes que aún no han tenido su turno en la `Ronda` actual:
+- **Personaje D**: *20*
+- **Personaje B**: *15*
+- **Personaje C**: *12*
+
+Aunque el `Personaje D` ahora tiene un valor de iniciativa más alto que el `Personaje A`, este último ya ha tenido su turno en la `Ronda` actual. El `Personaje D` será el siguiente en tener su turno por tener el valor de iniciativa más alto entre los personajes que aún no han tenido su turno en la `Ronda` actual.
+
+Para la siguiente `Ronda`, el `Orden de Iniciativa` será el siguiente:
+- **Personaje D**: *20*
+- **Personaje A**: *18*
+- **Personaje B**: *15*
+- **Personaje C**: *12*
+
+En resumen, aunque un `Personaje` pueda cambiar su posición en el `Orden de Iniciativa` durante una `Ronda`, no afecta retroactivamente a los `Personajes` que ya han tenido su turno en la `Ronda` actual. 
+
+El `Orden de Iniciativa` se actualizará dinámicamente para la siguiente `Ronda`.
