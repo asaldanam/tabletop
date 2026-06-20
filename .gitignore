@@ -1,3 +1,6 @@
+#docs
+.obsidian
+
 # build output
 dist/
 .wrangler/
