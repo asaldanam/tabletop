@@ -1,9 +1,9 @@
 # Features (Características)
 Este nivel tiene como objetivo describir las funcionalidades principales del producto mediante formatos que puedan ser abordados directamente por desarrolladores y agentes de código.
 
-# Estructura
+## Estructura
 
-## Épicas (Epics)
+### Épicas (Epics)
 Las épicas representan grandes bloques de funcionalidad que se dividen en historias de usuario más pequeñas
 
 Todas las épicas deben 
@@ -12,7 +12,7 @@ Todas las épicas deben
 
 Ejemplo y template: [EP-000-epic-template](/docs/product/features/epics/EP-000-epic-template/EPIC.md)
 
-## Historias de Usuario (User Stories)
+### Historias de Usuario (User Stories)
 Las historias de usuario representan funcionalidades específicas desde la perspectiva del usuario final. Cada historia de usuario debe incluir criterios de aceptación claros y medibles.
 
 Todas las historias de usuario deben:

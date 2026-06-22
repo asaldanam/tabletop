@@ -2,7 +2,6 @@
 code: US-XXX
 name: [Nombre de la historia corto y claro]
 ---
-
 ## 1. Resumen
 *Una breve descripción de una o dos frases sobre qué resuelve esta historia y por qué importa.*
 
