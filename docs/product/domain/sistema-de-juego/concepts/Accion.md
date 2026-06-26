@@ -9,7 +9,7 @@ Cada acción deberá tener los siguientes parámetros:
 
 - `Nombre`: Nombre de la acción que el jugador y otros jugadores podrán ver.
 - `Descripción`: Descripción de la acción que el jugador y otros jugadores podrán ver.
-- `Objetivo`: El objetivo de la acción, que puede ser un personaje, un objeto o un área del mapa.
+- `Tipo de objetivo`: El objetivo de la acción, que puede ser un personaje, un objeto o un área del mapa.
 - `Tirada`: Tirada para determinar el éxito o fracaso de la acción, que puede incluir dados y modificadores.
 - `Umbral de éxito (opcional)`: Valor mínimo que debe obtenerse en la tirada para que la acción tenga éxito.
 - `Efecto`: Efecto de la acción, que puede incluir daño, curación, estado alterado, entre otros.
@@ -17,8 +17,11 @@ Cada acción deberá tener los siguientes parámetros:
 ## Tiradas de acción
 Toda `Acción` deberá tener definida una `Tirada` (ver fórmula en la sección de `Tiradas`) que podrá ser usado para determinar el éxito o fracaso de la acción o compararlo con la `Tirada de reacción` de un personaje afectado por la acción.
 
-## Objetivo de acción
-<!-- TODO: Complete definition -->
+## Tipo de objetivo de acción
+Todas las `Acciones` deberán tener definido un `Tipo de objetivo`, que puede ser:
+
+- `Personaje`: La acción afectará a un personaje.
+- `Area`:
 
 ## Efectos de acción
 <!-- TODO: Complete definition -->
