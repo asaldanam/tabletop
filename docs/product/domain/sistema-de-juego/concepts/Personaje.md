@@ -8,3 +8,6 @@
   - Modificadores: el jugador podrá definir un modificador que se sumará al resultado de la tirada, por ejemplo: **+3** o **-2**.
 - `Acciones`: los jugadores deberán definir las acciones que su personaje podrá realizar cuando le toque su turno.
 - `Reacciones:` las reacciones corresponderán a acciones que el personaje podrá realizar fuera de su turno, por ejemplo: un ataque de oportunidad o una reacción a un hechizo.
+
+## Movimiento
+<!-- TODO: Complete definition -->

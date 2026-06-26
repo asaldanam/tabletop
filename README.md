@@ -1,7 +1,7 @@
 # Tabletop
 Tablero para TTRPG (Tabletop Role-Playing Game)
 
-- [Product](PRODUCT.md)
+- [Product domain](docs/product/domain/)
 
 ## Commands
 
