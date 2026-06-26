@@ -26,15 +26,24 @@ Cada contexto debe:
 - Debe describirse su propósito y justifique su existencia en base al concepto del producto o alguna decisión
 - Debe definirse claramente los límites del contexto y su relación con otros contextos (*Context Mapping*).
 
-### Entidades y objetos de negocio (Entities)
-Las entidades son objetos del dominio que tienen una identidad única y persisten a lo largo del tiempo.
+### Conceptos de negocio (Concepts)
+Los conceptos de negocio son elementos del dominio que representan ideas, procesos o entidades que son relevantes para el producto. Estos conceptos deben estar encapsulados dentro de un contexto delimitado y deben ser consistentes con el lenguaje ubicuo del dominio.
 
-Cada entidad deben:
-- Estar contenidas en un directorio `/entities` dentro de la carpeta del contexto correspondiente.
+Cada concepto debe:
+- Estar contenido dentro de una carpeta `/concepts` dentro del contexto correspondiente.
 - Ser un fichero único, en `.md` dentro de la carpeta del contexto correspondiente.
 - Debe tener un nombre único, descriptivo y consistente (Lenguaje Ubicuo).
 - Debe describir un modelo, (propiedades, relaciones, reglas de negocio, etc.) y no un caso de uso o funcionalidad.
 - Debe disponer unas reglas de negocio claras y concisas, que definan cómo se comporta la entidad dentro del dominio.
 - Debe indicar sus relaciones de dependencia con otras entidades, si las tiene.
 
-Las entidades no tienen por qué tener una estructura o plantilla específica mientras cumplan con los criterios anteriores. Pueden además estar agrupadas a dentro de subdirectorios dentro de `/entities`, en tantos niveles como sea necesario, siempre que se mantenga la consistencia y claridad en la organización del dominio.
+Los conceptos no tienen por qué tener una estructura o plantilla específica mientras cumplan con los criterios anteriores. Pueden además estar agrupados a dentro de subdirectorios dentro de `/concepts`, en tantos niveles como sea necesario, siempre que se mantenga la consistencia y claridad en la organización del dominio.
+
+### Casos de uso (Use Cases)
+Los casos de uso representan descripciones de procesos que involucran a uno o más conceptos de negocio dentro de un contexto delimitado. Los casos de uso deben estar encapsulados dentro de un contexto delimitado y deben ser consistentes con el lenguaje ubicuo del dominio.
+
+Cada caso de uso debe:
+- Estar contenido dentro de una carpeta `/use-cases` dentro del contexto correspondiente.
+- Ser un fichero único, en `.md` dentro de la carpeta del contexto correspondiente.
+- Debe tener un nombre único, descriptivo y consistente (Lenguaje Ubicuo).
+- Debe describir un proceso, (actores, pasos, condiciones, resultados, etc.) y no un modelo de negocio o entidad.
