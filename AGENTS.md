@@ -1,5 +1,11 @@
 # Instrucciones
+
 Instrucciones que todos los agentes de código deben tener en cuenta
+
+# Estructura
+
+- [DESIGN.md](/DESIGN.md): especificación de diseño de la UI y UX.
+- [product/README.md](/docs/product/README.md): documentación del producto.
 
 ## Separación de responsabilidades
 

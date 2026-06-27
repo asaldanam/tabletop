@@ -1,7 +1,9 @@
 # Partida (Game)
+
 Una `Partida` es una sesión de juego donde varios `Jugadores` interactúan entre sí y con el tablero. Una `Partida` tiene un `GM` (Game Master) que es el jugador que creó la partida y tiene privilegios especiales para gestionar la partida.
 
 Una partida tendrá:
+
 - `Jugadores`: Un conjunto de `Jugadores` que participan en la partida y controlan uno o más `Personajes`.
 
 - `GM`: Un `Jugador` que tiene privilegios especiales para gestionar la partida, como agregar o eliminar jugadores, personajes y mapas.

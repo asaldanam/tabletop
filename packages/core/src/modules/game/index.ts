@@ -1,2 +1,2 @@
 // models
-export * from './models/Game'
+export * from './models/Game';

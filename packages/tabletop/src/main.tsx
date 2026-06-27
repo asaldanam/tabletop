@@ -1,10 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 export default function TabletopClient() {
-  return (
-    <BrowserRouter basename="/tabletop">
-      <App />
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter basename="/tabletop">
+            <App />
+        </BrowserRouter>
+    );
 }

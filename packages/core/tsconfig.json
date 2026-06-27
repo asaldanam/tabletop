@@ -1,19 +1,13 @@
 {
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "paths": {
-      "@core": [
-        "./src/index.ts"
-      ],
-      "@core/*": [
-        "./src/*"
-      ]
+    "compilerOptions": {
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "paths": {
+            "@core": ["./src/index.ts"],
+            "@core/*": ["./src/*"]
+        },
+        "strict": true,
+        "target": "ES2022"
     },
-    "strict": true,
-    "target": "ES2022"
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "include": ["src/**/*"]
 }

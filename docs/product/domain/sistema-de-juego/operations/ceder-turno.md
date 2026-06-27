@@ -1,4 +1,5 @@
 # Ceder turno
+
 Durante su turno, el jugador también podra ceder el turno de su `Personaje` a otro `Personaje` del tablero, aunque no sea controlado por el mismo jugador.
 
 1. El jugador seleccionará el `Personaje` al que desea ceder el turno y confirmará la acción.
@@ -8,11 +9,13 @@ Durante su turno, el jugador también podra ceder el turno de su `Personaje` a o
 Este turno cedido no afecta al orden de iniciativa. Es decir, el personaje que cedió el turno podrá volver a tener su turno cuando le toque según el orden de iniciativa.
 
 Ejemplo, dada una `Ronda` con los siguientes `Personajes` y orden de iniciativa:
+
 1. Personaje A
 2. Personaje B
 3. Personaje C
 
 Si el `Personaje A` cede su turno al `Personaje C`, el orden de iniciativa de la `Ronda` será:
+
 1. Personaje A inicia turno propio
 2. Personaje A cede turno a Personaje C
 3. Personaje C finaliza el turno cedido

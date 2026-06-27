@@ -1,4 +1,5 @@
 # Realizar acción
+
 Cuando un jugador realice una acción, deberán ocurrir los siguientes pasos:
 
 1. El jugador seleccionará la `Acción` que desea realizar por su `Nombre` y confirmará la acción.

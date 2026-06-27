@@ -1,9 +1,11 @@
 # Producto
+
 Este directorio contiene la documentación del producto. Aquí encontrarás información detallada sobre las características, funcionalidades y guías de uso del producto.
 
-El diseño del producto se organiza en niveles. Un nivel más alto representa una definición más abstracta del producto, mientras que un nivel más bajo representa una definición más concreta. 
+El diseño del producto se organiza en niveles. Un nivel más alto representa una definición más abstracta del producto, mientras que un nivel más bajo representa una definición más concreta.
 
 ## Roles y responsabilidades
+
 Todo el proceso de definición del producto involucra a varios roles, cada uno con responsabilidades específicas. Estos roles podrán ser desempeñados por personas o por agentes de inteligencia artificial, pero deberán estar claramente identificados.
 
 A continuación se describen los roles clave:
@@ -19,6 +21,7 @@ A continuación se describen los roles clave:
 - **Product Engineer (PE)**: Responsable de la implementación técnica del producto, asegurando que las características se desarrollen de acuerdo con los requisitos y estándares de calidad.
 
 ## Estructura: niveles del producto
+
 1. [Constitución](./charter/README.md): Estrategia, visión y objetivos del producto. Repreenta la definición más abstracta del producto, pero al mismo tiempo la más importante, ya que define el rumbo y los objetivos del producto. Tiene el ciclo de vida más largo, idealmente no debería cambiar a lo largo de la vida del producto. Es redactada por el **Product Manager** y aprobada por los **Stakeholders**.
 
 2. [Decisiones](./decisions/README.md): Registro de decisiones clave tomadas durante el desarrollo del producto. Define la dirección del producto y proporciona un historial de las decisiones tomadas, incluyendo el contexto, las opciones evaluadas y las razones detrás de cada decisión. Su ciclo de actualización es más corto que el de la constitución, ya que las decisiones pueden cambiar a medida que se obtiene nueva información o se ajustan los objetivos del producto. Es redactada y aprobada por el **Product Manager**, pero puede invitar a colaborar a otros roles como el **Product Designer** o el **Product Engineer**.
@@ -28,6 +31,7 @@ A continuación se describen los roles clave:
 4. [Características](./features/README.md): Funcionalidades, especificaciones, diseños y criterios de aceptación. Describen cómo se implementarán las características del producto y cómo se espera que funcionen. Su ciclo de actualización es más corto que el del dominio, ya que las características pueden cambiar a medida que se desarrollan y prueban. Es redactada por el **Product Owner** y aprobada por el **Product Manager**, pero puede invitar a colaborar a otros roles como el **Product Designer** o el **Product Engineer**.
 
 ## Reglas no negociables
+
 - Un nivel inferior no puede contradecir un nivel superior.
 - Un nivel superior no puede hacer referencia a un nivel inferior.
 - Cada nivel debe construirse sobre el nivel inmediatamente superior, sin saltarse niveles.

@@ -1,4 +1,5 @@
 # Usuario (User)
+
 Un `Usuario` es una persona que ha accedido a la aplicación.
 
 Un `Usuario` puede:

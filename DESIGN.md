@@ -3,106 +3,106 @@ version: alpha
 name: Tabletop Midnight Console
 description: A dark, technical interface system for Astro and React screens with cyan emphasis, glass panels, and editorial display typography.
 colors:
-  background: "#020617"
-  surface: "#07111f"
-  panel: "rgba(15, 23, 42, 0.78)"
-  panel-soft: "rgba(255, 255, 255, 0.05)"
-  border: "rgba(255, 255, 255, 0.1)"
-  border-strong: "rgba(255, 255, 255, 0.15)"
-  heading: "#f8fafc"
-  body: "#cbd5e1"
-  muted: "#94a3b8"
-  accent: "#67e8f9"
-  accent-strong: "#22d3ee"
-  accent-soft: "rgba(103, 232, 249, 0.18)"
-  success: "#34d399"
-  danger: "#fb7185"
+    background: '#020617'
+    surface: '#07111f'
+    panel: 'rgba(15, 23, 42, 0.78)'
+    panel-soft: 'rgba(255, 255, 255, 0.05)'
+    border: 'rgba(255, 255, 255, 0.1)'
+    border-strong: 'rgba(255, 255, 255, 0.15)'
+    heading: '#f8fafc'
+    body: '#cbd5e1'
+    muted: '#94a3b8'
+    accent: '#67e8f9'
+    accent-strong: '#22d3ee'
+    accent-soft: 'rgba(103, 232, 249, 0.18)'
+    success: '#34d399'
+    danger: '#fb7185'
 typography:
-  display-lg:
-    fontFamily: Fraunces
-    fontSize: 60px
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: "-0.03em"
-  display-md:
-    fontFamily: Fraunces
-    fontSize: 48px
-    fontWeight: 600
-    lineHeight: 1
-    letterSpacing: "-0.03em"
-  headline-md:
-    fontFamily: Fraunces
-    fontSize: 32px
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.03em"
-  body-lg:
-    fontFamily: Manrope
-    fontSize: 18px
-    fontWeight: 400
-    lineHeight: 1.75
-    letterSpacing: "0"
-  body-md:
-    fontFamily: Manrope
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: "0"
-  body-sm:
-    fontFamily: Manrope
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: "0"
-  label-caps:
-    fontFamily: Manrope
-    fontSize: 12px
-    fontWeight: 700
-    lineHeight: 1
-    letterSpacing: "0.28em"
+    display-lg:
+        fontFamily: Fraunces
+        fontSize: 60px
+        fontWeight: 600
+        lineHeight: 1
+        letterSpacing: '-0.03em'
+    display-md:
+        fontFamily: Fraunces
+        fontSize: 48px
+        fontWeight: 600
+        lineHeight: 1
+        letterSpacing: '-0.03em'
+    headline-md:
+        fontFamily: Fraunces
+        fontSize: 32px
+        fontWeight: 600
+        lineHeight: 1.1
+        letterSpacing: '-0.03em'
+    body-lg:
+        fontFamily: Manrope
+        fontSize: 18px
+        fontWeight: 400
+        lineHeight: 1.75
+        letterSpacing: '0'
+    body-md:
+        fontFamily: Manrope
+        fontSize: 16px
+        fontWeight: 400
+        lineHeight: 1.6
+        letterSpacing: '0'
+    body-sm:
+        fontFamily: Manrope
+        fontSize: 14px
+        fontWeight: 400
+        lineHeight: 1.5
+        letterSpacing: '0'
+    label-caps:
+        fontFamily: Manrope
+        fontSize: 12px
+        fontWeight: 700
+        lineHeight: 1
+        letterSpacing: '0.28em'
 rounded:
-  sm: 8px
-  md: 16px
-  lg: 24px
-  xl: 32px
-  full: 9999px
+    sm: 8px
+    md: 16px
+    lg: 24px
+    xl: 32px
+    full: 9999px
 spacing:
-  xs: 4px
-  sm: 8px
-  md: 16px
-  lg: 24px
-  xl: 32px
-  "2xl": 40px
-  "3xl": 64px
-  page-x: 24px
-  section-y: 64px
-  max-width: 1152px
+    xs: 4px
+    sm: 8px
+    md: 16px
+    lg: 24px
+    xl: 32px
+    '2xl': 40px
+    '3xl': 64px
+    page-x: 24px
+    section-y: 64px
+    max-width: 1152px
 components:
-  button-primary:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.background}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.full}"
-    padding: "12px 20px"
-  button-primary-hover:
-    backgroundColor: "{colors.accent-strong}"
-  button-secondary:
-    backgroundColor: "transparent"
-    textColor: "{colors.heading}"
-    borderColor: "{colors.border-strong}"
-    rounded: "{rounded.full}"
-    padding: "12px 20px"
-  panel-glass:
-    backgroundColor: "{colors.panel}"
-    borderColor: "{colors.border}"
-    rounded: "{rounded.xl}"
-    padding: "{spacing.lg}"
-  chip:
-    backgroundColor: "{colors.panel-soft}"
-    textColor: "{colors.accent}"
-    borderColor: "{colors.border}"
-    rounded: "{rounded.full}"
-    padding: "4px 12px"
+    button-primary:
+        backgroundColor: '{colors.accent}'
+        textColor: '{colors.background}'
+        typography: '{typography.body-sm}'
+        rounded: '{rounded.full}'
+        padding: '12px 20px'
+    button-primary-hover:
+        backgroundColor: '{colors.accent-strong}'
+    button-secondary:
+        backgroundColor: 'transparent'
+        textColor: '{colors.heading}'
+        borderColor: '{colors.border-strong}'
+        rounded: '{rounded.full}'
+        padding: '12px 20px'
+    panel-glass:
+        backgroundColor: '{colors.panel}'
+        borderColor: '{colors.border}'
+        rounded: '{rounded.xl}'
+        padding: '{spacing.lg}'
+    chip:
+        backgroundColor: '{colors.panel-soft}'
+        textColor: '{colors.accent}'
+        borderColor: '{colors.border}'
+        rounded: '{rounded.full}'
+        padding: '4px 12px'
 ---
 
 # Tabletop Midnight Console

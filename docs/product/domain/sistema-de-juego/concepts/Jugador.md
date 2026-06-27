@@ -1,4 +1,5 @@
 # Jugador (Player)
+
 Un `Jugador` representa a una persona que participa en la partida y controla uno o más `Personajes`.
 
 - Toda `Partida` debe tener al menos un `Jugador`.
@@ -10,6 +11,7 @@ Un `Jugador` representa a una persona que participa en la partida y controla uno
 - Un `Jugador` dentro de una partida podrá ver a todos los demás `Jugadores` y sus `Personajes`, pero no podrá ver los `Personajes` de otros `Jugadores` que no estén en la misma partida.
 
 ## Game master (GM)
+
 - El `GM` podrá ceder el rol de `GM` a otro `Jugador` en cualquier momento.
 - El `GM` podrá eliminar a cualquier `Jugador` de la partida en cualquier momento.
 - El `GM` podrá eliminar a cualquier `Personaje` de la partida en cualquier momento.
