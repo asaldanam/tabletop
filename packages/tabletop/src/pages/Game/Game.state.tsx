@@ -43,12 +43,13 @@ export const GameState = {
         });
 
         return <Context.Provider value={[state, setState]}>{props.children}</Context.Provider>;
-    }),
-    useGameState: () => {
-        const context = React.useContext(Context);
-        if (!context) {
-            throw new Error('useGameState must be used within a GameStateProvider');
-        }
-        return context;
+    })
+};
+
+export const useGameState = () => {
+    const context = React.useContext(Context);
+    if (!context) {
+        throw new Error('useGameState must be used within a GameStateProvider');
     }
+    return context;
 };

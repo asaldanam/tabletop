@@ -1,27 +1,12 @@
 import { memo } from 'react';
+import { useGameState } from '../../Game.state';
+
 import S from './Tabletop.module.css';
 
 type TabletopProps = {};
 
 export const Tabletop = memo((props: TabletopProps) => {
-    const camera = {
-        zoom: 1
-    };
-
-    const map = {
-        rows: 24,
-        cols: 24,
-        cell: {
-            size: 64
-        }
-    };
-
-    const character = {
-        position: {
-            x: 18,
-            y: 12
-        }
-    };
+    const [{ camera, character, map }] = useGameState();
 
     return (
         <div>
@@ -54,16 +39,15 @@ export const Tabletop = memo((props: TabletopProps) => {
                 })}
 
                 {/* Character */}
-                <div
+                <input
                     className={S.character}
+                    type="checkbox"
                     style={{
                         width: `${map.cell.size}px`,
                         height: `${map.cell.size}px`,
-                        transform: `translate3d(${(character.position.x - 1) * map.cell.size}px, ${(character.position.y - 1) * map.cell.size}px, 0)`
+                        transform: `translate3d(${(character.position.x - 1) * map.cell.size}px, ${(character.position.y - 1) * map.cell.size}px, 1px)`
                     }}
-                >
-                    <span className="pointer-events-none"></span>
-                </div>
+                />
             </div>
         </div>
     );
