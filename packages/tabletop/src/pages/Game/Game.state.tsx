@@ -3,6 +3,10 @@ import React, { createContext, memo, useState } from 'react';
 type State = {
     camera: {
         zoom: number;
+        displacement: {
+            x: number;
+            y: number;
+        };
     };
     map: {
         rows: number;
@@ -25,7 +29,11 @@ export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
         const [state, setState] = useState({
             camera: {
-                zoom: 1
+                zoom: 1,
+                displacement: {
+                    x: 0,
+                    y: 0
+                }
             },
             map: {
                 rows: 24,

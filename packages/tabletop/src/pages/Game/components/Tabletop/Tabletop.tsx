@@ -17,7 +17,7 @@ export const Tabletop = memo((props: TabletopProps) => {
                     width: `${map.cols * map.cell.size}px`,
                     height: `${map.rows * map.cell.size}px`,
                     //perspectiva isométrica
-                    transform: `rotateX(60deg) rotateZ(45deg) scale(${camera.zoom})`,
+                    transform: `rotateX(60deg) rotateZ(45deg) scale(${camera.zoom}) translate3d(${camera.displacement.x}px, ${camera.displacement.y}px, 0px)`,
                     transformStyle: 'preserve-3d'
                 }}
             >
