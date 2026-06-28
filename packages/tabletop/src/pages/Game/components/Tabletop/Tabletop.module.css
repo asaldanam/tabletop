@@ -6,11 +6,13 @@
 }
 
 .cell {
-    @apply ring-1 ring-gray-700;
     @apply flex items-center justify-center;
-    @apply text-gray-700 text-sm font-bold;
+
+    @apply ring-1 ring-gray-700 hover:bg-gray-800;
+
 
     span {
+        @apply text-gray-400 text-sm font-bold;
         @apply opacity-0;
         @apply transition-opacity duration-300 ease-in-out;
     }
@@ -20,4 +22,11 @@
             @apply opacity-100;
         }
     }
+}
+
+.character {
+    @apply absolute;
+    @apply flex items-center justify-center;
+    @apply transition-all duration-500 ease-in-out;
+    @apply bg-green-500;
 }
