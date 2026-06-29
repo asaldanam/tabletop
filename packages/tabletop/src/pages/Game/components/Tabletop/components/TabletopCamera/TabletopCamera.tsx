@@ -17,7 +17,8 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
             maxScale={2.5}
             centerOnInit
             centerZoomedOut
-            limitToBounds={false}
+            limitToBounds
+            disablePadding
             wheel={{
                 activationKeys: isZoomActivationKeyPressed
             }}

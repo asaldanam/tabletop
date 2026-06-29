@@ -1,9 +1,13 @@
 @reference "tailwindcss";
 
-.isoLayer {
+.isoBounds {
     @apply relative;
+}
+
+.isoLayer {
+    @apply absolute;
     transform: rotateX(60deg) rotateZ(45deg) scale(1) translate3d(0, 0, 0);
-    transform-style: preserve-3d;
+    transform-origin: center center;
 }
 
 .grid {
