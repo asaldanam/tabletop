@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+
+.viewport {
+    @apply h-full w-full overflow-hidden;
+    @apply bg-slate-950;
+}
+
+.content {
+    @apply h-fit w-fit;
+}
