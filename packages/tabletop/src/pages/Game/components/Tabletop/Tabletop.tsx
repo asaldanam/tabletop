@@ -6,7 +6,7 @@ import S from './Tabletop.module.css';
 type TabletopProps = {};
 
 export const Tabletop = memo((props: TabletopProps) => {
-    const [{ camera, character, map }] = useGameState();
+    const [{ character, map }] = useGameState();
 
     return (
         <div>
@@ -17,7 +17,7 @@ export const Tabletop = memo((props: TabletopProps) => {
                     width: `${map.cols * map.cell.size}px`,
                     height: `${map.rows * map.cell.size}px`,
                     //perspectiva isométrica
-                    transform: `rotateX(60deg) rotateZ(45deg) scale(${camera.zoom}) translate3d(${camera.displacement.x}px, ${camera.displacement.y}px, 0px)`,
+                    transform: `rotateX(60deg) rotateZ(45deg) scale(1) translate3d(0px, 0px, 0px)`,
                     transformStyle: 'preserve-3d'
                 }}
             >
@@ -27,15 +27,7 @@ export const Tabletop = memo((props: TabletopProps) => {
                     const y = map.cols - (index % map.cols);
                     const name = `(${x}, ${y})`;
 
-                    return (
-                        <div
-                            key={index}
-                            className={S.cell}
-                            style={{ width: `${map.cell.size}px`, height: `${map.cell.size}px` }}
-                        >
-                            <span className="pointer-events-none">{name}</span>
-                        </div>
-                    );
+                    return <div key={index} id={name} />;
                 })}
 
                 {/* Character */}
