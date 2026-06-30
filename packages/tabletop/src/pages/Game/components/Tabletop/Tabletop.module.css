@@ -6,6 +6,7 @@
 
 .isoLayer {
     @apply absolute;
+    @apply transition-all duration-500 ease-in-out;
     transform: rotateX(60deg) rotateZ(45deg) scale(1) translate3d(0, 0, 0);
     transform-origin: center center;
 }
@@ -16,14 +17,15 @@
 
     &>div {
         @apply h-16 w-16;
-        @apply ring-1 ring-gray-400 hover:bg-gray-300;
+        @apply ring-1 ring-gray-600 hover:bg-gray-800;
 
-
-
-        span {
-            @apply text-gray-700 text-sm font-bold;
-            @apply opacity-0;
-            @apply transition-opacity duration-300 ease-in-out;
+        &:hover {
+            &::before {
+                /* content id */
+                content: attr(id);
+                @apply opacity-50;
+                @apply transition-opacity duration-300 ease-in-out;
+            }
         }
 
         &:hover {
