@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { TabletopBoardSurface } from './components/TabletopBoardSurface';
 import { TabletopCamera } from './components/TabletopCamera';
 import S from './Tabletop.module.css';
 import { GameState } from '../../Game.state';
@@ -36,7 +37,6 @@ export const Tabletop = memo((props: TabletopProps) => {
                     <div
                         className={S.grid}
                         style={{
-                            gridTemplate: `repeat(${map.rows}, ${cell.size}px) / repeat(${map.cols}, ${cell.size}px)`,
                             width: `${width}px`,
                             height: `${height}px`
                         }}
@@ -55,21 +55,12 @@ export const Tabletop = memo((props: TabletopProps) => {
                                 />
                             );
                         })}
-                        {[...Array(map.rows * map.cols)].map((_, index) => {
-                            const x = (index % map.cols) + 1;
-                            const y = Math.floor(index / map.cols) + 1;
-                            const name = `(${x}, ${y})`;
-
-                            return (
-                                <button
-                                    key={index}
-                                    aria-label={`Casilla ${name}`}
-                                    className={S.cell}
-                                    onClick={() => moveSelectedCharacterTo({ x, y })}
-                                    type="button"
-                                />
-                            );
-                        })}
+                        <TabletopBoardSurface
+                            cellSize={cell.size}
+                            cols={map.cols}
+                            onCellClick={moveSelectedCharacterTo}
+                            rows={map.rows}
+                        />
                     </div>
                 </div>
             </div>

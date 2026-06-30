@@ -23,8 +23,8 @@ export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
         const [state, setState] = useState({
             map: {
-                rows: 24,
-                cols: 24
+                rows: 64,
+                cols: 64
             },
             characters: [
                 {
