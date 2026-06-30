@@ -41,6 +41,20 @@ export const Tabletop = memo((props: TabletopProps) => {
                             height: `${height}px`
                         }}
                     >
+                        {characters.map((character) => {
+                            const movement = getCharacterMovement(character.id);
+
+                            return (
+                                <TabletopCharacter
+                                    key={character.id}
+                                    character={character}
+                                    direction={movement.direction}
+                                    isMoving={movement.isMoving}
+                                    isSelected={movement.isSelected}
+                                    onSelect={selectCharacter}
+                                />
+                            );
+                        })}
                         {[...Array(map.rows * map.cols)].map((_, index) => {
                             const x = (index % map.cols) + 1;
                             const y = Math.floor(index / map.cols) + 1;
@@ -53,21 +67,6 @@ export const Tabletop = memo((props: TabletopProps) => {
                                     className={S.cell}
                                     onClick={() => moveSelectedCharacterTo({ x, y })}
                                     type="button"
-                                />
-                            );
-                        })}
-
-                        {characters.map((character) => {
-                            const movement = getCharacterMovement(character.id);
-
-                            return (
-                                <TabletopCharacter
-                                    key={character.id}
-                                    character={character}
-                                    direction={movement.direction}
-                                    isMoving={movement.isMoving}
-                                    isSelected={movement.isSelected}
-                                    onSelect={selectCharacter}
                                 />
                             );
                         })}

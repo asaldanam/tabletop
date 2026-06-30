@@ -2,6 +2,7 @@ import React, { createContext, memo, useState } from 'react';
 
 export type Character = {
     id: string;
+    sprite: string;
     position: {
         x: number;
         y: number;
@@ -28,8 +29,17 @@ export const GameState = {
             characters: [
                 {
                     id: '1',
+                    sprite: 'agumon.webp',
                     position: {
                         x: 18,
+                        y: 12
+                    }
+                },
+                {
+                    id: '2',
+                    sprite: 'tentomon.webp',
+                    position: {
+                        x: 17,
                         y: 12
                     }
                 }

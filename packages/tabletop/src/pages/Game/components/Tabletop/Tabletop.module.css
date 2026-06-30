@@ -9,11 +9,13 @@
     @apply transition-all duration-500 ease-in-out;
     transform: rotateX(60deg) rotateZ(45deg) scale(1) translate3d(0, 0, 0);
     transform-origin: center center;
+    transform-style: preserve-3d;
 }
 
 .grid {
     @apply relative;
     @apply grid gap-0;
+    transform-style: preserve-3d;
 }
 
 .cell {

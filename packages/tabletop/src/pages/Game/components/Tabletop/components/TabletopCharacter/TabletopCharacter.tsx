@@ -17,6 +17,8 @@ type TabletopCharacterProps = {
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
     const { character, direction, isMoving, isSelected, onSelect } = props;
 
+    console.log(character);
+
     return (
         <button
             className={S.box}
@@ -37,7 +39,12 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
             }
             type="button"
         >
-            <div className={S.sprite} />
+            <div
+                className={S.sprite}
+                style={{
+                    backgroundImage: `url(/${character.sprite})`
+                }}
+            />
         </button>
     );
 });
