@@ -14,31 +14,10 @@
 .grid {
     @apply relative;
     @apply grid gap-0;
-
-    &>div {
-        @apply h-16 w-16;
-        @apply ring-1 ring-gray-600 hover:bg-gray-800;
-
-        &:hover {
-            &::before {
-                /* content id */
-                content: attr(id);
-                @apply opacity-50;
-                @apply transition-opacity duration-300 ease-in-out;
-            }
-        }
-
-        &:hover {
-            span {
-                @apply opacity-100;
-            }
-        }
-    }
 }
 
-.character {
-    @apply absolute;
-    @apply flex items-center justify-center;
-    @apply transition-all duration-500 ease-in-out;
-    @apply bg-green-500;
+.cell {
+    @apply h-16 w-16 border-0 bg-transparent p-0;
+    @apply ring-1 ring-gray-600 hover:bg-gray-800;
+    cursor: pointer;
 }

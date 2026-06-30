@@ -1,8 +1,56 @@
 @reference "tailwindcss";
 
-.character {
+.box {
     @apply absolute;
     @apply flex items-center justify-center;
-    @apply transition-all duration-500 ease-in-out;
-    @apply bg-green-500;
+    @apply border-0 bg-transparent p-0;
+    @apply transition-all duration-200 ease-linear;
+
+    width: var(--cell-size);
+    height: var(--cell-size);
+    z-index: 2;
+    /* transform-style: preserve-3d; */
+    background: red;
+
+    &[data-selected="true"] {
+        filter: drop-shadow(0 0 10px rgb(103 232 249 / 0.85));
+    }
+}
+
+.sprite {
+    background-image: url(/tabletop-spritesheet.png);
+    height: 100%;
+    width: 100%;
+    transform: rotateY(15deg);
+    background-size: 30rem;
+    background-position: top left;
+    image-rendering: pixelated;
+
+    /* width: 96px;
+    height: 104px;
+    pointer-events: none;
+    background-image: url('/tabletop-spritesheet.png');
+    background-position: 0 -1456px;
+    background-size: 1536px 1872px;
+    image-rendering: pixelated;
+    transform: rotateZ(-45deg) rotateX(-60deg) translateY(-34px) scale(0.72);
+    transform-origin: center bottom; */
+}
+
+.character[data-direction="left"] .sprite {
+    transform: rotateZ(-45deg) rotateX(-60deg) translateY(-34px) scaleX(-1) scale(0.72);
+}
+
+.character[data-moving="true"] .sprite {
+    animation: tabletop-character-walk 660ms steps(6) infinite;
+}
+
+@keyframes tabletop-character-walk {
+    from {
+        background-position: 0 -1456px;
+    }
+
+    to {
+        background-position: -1152px -1456px;
+    }
 }

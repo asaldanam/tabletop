@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { CSSProperties, memo } from 'react';
 import { GAME_CONFIG } from '../../../../Game.config';
 import { Character } from '../../../../Game.state';
 
@@ -8,23 +8,37 @@ const cell = GAME_CONFIG.map.cell;
 
 type TabletopCharacterProps = {
     character: Character;
+    direction: 'left' | 'right';
+    isMoving: boolean;
+    isSelected: boolean;
+    onSelect: (characterId: string) => void;
 };
 
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
-    const { character } = props;
+    const { character, direction, isMoving, isSelected, onSelect } = props;
 
     return (
-        <>
-            <input
-                className={S.character}
-                type="checkbox"
-                style={{
-                    width: `${cell.size}px`,
-                    height: `${cell.size}px`,
+        <button
+            className={S.box}
+            aria-label={`Seleccionar personaje ${character.id}`}
+            aria-pressed={isSelected}
+            data-direction={direction}
+            data-moving={isMoving}
+            data-selected={isSelected}
+            onClick={(event) => {
+                event.stopPropagation();
+                onSelect(character.id);
+            }}
+            style={
+                {
+                    '--cell-size': `${cell.size}px`,
                     transform: `translate3d(${(character.position.x - 1) * cell.size}px, ${(character.position.y - 1) * cell.size}px, 1px)`
-                }}
-            />
-        </>
+                } as CSSProperties
+            }
+            type="button"
+        >
+            <div className={S.sprite} />
+        </button>
     );
 });
 
