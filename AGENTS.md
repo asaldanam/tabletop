@@ -7,6 +7,8 @@ Instrucciones que todos los agentes de código deben tener en cuenta
 - [DESIGN.md](/DESIGN.md): especificación de diseño de la UI y UX.
 - [product/README.md](/docs/product/README.md): documentación del producto.
 
+Además, dentro de cada paquete puede existir un archivo `ARCHITECTURE.md` que documente la arquitectura de ese paquete en particular. De existir, _debes_ leerlo y seguir sus instrucciones para realizar implementaciones de calidad, legibles y mantenibles.
+
 ## Separación de responsabilidades
 
 - Las páginas estáticas como la home y otras landing pages se desarrollarán en Astro, en el paquete [main](/apps/main)
