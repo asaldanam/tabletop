@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { Tabletop } from './components/Tabletop';
 
-import './Game.css';
+// import './Game.css';
 
 export type GameProps = {};
 

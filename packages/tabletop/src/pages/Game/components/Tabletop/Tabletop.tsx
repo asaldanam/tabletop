@@ -1,15 +1,20 @@
 import { memo } from 'react';
-import { useGameState } from '../../Game.state';
 
 import { TabletopCamera } from './components/TabletopCamera';
 import S from './Tabletop.module.css';
+import { GameState } from '../../Game.state';
+import { GAME_CONFIG } from '../../Game.config';
+import { TabletopCharacter } from './components/TabletopCharacter/TabletopCharacter';
+
+const cell = GAME_CONFIG.map.cell;
 
 type TabletopProps = {};
 
 export const Tabletop = memo((props: TabletopProps) => {
-    const [{ character, map }] = useGameState();
-    const width = map.cols * map.cell.size;
-    const height = map.rows * map.cell.size;
+    const [{ map, characters }] = GameState.useContext();
+
+    const width = map.cols * cell.size;
+    const height = map.rows * cell.size;
     const projectedWidth = (width + height) / Math.SQRT2;
     const projectedHeight = projectedWidth / 2;
     const projectedOffsetX = (projectedWidth - width) / 2;
@@ -30,7 +35,7 @@ export const Tabletop = memo((props: TabletopProps) => {
                     <div
                         className={S.grid}
                         style={{
-                            gridTemplate: `repeat(${map.rows}, ${map.cell.size}px) / repeat(${map.cols}, ${map.cell.size}px)`,
+                            gridTemplate: `repeat(${map.rows}, ${cell.size}px) / repeat(${map.cols}, ${cell.size}px)`,
                             width: `${width}px`,
                             height: `${height}px`
                         }}
@@ -43,15 +48,9 @@ export const Tabletop = memo((props: TabletopProps) => {
                             return <div key={index} id={name} />;
                         })}
 
-                        <input
-                            className={S.character}
-                            type="checkbox"
-                            style={{
-                                width: `${map.cell.size}px`,
-                                height: `${map.cell.size}px`,
-                                transform: `translate3d(${(character.position.x - 1) * map.cell.size}px, ${(character.position.y - 1) * map.cell.size}px, 1px)`
-                            }}
-                        />
+                        {characters.map((character) => (
+                            <TabletopCharacter key={character.id} character={character} />
+                        ))}
                     </div>
                 </div>
             </div>
