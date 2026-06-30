@@ -17,8 +17,6 @@ export const Tabletop = memo((props: TabletopProps) => {
     const height = map.rows * cell.size;
     const projectedWidth = (width + height) / Math.SQRT2;
     const projectedHeight = projectedWidth / 2;
-    const projectedOffsetX = (projectedWidth - width) / 2;
-    const projectedOffsetY = (projectedHeight - height) / 2;
 
     return (
         <TabletopCamera>
@@ -28,8 +26,8 @@ export const Tabletop = memo((props: TabletopProps) => {
                     style={{
                         width: `${width}px`,
                         height: `${height}px`,
-                        left: `${projectedOffsetX}px`,
-                        top: `${projectedOffsetY}px`
+                        left: `${(projectedWidth - width) / 2}px`,
+                        top: `${(projectedHeight - height) / 2}px`
                     }}
                 >
                     <div
