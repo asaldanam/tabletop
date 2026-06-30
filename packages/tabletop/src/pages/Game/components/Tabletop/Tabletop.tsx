@@ -45,7 +45,7 @@ export const Tabletop = memo((props: TabletopProps) => {
                             const y = map.cols - (index % map.cols);
                             const name = `(${x}, ${y})`;
 
-                            return <div key={index} id={name} />;
+                            return <div key={index} id={name} onClick={() => console.log(name)} />;
                         })}
 
                         {characters.map((character) => (
