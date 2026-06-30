@@ -27,10 +27,10 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
                 activationKeys: (keys) => !isZoomActivationKeyPressed(keys)
             }}
             panning={{
-                allowLeftClickPan: false,
-                allowMiddleClickPan: true,
-                allowRightClickPan: true,
-                excluded: ['input', 'button']
+                allowLeftClickPan: true,
+                allowMiddleClickPan: false,
+                allowRightClickPan: false,
+                excluded: ['input', 'button', 'a', 'textarea', 'select', 'label', 'summary']
             }}
             pinch={{
                 allowPanning: true
