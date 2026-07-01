@@ -10,6 +10,7 @@
     height: var(--cell-size);
     z-index: 2;
     transform-style: preserve-3d;
+    cursor: pointer;
 
     &[data-selected="true"] {
         background: red;
