@@ -1,18 +1,11 @@
 # Instrucciones
 
-Instrucciones que todos los agentes de código deben tener en cuenta
+Instrucciones que todos los agentes de código deben tener en cuenta a la hora de contribuir al proyecto.
 
-# Estructura
+# Documentación
 
+Se _debe_ consultar la documentación relativa a cada parte del proyecto antes de realizar cualquier contribución. La documentación se encuentra en los siguientes archivos:
+
+- [product/README.md](/docs/product/README.md): documentación funcional del producto.
 - [DESIGN.md](/DESIGN.md): especificación de diseño de la UI y UX.
-- [product/README.md](/docs/product/README.md): documentación del producto.
-
-Además, dentro de cada paquete puede existir un archivo `ARCHITECTURE.md` que documente la arquitectura de ese paquete en particular. De existir, _debes_ leerlo y seguir sus instrucciones para realizar implementaciones de calidad, legibles y mantenibles.
-
-## Separación de responsabilidades
-
-- Las páginas estáticas como la home y otras landing pages se desarrollarán en Astro, en el paquete [main](/apps/main)
-
-- La aplicación del tablero será de tipo SPA (Single Page Application) y se desarrollará en el paquete [tabletop](/packages/tabletop).
-
-- Mantén el dominio lo más puro posible, en el paquete [core](/packages/core) y totalmente separado de la parte frontend.
+- **ARCHITECTURE.md**: documentación de la arquitectura del proyecto, junto al `package.json` de cada paquete.
