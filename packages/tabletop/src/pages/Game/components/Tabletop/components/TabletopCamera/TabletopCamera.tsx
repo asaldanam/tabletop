@@ -12,7 +12,7 @@ const isZoomActivationKeyPressed = (keys: string[]) => keys.includes('Meta') || 
 export const TabletopCamera = memo((props: TabletopCameraProps) => {
     return (
         <TransformWrapper
-            initialScale={0.8}
+            initialScale={0.5}
             minScale={0.35}
             maxScale={2.5}
             centerOnInit
@@ -28,8 +28,8 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
             }}
             panning={{
                 allowLeftClickPan: true,
-                allowMiddleClickPan: false,
-                allowRightClickPan: false
+                allowMiddleClickPan: true,
+                allowRightClickPan: true
                 // excluded: ['input', 'button', 'a', 'textarea', 'select', 'label', 'summary']
             }}
             pinch={{
