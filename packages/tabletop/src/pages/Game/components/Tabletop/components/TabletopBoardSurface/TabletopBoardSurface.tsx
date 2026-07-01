@@ -16,11 +16,10 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
     const { onCellClick } = props;
 
     const game = GameState.useContext();
-    const { map, selectedCharacterId } = game.state;
+    const { map, selectedCharacterId, movementByCharacterId } = game.state;
     const { rows, cols } = map;
 
     const [activeCell, setActiveCell] = useState<Cell | null>(null);
-    const recentlyClickedCellRef = useRef<Cell | null>(null);
 
     const width = cols * cell.size;
     const height = rows * cell.size;
@@ -33,6 +32,8 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
 
         return { x, y };
     };
+
+    const anyCharMoving = Object.values(movementByCharacterId).some((char) => char.isMoving);
 
     return (
         <>
@@ -51,7 +52,8 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 type="button"
                 onMouseLeave={() => {}}
                 onMouseMove={(event) => {
-                    if (recentlyClickedCellRef.current) return;
+                    if (!selectedCharacterId) return;
+                    if (anyCharMoving) return;
 
                     const nextCell = calcNextCell(event);
                     if (!nextCell) return;
@@ -66,11 +68,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     if (!nextCell) return;
 
                     onCellClick(nextCell);
-
-                    recentlyClickedCellRef.current = nextCell;
-                    setTimeout(() => {
-                        recentlyClickedCellRef.current = null;
-                    }, 1000);
+                    setActiveCell(nextCell);
                 }}
                 style={
                     {
@@ -81,7 +79,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     } as CSSProperties
                 }
             />
-            {selectedCharacterId && (
+            {(selectedCharacterId || anyCharMoving) && (
                 <div
                     aria-hidden="true"
                     className={S.hoverCell}

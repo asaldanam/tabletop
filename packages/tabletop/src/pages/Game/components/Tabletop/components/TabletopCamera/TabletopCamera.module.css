@@ -1,7 +1,7 @@
 @reference "tailwindcss";
 
-.viewport {
-    @apply h-full w-full overflow-hidden;
+.viewport.viewport {
+    @apply h-dvh w-screen overflow-hidden;
     @apply bg-slate-950;
 }
 
