@@ -10,11 +10,10 @@
     height: var(--cell-size);
     z-index: 2;
     transform-style: preserve-3d;
-    background: red;
 
-    /* &[data-selected="true"] {
-        filter: drop-shadow(0 0 10px rgb(103 232 249 / 0.85));
-    } */
+    &[data-selected="true"] {
+        background: red;
+    }
 }
 
 .sprite {
@@ -24,7 +23,7 @@
     left: 50%;
     bottom: 50%;
 
-    pointer-events: none;
+    /* pointer-events: none; */
     background-size: 480px;
     background-position: 0% 0%;
     image-rendering: pixelated;
@@ -38,7 +37,7 @@
 
 .box[data-moving="true"] .sprite {
     animation: tabletop-character-walk 660ms steps(6) infinite;
-} */
+}
 
 @keyframes tabletop-character-walk {
     from {
@@ -48,4 +47,4 @@
     to {
         background-position: -1152px -1456px;
     }
-}
+} */
