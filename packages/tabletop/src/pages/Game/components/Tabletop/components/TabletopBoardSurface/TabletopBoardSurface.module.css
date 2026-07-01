@@ -11,6 +11,13 @@
     background-size: var(--cell-size) var(--cell-size);
 }
 
+.map {
+    @apply absolute left-0 top-0 border-0 bg-transparent p-0;
+    @apply ring-1 ring-gray-600;
+    transform: translateZ(0);
+    background-size: 100%;
+}
+
 .hoverCell {
     @apply pointer-events-none absolute left-0 top-0 bg-gray-800;
     opacity: 0.75;

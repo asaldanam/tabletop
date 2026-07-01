@@ -1,6 +1,7 @@
 import { CSSProperties, memo, useCallback, useState, type PointerEvent } from 'react';
 
 import S from './TabletopBoardSurface.module.css';
+import { GameState } from '../../../../Game.state';
 
 type CellPosition = {
     x: number;
@@ -28,6 +29,9 @@ const getCellFromPointerEvent = (
 
 export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
     const { rows, cols, cellSize, onCellClick } = props;
+    const {
+        state: { map }
+    } = GameState.useContext();
     const [hoveredCell, setHoveredCell] = useState<CellPosition | null>(null);
 
     const width = cols * cellSize;
@@ -50,6 +54,17 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
 
     return (
         <>
+            <div
+                aria-label="Mapa"
+                className={S.map}
+                style={
+                    {
+                        height: `${height}px`,
+                        width: `${width}px`,
+                        backgroundImage: `url(/${map.image})`
+                    } as CSSProperties
+                }
+            />
             <button
                 aria-label="Tablero"
                 className={S.surface}
@@ -70,6 +85,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 }
                 type="button"
             />
+
             {hoveredCell && (
                 <div
                     aria-hidden="true"
