@@ -36,22 +36,6 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
 
     const width = cols * cellSize;
     const height = rows * cellSize;
-
-    const updateHoveredCell = useCallback(
-        (event: PointerEvent<HTMLButtonElement>) => {
-            const nextHoveredCell = getCellFromPointerEvent(event, { cellSize, cols, rows });
-
-            setHoveredCell((currentHoveredCell) => {
-                if (currentHoveredCell?.x === nextHoveredCell?.x && currentHoveredCell?.y === nextHoveredCell?.y) {
-                    return currentHoveredCell;
-                }
-
-                return nextHoveredCell;
-            });
-        },
-        [cellSize, cols, rows]
-    );
-
     return (
         <>
             <div
@@ -75,7 +59,6 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     onCellClick(cell);
                 }}
                 onPointerLeave={() => setHoveredCell(null)}
-                onPointerMove={updateHoveredCell}
                 style={
                     {
                         '--cell-size': `${cellSize}px`,

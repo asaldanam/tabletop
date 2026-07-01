@@ -58,7 +58,10 @@ export const Tabletop = memo((props: TabletopProps) => {
                         <TabletopBoardSurface
                             cellSize={cell.size}
                             cols={map.cols}
-                            onCellClick={moveSelectedCharacterTo}
+                            onCellClick={(position) => {
+                                moveSelectedCharacterTo(position);
+                                selectCharacter('');
+                            }}
                             rows={map.rows}
                         />
                     </div>

@@ -3,7 +3,6 @@
 .surface {
     @apply absolute left-0 top-0 border-0 bg-transparent p-0;
     @apply ring-1 ring-gray-600;
-    cursor: pointer;
     transform: translateZ(0);
     background-image:
         linear-gradient(rgb(75 85 99 / 0.9) 1px, transparent 1px),
@@ -14,7 +13,7 @@
 .map {
     @apply absolute left-0 top-0 border-0 bg-transparent p-0;
     @apply ring-1 ring-gray-600;
-    transform: translateZ(0);
+    transform: translateZ(0) rotateZ(180deg) scale(1);
     background-size: 100%;
     background-repeat: no-repeat;
 }
