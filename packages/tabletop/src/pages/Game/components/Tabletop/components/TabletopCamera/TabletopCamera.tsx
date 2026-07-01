@@ -12,7 +12,7 @@ const isZoomActivationKeyPressed = (keys: string[]) => keys.includes('Meta') || 
 export const TabletopCamera = memo((props: TabletopCameraProps) => {
     return (
         <TransformWrapper
-            initialScale={0.5}
+            initialScale={1}
             minScale={0.35}
             maxScale={2.5}
             centerOnInit

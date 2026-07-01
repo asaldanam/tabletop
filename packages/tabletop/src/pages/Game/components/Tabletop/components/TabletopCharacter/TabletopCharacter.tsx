@@ -16,6 +16,7 @@ type TabletopCharacterProps = {
 
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
     const { character, direction, isMoving, isSelected, onSelect } = props;
+    const animation = isMoving ? `running-${direction}` : 'idle';
 
     return (
         <button
@@ -23,6 +24,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
             aria-label={`Seleccionar personaje ${character.id}`}
             aria-pressed={isSelected}
             data-direction={direction}
+            data-animation={animation}
             data-moving={isMoving}
             data-selected={isSelected}
             onClick={(event) => {

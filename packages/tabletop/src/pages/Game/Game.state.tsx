@@ -51,25 +51,25 @@ export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
         const [state, setState] = useState<State>({
             map: {
-                image: 'map.jpg',
-                rows: 40,
-                cols: 40
+                image: 'sauna-1-[22x22].jpg',
+                rows: 22,
+                cols: 22
             },
             characters: [
                 {
                     id: '1',
                     sprite: 'agumon.webp',
                     position: {
-                        x: 18,
-                        y: 12
+                        x: 1,
+                        y: 1
                     }
                 },
                 {
                     id: '2',
                     sprite: 'tentomon.webp',
                     position: {
-                        x: 17,
-                        y: 12
+                        x: 2,
+                        y: 1
                     }
                 }
             ],
@@ -146,13 +146,17 @@ export const GameState = {
 
                 const moveStep = (stepIndex: number) => {
                     const nextPosition = path[stepIndex];
-                    if (!nextPosition) {
-                        setMovement(selectedCharacterId, { isMoving: false });
-                        delete movementTimeouts.current[selectedCharacterId];
-                        return;
-                    }
+                    if (!nextPosition) return;
 
                     updateCharacterPosition(selectedCharacterId, nextPosition);
+
+                    if (stepIndex === path.length - 1) {
+                        movementTimeouts.current[selectedCharacterId] = window.setTimeout(() => {
+                            setMovement(selectedCharacterId, { isMoving: false });
+                            delete movementTimeouts.current[selectedCharacterId];
+                        }, STEP_DELAY_MS);
+                        return;
+                    }
 
                     movementTimeouts.current[selectedCharacterId] = window.setTimeout(() => {
                         moveStep(stepIndex + 1);

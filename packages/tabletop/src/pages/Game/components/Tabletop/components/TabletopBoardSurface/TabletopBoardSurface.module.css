@@ -16,6 +16,7 @@
     @apply ring-1 ring-gray-600;
     transform: translateZ(0);
     background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .hoverCell {
