@@ -82,22 +82,25 @@ export const useTabletopCharacterMovement = (params: UseTabletopCharacterMovemen
         }));
     }, []);
 
-    const selectCharacter = useCallback((characterId: string) => {
-        setSelectedCharacterId(characterId);
-        setMovementByCharacterId((currentMovementByCharacterId) => {
-            const nextMovementByCharacterId: CharacterMovementById = {};
+    const selectCharacter = useCallback(
+        (characterId: string) => {
+            setSelectedCharacterId(characterId);
+            setMovementByCharacterId((currentMovementByCharacterId) => {
+                const nextMovementByCharacterId: CharacterMovementById = {};
 
-            for (const character of characters) {
-                nextMovementByCharacterId[character.id] = {
-                    direction: currentMovementByCharacterId[character.id]?.direction ?? 'right',
-                    isMoving: currentMovementByCharacterId[character.id]?.isMoving ?? false,
-                    isSelected: character.id === characterId
-                };
-            }
+                for (const character of characters) {
+                    nextMovementByCharacterId[character.id] = {
+                        direction: currentMovementByCharacterId[character.id]?.direction ?? 'right',
+                        isMoving: currentMovementByCharacterId[character.id]?.isMoving ?? false,
+                        isSelected: character.id === characterId
+                    };
+                }
 
-            return nextMovementByCharacterId;
-        });
-    }, [characters]);
+                return nextMovementByCharacterId;
+            });
+        },
+        [characters]
+    );
 
     const moveSelectedCharacterTo = useCallback(
         (position: Position) => {
@@ -135,6 +138,7 @@ export const useTabletopCharacterMovement = (params: UseTabletopCharacterMovemen
             };
 
             moveStep(0);
+            // setSelectedCharacterId(null);
         },
         [charactersById, clearMovementTimeout, selectedCharacterId, setMovement, updateCharacterPosition]
     );
@@ -155,6 +159,11 @@ export const useTabletopCharacterMovement = (params: UseTabletopCharacterMovemen
             }
         };
     }, []);
+
+    console.log({
+        ...getCharacterMovement('1'),
+        selectedCharacterId
+    });
 
     return {
         getCharacterMovement,

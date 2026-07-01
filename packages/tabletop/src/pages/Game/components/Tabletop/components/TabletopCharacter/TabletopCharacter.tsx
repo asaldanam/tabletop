@@ -17,8 +17,6 @@ type TabletopCharacterProps = {
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
     const { character, direction, isMoving, isSelected, onSelect } = props;
 
-    console.log(character);
-
     return (
         <button
             className={S.box}
