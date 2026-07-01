@@ -1,72 +1,73 @@
-import { CSSProperties, memo, useCallback, useState, type PointerEvent } from 'react';
+import { CSSProperties, memo, useState } from 'react';
+
+import { GAME_CONFIG } from '../../../../Game.config';
+import { GameState } from '../../../../Game.state';
+import type { Cell } from '../../../../types/Cell';
 
 import S from './TabletopBoardSurface.module.css';
-import { GameState } from '../../../../Game.state';
 
-type CellPosition = {
-    x: number;
-    y: number;
-};
+const cell = GAME_CONFIG.map.cell;
 
 type TabletopBoardSurfaceProps = {
-    rows: number;
-    cols: number;
-    cellSize: number;
-    onCellClick: (position: CellPosition) => void;
-};
-
-const getCellFromPointerEvent = (
-    event: PointerEvent<HTMLButtonElement>,
-    params: Pick<TabletopBoardSurfaceProps, 'cellSize' | 'cols' | 'rows'>
-): CellPosition | null => {
-    const x = Math.floor(event.nativeEvent.offsetX / params.cellSize) + 1;
-    const y = Math.floor(event.nativeEvent.offsetY / params.cellSize) + 1;
-
-    if (x < 1 || x > params.cols || y < 1 || y > params.rows) return null;
-
-    return { x, y };
+    onCellClick: (position: Cell) => void;
 };
 
 export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
-    const { rows, cols, cellSize, onCellClick } = props;
-    const {
-        state: { map }
-    } = GameState.useContext();
-    const [hoveredCell, setHoveredCell] = useState<CellPosition | null>(null);
+    const { onCellClick } = props;
 
-    const width = cols * cellSize;
-    const height = rows * cellSize;
+    const game = GameState.useContext();
+    const { map } = game.state;
+    const { rows, cols } = map;
+
+    const [hoveredCell, setHoveredCell] = useState<Cell | null>(null);
+
+    const width = cols * cell.size;
+    const height = rows * cell.size;
+
     return (
         <>
             <div
                 aria-label="Mapa"
                 className={S.map}
-                style={
-                    {
-                        height: `${height}px`,
-                        width: `${width}px`,
-                        backgroundImage: `url(/${map.image})`
-                    } as CSSProperties
-                }
+                style={{
+                    height: `${height}px`,
+                    width: `${width}px`,
+                    backgroundImage: `url(/${map.image})`
+                }}
             />
             <button
                 aria-label="Tablero"
                 className={S.surface}
-                onClick={(event) => {
-                    const cell = getCellFromPointerEvent(event as any, { cellSize, cols, rows });
-                    if (!cell) return;
+                type="button"
+                // onPointerLeave={() => setHoveredCell(null)}
+                onPointerMove={(event) => {
+                    const x = Math.floor(event.nativeEvent.offsetX / cell.size) + 1;
+                    const y = Math.floor(event.nativeEvent.offsetY / cell.size) + 1;
 
-                    onCellClick(cell);
+                    if (x < 1 || x > cols || y < 1 || y > rows) return null;
+
+                    const nextHoveredCell = { x, y };
+
+                    const isSameCell = hoveredCell?.x === nextHoveredCell?.x && hoveredCell?.y === nextHoveredCell?.y;
+                    if (isSameCell) return;
+
+                    setHoveredCell(nextHoveredCell);
                 }}
-                onPointerLeave={() => setHoveredCell(null)}
+                onClick={(event) => {
+                    const x = Math.floor(event.nativeEvent.offsetX / cell.size) + 1;
+                    const y = Math.floor(event.nativeEvent.offsetY / cell.size) + 1;
+
+                    if (x < 1 || x > cols || y < 1 || y > rows) return null;
+
+                    onCellClick({ x, y });
+                }}
                 style={
                     {
-                        '--cell-size': `${cellSize}px`,
+                        '--cell-size': `${cell.size}px`,
                         height: `${height}px`,
                         width: `${width}px`
                     } as CSSProperties
                 }
-                type="button"
             />
 
             {hoveredCell && (
@@ -74,9 +75,9 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     aria-hidden="true"
                     className={S.hoverCell}
                     style={{
-                        height: `${cellSize}px`,
-                        transform: `translate3d(${(hoveredCell.x - 1) * cellSize}px, ${(hoveredCell.y - 1) * cellSize}px, 0)`,
-                        width: `${cellSize}px`
+                        height: `${cell.size}px`,
+                        transform: `translate3d(${(hoveredCell.x - 1) * cell.size}px, ${(hoveredCell.y - 1) * cell.size}px, 0)`,
+                        width: `${cell.size}px`
                     }}
                 />
             )}

@@ -27,6 +27,8 @@
     left: 50%;
     bottom: 50%;
 
+    cursor: pointer;
+
     width: var(--sprite-cell-width);
     height: var(--sprite-cell-height);
     background-position: 0 calc(var(--sprite-row) * var(--sprite-cell-height) * -1);

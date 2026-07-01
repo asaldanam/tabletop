@@ -7,5 +7,4 @@
 
 .content {
     @apply h-fit w-fit;
-    cursor: grab;
 }

@@ -58,7 +58,7 @@ export const GameState = {
             characters: [
                 {
                     id: '1',
-                    sprite: 'agumon.webp',
+                    sprite: 'arthur.webp',
                     position: {
                         x: 1,
                         y: 1
@@ -66,7 +66,7 @@ export const GameState = {
                 },
                 {
                     id: '2',
-                    sprite: 'tentomon.webp',
+                    sprite: 'pangu.webp',
                     position: {
                         x: 2,
                         y: 1
