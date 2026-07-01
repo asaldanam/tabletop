@@ -1,6 +1,6 @@
 import { CSSProperties, memo } from 'react';
 import { GAME_CONFIG } from '../../../../Game.config';
-import { Character } from '../../../../Game.state';
+import type { Character, CharacterDirection } from '../../../../types';
 
 import S from './TabletopCharacter.module.css';
 
@@ -8,7 +8,7 @@ const cell = GAME_CONFIG.map.cell;
 
 type TabletopCharacterProps = {
     character: Character;
-    direction: 'left' | 'right';
+    direction: CharacterDirection;
     isMoving: boolean;
     isSelected: boolean;
     onSelect: (characterId: string) => void;

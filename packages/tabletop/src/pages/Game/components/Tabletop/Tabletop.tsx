@@ -5,17 +5,17 @@ import { TabletopCamera } from './components/TabletopCamera';
 import S from './Tabletop.module.css';
 import { GameState } from '../../Game.state';
 import { GAME_CONFIG } from '../../Game.config';
-import { TabletopCharacter, useTabletopCharacterMovement } from './components/TabletopCharacter';
+import { TabletopCharacter } from './components/TabletopCharacter';
 
 const cell = GAME_CONFIG.map.cell;
 
 type TabletopProps = {};
 
 export const Tabletop = memo((props: TabletopProps) => {
-    const [{ map, characters }] = GameState.useContext();
-    const { getCharacterMovement, moveSelectedCharacterTo, selectCharacter } = useTabletopCharacterMovement({
-        characters
-    });
+    const {
+        actions: { getCharacterMovement, moveSelectedCharacterTo, selectCharacter },
+        state: { map, characters }
+    } = GameState.useContext();
 
     const width = map.cols * cell.size;
     const height = map.rows * cell.size;
