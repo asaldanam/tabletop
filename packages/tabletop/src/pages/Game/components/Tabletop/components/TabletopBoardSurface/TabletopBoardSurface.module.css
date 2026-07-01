@@ -14,12 +14,16 @@
     @apply absolute left-0 top-0 border-0 bg-transparent p-0;
     @apply ring-1 ring-gray-600;
     transform: translateZ(0) rotateZ(180deg) scale(1);
+
     background-size: 100%;
     background-repeat: no-repeat;
+    pointer-events: none;
 }
 
 .hoverCell {
-    @apply pointer-events-none absolute left-0 top-0 bg-gray-800;
+    @apply absolute left-0 top-0 bg-gray-500;
+    @apply pointer-events-none;
+
     opacity: 0.75;
     transform-origin: top left;
 }

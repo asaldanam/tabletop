@@ -41,6 +41,12 @@ export const Tabletop = memo((props: TabletopProps) => {
                             height: `${height}px`
                         }}
                     >
+                        <TabletopBoardSurface
+                            onCellClick={(position) => {
+                                moveSelectedCharacterTo(position);
+                                selectCharacter('');
+                            }}
+                        />
                         {characters.map((character) => {
                             const movement = getCharacterMovement(character.id);
 
@@ -55,12 +61,6 @@ export const Tabletop = memo((props: TabletopProps) => {
                                 />
                             );
                         })}
-                        <TabletopBoardSurface
-                            onCellClick={(position) => {
-                                moveSelectedCharacterTo(position);
-                                selectCharacter('');
-                            }}
-                        />
                     </div>
                 </div>
             </div>

@@ -28,7 +28,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
             data-moving={isMoving}
             data-selected={isSelected}
             onClick={(event) => {
-                event.stopPropagation();
+                // event.stopPropagation();
                 onSelect(character.id);
             }}
             style={
