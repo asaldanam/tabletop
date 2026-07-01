@@ -18,16 +18,15 @@
 
 .sprite {
     position: absolute;
-    width: 100%;
-    height: 100%;
     left: 50%;
     bottom: 50%;
 
     /* pointer-events: none; */
-    background-size: 480px;
+    width: 192px;
+    height: 208px;
     background-position: 0% 0%;
     image-rendering: pixelated;
-    transform: translateX(-50%) rotateZ(-45deg) rotateX(-60deg) scale(1.25) translate(5px, 1px);
+    transform: translateX(-50%) rotateZ(-45deg) rotateX(-60deg) scale(0.35) translate(5px, 1px);
     transform-origin: center bottom;
 }
 
