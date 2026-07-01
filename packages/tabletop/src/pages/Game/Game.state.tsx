@@ -51,9 +51,9 @@ export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
         const [state, setState] = useState<State>({
             map: {
-                image: 'map.webp',
-                rows: 64,
-                cols: 64
+                image: 'map.jpg',
+                rows: 40,
+                cols: 40
             },
             characters: [
                 {
