@@ -1,0 +1,121 @@
+@reference "tailwindcss";
+
+.round {
+    @apply fixed inset-x-0 top-0 z-20 flex justify-center px-4;
+    pointer-events: none;
+}
+
+.panel {
+    @apply max-w-[calc(100dvw-2rem)] overflow-x-auto rounded-b-3xl rounded-t-none border border-t-0 px-3 pb-2.5 pt-1.5 shadow-2xl;
+    pointer-events: auto;
+    background:
+        linear-gradient(180deg, rgb(248 250 252 / 0.08), transparent 42%),
+        var(--panel-bg);
+    border-color: var(--panel-border);
+    box-shadow:
+        0 18px 44px rgb(2 6 23 / 0.48),
+        inset 0 1px 0 rgb(248 250 252 / 0.08);
+    backdrop-filter: blur(18px);
+    scrollbar-width: none;
+}
+
+.panel::-webkit-scrollbar {
+    display: none;
+}
+
+.track {
+    @apply flex list-none items-start justify-center gap-1.5 p-0;
+    margin: 0;
+}
+
+.turn {
+    @apply relative flex w-14 shrink-0 flex-col items-center gap-1;
+    color: var(--text-muted);
+    transition:
+        color 180ms ease,
+        filter 180ms ease,
+        opacity 180ms ease,
+        transform 180ms ease;
+}
+
+.turn[data-phase="past"] {
+    opacity: 0.46;
+}
+
+.turn[data-phase="active"] {
+    color: var(--text-heading);
+    filter: drop-shadow(0 0 12px rgb(103 232 249 / 0.32));
+}
+
+.portrait {
+    @apply relative grid h-12 w-12 place-items-center overflow-hidden rounded-xl border;
+    background:
+        radial-gradient(circle at 50% 18%, rgb(103 232 249 / 0.16), transparent 34%),
+        rgb(7 17 31 / 0.92);
+    border-color: rgb(255 255 255 / 0.14);
+    box-shadow:
+        inset 0 0 0 1px rgb(2 6 23 / 0.84),
+        0 6px 16px rgb(2 6 23 / 0.46);
+}
+
+.turn[data-phase="active"] .portrait {
+    border-color: var(--accent);
+    box-shadow:
+        inset 0 0 0 1px rgb(2 6 23 / 0.9),
+        0 0 0 2px rgb(34 211 238 / 0.24),
+        0 0 22px rgb(34 211 238 / 0.36);
+}
+
+.turn[data-phase="active"] .portrait::after {
+    content: "";
+    @apply absolute inset-x-3 -bottom-1 h-1 rounded-full;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgb(34 211 238 / 0.9);
+}
+
+.sprite {
+    --portrait-width: 44px;
+    --portrait-height: 48px;
+
+    @apply absolute bottom-0 left-1/2;
+    width: var(--portrait-width);
+    height: var(--portrait-height);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: calc(var(--portrait-width) * 8) calc(var(--portrait-height) * 9);
+    image-rendering: pixelated;
+    transform: translateX(-50%);
+}
+
+.missing {
+    @apply text-sm font-extrabold;
+    color: var(--text-muted);
+}
+
+.name {
+    @apply block max-w-full truncate pb-px text-center text-[10px] font-bold leading-3;
+    color: currentColor;
+}
+
+@media (width >=768px) {
+    .panel {
+        @apply px-4 pb-3 pt-2;
+    }
+
+    .track {
+        @apply gap-2;
+    }
+
+    .turn {
+        @apply w-16;
+    }
+
+    .portrait {
+        @apply h-14 w-14 rounded-2xl;
+    }
+
+    .sprite {
+        --portrait-width: 52px;
+        --portrait-height: 56px;
+    }
+}

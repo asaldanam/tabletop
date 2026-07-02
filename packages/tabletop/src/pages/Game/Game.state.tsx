@@ -32,6 +32,7 @@ export const GameState = {
             characters: [
                 {
                     id: '1',
+                    name: 'Arthur',
                     sprite: 'arthur.webp',
                     position: {
                         x: 1,
@@ -44,6 +45,7 @@ export const GameState = {
                 },
                 {
                     id: '2',
+                    name: 'Pangu',
                     sprite: 'pangu.webp',
                     position: {
                         x: 2,
@@ -53,11 +55,37 @@ export const GameState = {
                         direction: undefined,
                         isMoving: false
                     }
+                },
+                {
+                    id: '3',
+                    name: 'Agumon',
+                    sprite: 'agumon.webp',
+                    position: {
+                        x: 1,
+                        y: 2
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
+                },
+                {
+                    id: '4',
+                    name: 'Tentomon',
+                    sprite: 'tentomon.webp',
+                    position: {
+                        x: 2,
+                        y: 2
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
                 }
             ],
             rounds: [
                 {
-                    turns: [{ character: { id: '1' } }, { character: { id: '2' } }],
+                    turns: [{ character: { id: '1' } }, { character: { id: '2' } }, { character: { id: '3' } }, { character: { id: '4' } }],
                     currentTurnIndex: 0
                 }
             ]
