@@ -1,4 +1,4 @@
-import { CSSProperties, memo, useRef, useState } from 'react';
+import { CSSProperties, memo, useState } from 'react';
 
 import { GAME_CONFIG } from '../../../../Game.config';
 import { GameState } from '../../../../Game.state';
@@ -16,7 +16,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
     const { onCellClick } = props;
 
     const game = GameState.useContext();
-    const { map, selectedCharacterId, movementByCharacterId } = game.state;
+    const { map, characters, rounds } = game.state;
     const { rows, cols } = map;
 
     const [activeCell, setActiveCell] = useState<Cell | null>(null);
@@ -33,7 +33,10 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
         return { x, y };
     };
 
-    const anyCharMoving = Object.values(movementByCharacterId).some((char) => char.isMoving);
+    const currentRound = rounds[0];
+    const currentTurnCharacterId = currentRound?.turns[currentRound.currentTurnIndex]?.character.id ?? null;
+    const anyCharMoving = characters.some((character) => character.movement.isMoving);
+    const canMoveCurrentTurnCharacter = Boolean(currentTurnCharacterId) && !anyCharMoving;
 
     return (
         <>
@@ -43,7 +46,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 style={{
                     height: `${height}px`,
                     width: `${width}px`,
-                    backgroundImage: `url(/${map.image})`
+                    backgroundImage: `url(/${map.image.url})`
                 }}
             />
             <button
@@ -52,8 +55,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 type="button"
                 onMouseLeave={() => {}}
                 onMouseMove={(event) => {
-                    if (!selectedCharacterId) return;
-                    if (anyCharMoving) return;
+                    if (!canMoveCurrentTurnCharacter) return;
 
                     const nextCell = calcNextCell(event);
                     if (!nextCell) return;
@@ -64,12 +66,15 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     setActiveCell(nextCell);
                 }}
                 onPointerDown={(event) => {
+                    if (!canMoveCurrentTurnCharacter) return;
+
                     const nextCell = calcNextCell(event);
                     if (!nextCell) return;
 
                     setActiveCell(nextCell);
                 }}
                 onPointerUp={(event) => {
+                    if (!canMoveCurrentTurnCharacter) return;
                     if (!activeCell) return;
 
                     onCellClick(activeCell);
@@ -79,11 +84,11 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                         '--cell-size': `${cell.size}px`,
                         height: `${height}px`,
                         width: `${width}px`,
-                        cursor: selectedCharacterId ? 'pointer' : 'default'
+                        cursor: canMoveCurrentTurnCharacter ? 'pointer' : 'default'
                     } as CSSProperties
                 }
             />
-            {(selectedCharacterId || anyCharMoving) && (
+            {(canMoveCurrentTurnCharacter || anyCharMoving) && (
                 <div
                     aria-hidden="true"
                     className={S.hoverCell}

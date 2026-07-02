@@ -1,5 +1,7 @@
 export type Map = {
-    image: string;
+    image: {
+        url: string;
+    };
     rows: number;
     cols: number;
 };

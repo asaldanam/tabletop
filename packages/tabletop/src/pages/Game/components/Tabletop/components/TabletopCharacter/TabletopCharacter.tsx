@@ -13,33 +13,26 @@ type TabletopCharacterProps = {
     direction: CharacterDirection;
     isMoving: boolean;
     isSelected: boolean;
-    onSelect: (characterId: string) => void;
 };
 
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
-    const { character, direction, isMoving, isSelected, onSelect } = props;
+    const { character, direction, isMoving, isSelected } = props;
     const animation = isMoving ? `running-${direction}` : 'idle';
 
     return (
-        <button
+        <div
             className={S.box}
-            aria-label={`Seleccionar personaje ${character.id}`}
-            aria-pressed={isSelected}
+            aria-label={`Personaje ${character.id}`}
             data-direction={direction}
             data-animation={animation}
             data-moving={isMoving}
             data-selected={isSelected}
-            onClick={(event) => {
-                // event.stopPropagation();
-                onSelect(character.id);
-            }}
             style={
                 {
                     '--cell-size': `${cell.size}px`,
                     transform: `translate3d(${(character.position.x - 1) * cell.size}px, ${(character.position.y - 1) * cell.size}px, 1px)`
                 } as CSSProperties
             }
-            type="button"
         >
             {isSelected ? <TabletopCharacterShadow /> : null}
             <div
@@ -49,7 +42,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
                 }}
             />
             {isSelected ? <TabletopCharacterPin /> : null}
-        </button>
+        </div>
     );
 });
 

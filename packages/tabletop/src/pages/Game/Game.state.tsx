@@ -3,23 +3,21 @@ import React, { createContext, memo, useCallback, useEffect, useMemo, useRef, us
 import type {
     Character,
     CharacterMovement,
-    CharacterMovementById,
     CharacterMovementView,
     Map,
-    Position
+    Position,
+    Round
 } from './types';
 
 export type State = {
     map: Map;
     characters: Character[];
-    selectedCharacterId: string | null;
-    movementByCharacterId: CharacterMovementById;
+    rounds: Round[];
 };
 
 export type Actions = {
     getCharacterMovement: (characterId: string) => CharacterMovementView;
     moveSelectedCharacterTo: (position: Position) => void;
-    selectCharacter: (characterId: string) => void;
 };
 
 const STEP_DELAY_MS = 220;
@@ -45,13 +43,22 @@ const getMovementDirection = (from: Position, to: Position): CharacterMovement['
     return stepX - stepY >= 0 ? 'right' : 'left';
 };
 
+const getCurrentTurnCharacterId = (rounds: Round[]) => {
+    const currentRound = rounds[0];
+    if (!currentRound) return null;
+
+    return currentRound.turns[currentRound.currentTurnIndex]?.character.id ?? null;
+};
+
 const Context = createContext<{ actions: Actions; state: State } | null>(null);
 
 export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
         const [state, setState] = useState<State>({
             map: {
-                image: 'sauna-1-[22x22].jpg',
+                image: {
+                    url: 'sauna-1-[22x22].jpg'
+                },
                 rows: 22,
                 cols: 22
             },
@@ -62,6 +69,10 @@ export const GameState = {
                     position: {
                         x: 1,
                         y: 1
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
                     }
                 },
                 {
@@ -70,11 +81,19 @@ export const GameState = {
                     position: {
                         x: 2,
                         y: 1
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
                     }
                 }
             ],
-            movementByCharacterId: {},
-            selectedCharacterId: null
+            rounds: [
+                {
+                    turns: [{ character: { id: '1' } }, { character: { id: '2' } }],
+                    currentTurnIndex: 0
+                }
+            ]
         });
         const movementTimeouts = useRef<Record<string, number>>({});
 
@@ -101,45 +120,39 @@ export const GameState = {
 
         const setMovement = useCallback((characterId: string, movement: Partial<CharacterMovement>) => {
             setState((currentState) => {
-                const currentMovement = currentState.movementByCharacterId[characterId];
-
                 return {
                     ...currentState,
-                    movementByCharacterId: {
-                        ...currentState.movementByCharacterId,
-                        [characterId]: {
-                            direction: currentMovement?.direction ?? 'right',
-                            isMoving: currentMovement?.isMoving ?? false,
-                            ...movement
-                        }
-                    }
+                    characters: currentState.characters.map((character) =>
+                        character.id === characterId
+                            ? {
+                                  ...character,
+                                  movement: {
+                                      ...character.movement,
+                                      ...movement
+                                  }
+                              }
+                            : character
+                    )
                 };
             });
         }, []);
 
-        const selectCharacter = useCallback((characterId: string) => {
-            setState((currentState) => ({
-                ...currentState,
-                selectedCharacterId: characterId
-            }));
-        }, []);
-
         const moveSelectedCharacterTo = useCallback(
             (position: Position) => {
-                const selectedCharacterId = state.selectedCharacterId;
-                if (!selectedCharacterId) return;
+                const currentTurnCharacterId = getCurrentTurnCharacterId(state.rounds);
+                if (!currentTurnCharacterId) return;
 
-                const selectedCharacter = charactersById.get(selectedCharacterId);
-                if (!selectedCharacter) return;
+                const currentTurnCharacter = charactersById.get(currentTurnCharacterId);
+                if (!currentTurnCharacter) return;
 
-                clearMovementTimeout(selectedCharacterId);
+                clearMovementTimeout(currentTurnCharacterId);
 
-                const path = createStraightPath(selectedCharacter.position, position);
+                const path = createStraightPath(currentTurnCharacter.position, position);
                 if (path.length === 0) return;
 
-                const direction = getMovementDirection(selectedCharacter.position, path[0]);
+                const direction = getMovementDirection(currentTurnCharacter.position, path[0]);
 
-                setMovement(selectedCharacterId, {
+                setMovement(currentTurnCharacterId, {
                     direction,
                     isMoving: true
                 });
@@ -148,42 +161,45 @@ export const GameState = {
                     const nextPosition = path[stepIndex];
                     if (!nextPosition) return;
 
-                    updateCharacterPosition(selectedCharacterId, nextPosition);
+                    updateCharacterPosition(currentTurnCharacterId, nextPosition);
 
                     if (stepIndex === path.length - 1) {
-                        movementTimeouts.current[selectedCharacterId] = window.setTimeout(() => {
-                            setMovement(selectedCharacterId, { isMoving: false });
-                            delete movementTimeouts.current[selectedCharacterId];
+                        movementTimeouts.current[currentTurnCharacterId] = window.setTimeout(() => {
+                            setMovement(currentTurnCharacterId, { isMoving: false });
+                            delete movementTimeouts.current[currentTurnCharacterId];
                         }, STEP_DELAY_MS);
                         return;
                     }
 
-                    movementTimeouts.current[selectedCharacterId] = window.setTimeout(() => {
+                    movementTimeouts.current[currentTurnCharacterId] = window.setTimeout(() => {
                         moveStep(stepIndex + 1);
                     }, STEP_DELAY_MS);
                 };
 
                 moveStep(0);
             },
-            [charactersById, clearMovementTimeout, setMovement, state.selectedCharacterId, updateCharacterPosition]
+            [charactersById, clearMovementTimeout, setMovement, state.rounds, updateCharacterPosition]
         );
 
         const getCharacterMovement = useCallback(
-            (characterId: string): CharacterMovementView => ({
-                direction: state.movementByCharacterId[characterId]?.direction ?? 'right',
-                isMoving: state.movementByCharacterId[characterId]?.isMoving ?? false,
-                isSelected: state.selectedCharacterId === characterId
-            }),
-            [state.movementByCharacterId, state.selectedCharacterId]
+            (characterId: string): CharacterMovementView => {
+                const character = charactersById.get(characterId);
+
+                return {
+                    direction: character?.movement.direction ?? 'right',
+                    isMoving: character?.movement.isMoving ?? false,
+                    isSelected: getCurrentTurnCharacterId(state.rounds) === characterId
+                };
+            },
+            [charactersById, state.rounds]
         );
 
         const actions = useMemo(
             (): Actions => ({
                 getCharacterMovement,
-                moveSelectedCharacterTo,
-                selectCharacter
+                moveSelectedCharacterTo
             }),
-            [getCharacterMovement, moveSelectedCharacterTo, selectCharacter]
+            [getCharacterMovement, moveSelectedCharacterTo]
         );
 
         useEffect(() => {

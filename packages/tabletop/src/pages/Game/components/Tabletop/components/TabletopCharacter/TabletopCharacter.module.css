@@ -10,7 +10,6 @@
     height: var(--cell-size);
     z-index: 2;
     transform-style: preserve-3d;
-    cursor: pointer;
 }
 
 .sprite {
@@ -24,8 +23,6 @@
     z-index: 1;
     left: 50%;
     bottom: 50%;
-
-    cursor: pointer;
 
     width: var(--sprite-cell-width);
     height: var(--sprite-cell-height);

@@ -1,12 +1,11 @@
 export type CharacterDirection = 'left' | 'right';
 
 export type CharacterMovement = {
-    direction: CharacterDirection;
+    direction: CharacterDirection | undefined;
     isMoving: boolean;
 };
 
-export type CharacterMovementView = CharacterMovement & {
+export type CharacterMovementView = Omit<CharacterMovement, 'direction'> & {
+    direction: CharacterDirection;
     isSelected: boolean;
 };
-
-export type CharacterMovementById = Record<string, CharacterMovement>;

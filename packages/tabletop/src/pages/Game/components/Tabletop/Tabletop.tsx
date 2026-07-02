@@ -13,7 +13,7 @@ type TabletopProps = {};
 
 export const Tabletop = memo((props: TabletopProps) => {
     const {
-        actions: { getCharacterMovement, moveSelectedCharacterTo, selectCharacter },
+        actions: { getCharacterMovement, moveSelectedCharacterTo },
         state: { map, characters }
     } = GameState.useContext();
 
@@ -59,7 +59,6 @@ export const Tabletop = memo((props: TabletopProps) => {
                                     direction={movement.direction}
                                     isMoving={movement.isMoving}
                                     isSelected={movement.isSelected}
-                                    onSelect={selectCharacter}
                                 />
                             );
                         })}
