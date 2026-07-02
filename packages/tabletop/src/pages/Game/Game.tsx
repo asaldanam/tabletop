@@ -8,7 +8,7 @@ export type GameProps = {};
 
 export const Game = memo((props: GameProps) => {
     return (
-        <div className="h-screen w-screen flex items-center justify-center overflow-hidden">
+        <div>
             <Tabletop />
         </div>
     );

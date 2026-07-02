@@ -1,8 +1,8 @@
 @reference "tailwindcss";
 
 .viewport.viewport {
-    @apply h-dvh w-screen overflow-hidden;
-    @apply bg-slate-950;
+    @apply h-dvh w-dvw overflow-hidden;
+    /* @apply bg-slate-950; */
 }
 
 .content {
