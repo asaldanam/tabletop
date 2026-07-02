@@ -84,7 +84,7 @@
     background-repeat: no-repeat;
     background-size: calc(var(--portrait-width) * 8) calc(var(--portrait-height) * 9);
     image-rendering: pixelated;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(25%) scale(1.35);
 }
 
 .missing {
