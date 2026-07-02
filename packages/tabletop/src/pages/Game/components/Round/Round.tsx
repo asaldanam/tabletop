@@ -1,4 +1,4 @@
-import { CSSProperties, memo, useMemo } from 'react';
+import { CSSProperties, memo, useEffect, useMemo, useRef } from 'react';
 
 import { GameState } from '../../Game.state';
 import type { Character } from '../../types';
@@ -15,6 +15,8 @@ type TurnView = {
 };
 
 export const Round = memo((props: RoundProps) => {
+    const activeTurnRef = useRef<HTMLLIElement | null>(null);
+
     const {
         state: { characters, rounds }
     } = GameState.useContext();
@@ -34,10 +36,23 @@ export const Round = memo((props: RoundProps) => {
                 character,
                 id: `${turn.character.id}-${index}`,
                 label,
-                phase: index < currentRound.currentTurnIndex ? 'past' : index === currentRound.currentTurnIndex ? 'active' : 'next'
+                phase:
+                    index < currentRound.currentTurnIndex
+                        ? 'past'
+                        : index === currentRound.currentTurnIndex
+                          ? 'active'
+                          : 'next'
             };
         });
     }, [characters, currentRound]);
+
+    useEffect(() => {
+        activeTurnRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    }, [currentRound?.currentTurnIndex, turns.length]);
 
     if (!currentRound || turns.length === 0) return null;
 
@@ -49,8 +64,17 @@ export const Round = memo((props: RoundProps) => {
                         const isActive = turn.phase === 'active';
 
                         return (
-                            <li key={turn.id} className={S.turn} data-phase={turn.phase} aria-current={isActive ? 'step' : undefined}>
-                                <span className={S.portrait} aria-label={isActive ? `${turn.label}: turno activo` : turn.label}>
+                            <li
+                                key={turn.id}
+                                ref={isActive ? activeTurnRef : undefined}
+                                className={S.turn}
+                                data-phase={turn.phase}
+                                aria-current={isActive ? 'step' : undefined}
+                            >
+                                <span
+                                    className={S.portrait}
+                                    aria-label={isActive ? `${turn.label}: turno activo` : turn.label}
+                                >
                                     {turn.character ? (
                                         <span
                                             className={S.sprite}
