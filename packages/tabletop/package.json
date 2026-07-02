@@ -6,6 +6,9 @@
     "exports": {
         ".": "./src/main.tsx"
     },
+    "scripts": {
+        "ts:watch": "tsc --noEmit --pretty --watch"
+    },
     "dependencies": {
         "react": "19.2.7",
         "react-router-dom": "7.17.0",
