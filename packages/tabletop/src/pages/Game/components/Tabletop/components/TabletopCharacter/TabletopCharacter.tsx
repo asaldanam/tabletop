@@ -3,6 +3,7 @@ import { GAME_CONFIG } from '../../../../Game.config';
 import type { Character, CharacterDirection } from '../../../../types';
 
 import { TabletopCharacterPin } from './components/TabletopCharacterPin';
+import { TabletopCharacterShadow } from './components/TabletopCharacterShadow';
 import S from './TabletopCharacter.module.css';
 
 const cell = GAME_CONFIG.map.cell;
@@ -40,6 +41,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
             }
             type="button"
         >
+            {isSelected ? <TabletopCharacterShadow /> : null}
             <div
                 className={S.sprite}
                 style={{

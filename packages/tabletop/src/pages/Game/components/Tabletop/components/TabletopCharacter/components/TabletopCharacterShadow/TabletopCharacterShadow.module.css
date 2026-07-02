@@ -1,0 +1,55 @@
+.shadow {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 50%, rgb(103 232 249 / 0.34), transparent 64%),
+        rgb(2 6 23 / 0.42);
+    border: 3px solid rgb(103 232 249 / 0.9);
+    border-radius: 9999px;
+    box-shadow:
+        0 0 0 1px rgb(248 250 252 / 0.34) inset,
+        0 0 0 4px rgb(2 6 23 / 0.14),
+        0 0 18px rgb(34 211 238 / 0.6);
+    image-rendering: pixelated;
+    transform: translateZ(0.5px) scale(1.15);
+}
+
+.shadow::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 2px solid rgb(248 250 252 / 0.22);
+    border-radius: 9999px;
+    clip-path: polygon(
+        28% 0,
+        72% 0,
+        72% 6%,
+        88% 6%,
+        88% 14%,
+        96% 14%,
+        96% 28%,
+        100% 28%,
+        100% 72%,
+        96% 72%,
+        96% 86%,
+        88% 86%,
+        88% 94%,
+        72% 94%,
+        72% 100%,
+        28% 100%,
+        28% 94%,
+        12% 94%,
+        12% 86%,
+        4% 86%,
+        4% 72%,
+        0 72%,
+        0 28%,
+        4% 28%,
+        4% 14%,
+        12% 14%,
+        12% 6%,
+        28% 6%
+    );
+}

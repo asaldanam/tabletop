@@ -1,0 +1,1 @@
+export { TabletopCharacterShadow } from './TabletopCharacterShadow';
