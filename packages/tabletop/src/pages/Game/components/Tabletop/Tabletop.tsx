@@ -17,8 +17,11 @@ export const Tabletop = memo((props: TabletopProps) => {
         state: { map, characters }
     } = GameState.useContext();
 
-    const width = map.cols * cell.size;
-    const height = map.rows * cell.size;
+    const px = window.innerWidth;
+    const py = window.innerHeight;
+
+    const width = map.cols * cell.size + px;
+    const height = map.rows * cell.size + py;
     const projectedWidth = (width + height) / Math.SQRT2;
     const projectedHeight = projectedWidth / 2;
 
@@ -37,14 +40,13 @@ export const Tabletop = memo((props: TabletopProps) => {
                     <div
                         className={S.grid}
                         style={{
-                            width: `${width}px`,
-                            height: `${height}px`
+                            width: `${width - px}px`,
+                            height: `${height - py}px`
                         }}
                     >
                         <TabletopBoardSurface
                             onCellClick={(position) => {
                                 moveSelectedCharacterTo(position);
-                                selectCharacter('');
                             }}
                         />
                         {characters.map((character) => {

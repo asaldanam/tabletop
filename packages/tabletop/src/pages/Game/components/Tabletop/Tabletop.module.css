@@ -1,12 +1,13 @@
 @reference "tailwindcss";
 
 .isoBounds {
-    @apply relative;
+    /* @apply relative; */
 }
 
 .isoLayer {
     @apply absolute;
     @apply transition-all duration-500 ease-in-out;
+    @apply flex items-center justify-center;
     transform: rotateX(60deg) rotateZ(225deg) scale(1) translate3d(0, 0, 0);
     transform-origin: center center;
     transform-style: preserve-3d;
@@ -15,4 +16,5 @@
 .grid {
     @apply relative;
     transform-style: preserve-3d;
+    z-index: 1;
 }
