@@ -81,11 +81,72 @@ export const GameState = {
                         direction: undefined,
                         isMoving: false
                     }
+                },
+                {
+                    id: '5',
+                    name: 'Alexander',
+                    sprite: 'alexander.webp',
+                    position: {
+                        x: 3,
+                        y: 1
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
+                },
+                {
+                    id: '6',
+                    name: 'Black Mage',
+                    sprite: 'black-mage.webp',
+                    position: {
+                        x: 4,
+                        y: 1
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
+                },
+                {
+                    id: '7',
+                    name: 'Goku',
+                    sprite: 'goku.webp',
+                    position: {
+                        x: 3,
+                        y: 2
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
+                },
+                {
+                    id: '8',
+                    name: 'Sinchan',
+                    sprite: 'sinchan.webp',
+                    position: {
+                        x: 4,
+                        y: 2
+                    },
+                    movement: {
+                        direction: undefined,
+                        isMoving: false
+                    }
                 }
             ],
             rounds: [
                 {
-                    turns: [{ character: { id: '1' } }, { character: { id: '2' } }, { character: { id: '3' } }, { character: { id: '4' } }],
+                    turns: [
+                        { character: { id: '1' } },
+                        { character: { id: '2' } },
+                        { character: { id: '3' } },
+                        { character: { id: '4' } },
+                        { character: { id: '5' } },
+                        { character: { id: '6' } },
+                        { character: { id: '7' } },
+                        { character: { id: '8' } }
+                    ],
                     currentTurnIndex: 0
                 }
             ]
