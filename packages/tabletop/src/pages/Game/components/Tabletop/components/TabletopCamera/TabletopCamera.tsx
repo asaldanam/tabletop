@@ -19,6 +19,11 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
             centerZoomedOut
             limitToBounds
             disablePadding
+            velocityAnimation={{
+                animationType: 'easeInOutCubic',
+                sensitivityMouse: 2,
+                inertia: 0.35
+            }}
             wheel={{
                 activationKeys: isZoomActivationKeyPressed
             }}
