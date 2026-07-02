@@ -2,6 +2,7 @@ import { CSSProperties, memo } from 'react';
 import { GAME_CONFIG } from '../../../../Game.config';
 import type { Character, CharacterDirection } from '../../../../types';
 
+import { TabletopCharacterPin } from './components/TabletopCharacterPin';
 import S from './TabletopCharacter.module.css';
 
 const cell = GAME_CONFIG.map.cell;
@@ -45,6 +46,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
                     backgroundImage: `url(/${character.sprite})`
                 }}
             />
+            {isSelected ? <TabletopCharacterPin /> : null}
         </button>
     );
 });

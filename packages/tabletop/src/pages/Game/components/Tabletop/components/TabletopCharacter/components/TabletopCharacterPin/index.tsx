@@ -1,0 +1,1 @@
+export { TabletopCharacterPin } from './TabletopCharacterPin';

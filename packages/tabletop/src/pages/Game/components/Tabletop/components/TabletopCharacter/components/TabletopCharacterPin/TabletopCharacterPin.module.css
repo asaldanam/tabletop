@@ -1,0 +1,56 @@
+.pin {
+    --marker-pixel: 2px;
+
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 50%;
+    width: 18px;
+    height: 24px;
+    pointer-events: none;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 4px rgb(2 6 23 / 0.72)) drop-shadow(0 0 6px rgb(34 211 238 / 0.5));
+    transform: translateX(-50%) rotateZ(-225deg) rotateX(-60deg) translateY(-68px);
+    transform-origin: center bottom;
+    animation: tabletop-character-pin 1100ms steps(2, jump-none) infinite;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: calc(var(--marker-pixel) * 4);
+        top: 0;
+        width: var(--marker-pixel);
+        height: var(--marker-pixel);
+        background: rgb(248 250 252 / 0.96);
+        box-shadow:
+            calc(var(--marker-pixel) * -1) calc(var(--marker-pixel) * 1) 0 rgb(103 232 249 / 0.95),
+            0 calc(var(--marker-pixel) * 1) 0 rgb(248 250 252 / 0.98),
+            calc(var(--marker-pixel) * 1) calc(var(--marker-pixel) * 1) 0 rgb(103 232 249 / 0.92),
+            calc(var(--marker-pixel) * -2) calc(var(--marker-pixel) * 2) 0 rgb(2 6 23 / 0.78),
+            calc(var(--marker-pixel) * -1) calc(var(--marker-pixel) * 2) 0 rgb(34 211 238 / 0.9),
+            0 calc(var(--marker-pixel) * 2) 0 rgb(103 232 249 / 0.95),
+            calc(var(--marker-pixel) * 1) calc(var(--marker-pixel) * 2) 0 rgb(34 211 238 / 0.88),
+            calc(var(--marker-pixel) * 2) calc(var(--marker-pixel) * 2) 0 rgb(2 6 23 / 0.76),
+            calc(var(--marker-pixel) * -2) calc(var(--marker-pixel) * 3) 0 rgb(2 6 23 / 0.72),
+            calc(var(--marker-pixel) * -1) calc(var(--marker-pixel) * 3) 0 rgb(103 232 249 / 0.92),
+            0 calc(var(--marker-pixel) * 3) 0 rgb(34 211 238 / 0.9),
+            calc(var(--marker-pixel) * 1) calc(var(--marker-pixel) * 3) 0 rgb(103 232 249 / 0.78),
+            calc(var(--marker-pixel) * 2) calc(var(--marker-pixel) * 3) 0 rgb(2 6 23 / 0.72),
+            calc(var(--marker-pixel) * -1) calc(var(--marker-pixel) * 4) 0 rgb(2 6 23 / 0.66),
+            0 calc(var(--marker-pixel) * 4) 0 rgb(103 232 249 / 0.86),
+            calc(var(--marker-pixel) * 1) calc(var(--marker-pixel) * 4) 0 rgb(2 6 23 / 0.64),
+            0 calc(var(--marker-pixel) * 5) 0 rgb(248 250 252 / 0.88),
+            0 calc(var(--marker-pixel) * 6) 0 rgb(34 211 238 / 0.68);
+    }
+}
+
+@keyframes tabletop-character-pin {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -4px;
+    }
+}
