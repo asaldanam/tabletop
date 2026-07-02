@@ -89,6 +89,24 @@ export const useCharacterMovement = (params: UseCharacterMovementParams) => {
         [setState]
     );
 
+    const toggleCurrentTurnCharacterMovement = useCallback(() => {
+        setState((currentState) => {
+            const currentTurnCharacterId = getCurrentTurnCharacterId(currentState.rounds);
+            if (!currentTurnCharacterId) return currentState;
+
+            return {
+                ...currentState,
+                characters: currentState.characters.map((character) => ({
+                    ...character,
+                    movement: {
+                        ...character.movement,
+                        isActive: character.id === currentTurnCharacterId ? !character.movement.isActive : false
+                    }
+                }))
+            };
+        });
+    }, [setState]);
+
     const moveSelectedCharacterTo = useCallback(
         (position: Position) => {
             const currentTurnCharacterId = getCurrentTurnCharacterId(state.rounds);
@@ -96,6 +114,7 @@ export const useCharacterMovement = (params: UseCharacterMovementParams) => {
 
             const currentTurnCharacter = charactersById.get(currentTurnCharacterId);
             if (!currentTurnCharacter) return;
+            if (!currentTurnCharacter.movement.isActive) return;
 
             clearMovementTimeout(currentTurnCharacterId);
 
@@ -139,6 +158,7 @@ export const useCharacterMovement = (params: UseCharacterMovementParams) => {
 
             return {
                 direction: character?.movement.direction ?? 'right',
+                isActive: character?.movement.isActive ?? false,
                 isMoving: character?.movement.isMoving ?? false,
                 isSelected: getCurrentTurnCharacterId(state.rounds) === characterId
             };
@@ -156,6 +176,7 @@ export const useCharacterMovement = (params: UseCharacterMovementParams) => {
 
     return {
         getCharacterMovement,
-        moveSelectedCharacterTo
+        moveSelectedCharacterTo,
+        toggleCurrentTurnCharacterMovement
     };
 };

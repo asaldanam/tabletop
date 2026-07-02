@@ -2,6 +2,7 @@ export type CharacterDirection = 'left' | 'right';
 
 export type CharacterMovement = {
     direction: CharacterDirection | undefined;
+    isActive: boolean;
     isMoving: boolean;
 };
 

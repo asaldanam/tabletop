@@ -1,0 +1,117 @@
+@reference "tailwindcss";
+
+.toolbar {
+    @apply fixed inset-x-0 bottom-0 z-20 flex justify-center px-3 pb-3;
+    pointer-events: none;
+}
+
+.panel {
+    @apply flex max-w-[calc(100dvw-1.5rem)] items-center gap-2 overflow-x-auto rounded-3xl border px-2 py-2 shadow-2xl;
+    pointer-events: auto;
+    background: linear-gradient(180deg, rgb(248 250 252 / 0.08), transparent 48%), var(--panel-bg);
+    border-color: var(--panel-border);
+    box-shadow:
+        0 18px 54px rgb(2 6 23 / 0.56),
+        inset 0 1px 0 rgb(248 250 252 / 0.08);
+    backdrop-filter: blur(18px);
+    scrollbar-width: none;
+}
+
+.panel::-webkit-scrollbar {
+    display: none;
+}
+
+.toolGroup {
+    @apply flex items-center gap-1;
+}
+
+.toolButton,
+.endTurnButton {
+    @apply relative inline-flex h-14 shrink-0 items-center justify-center border text-sm font-extrabold;
+    border-color: rgb(255 255 255 / 0.1);
+    color: var(--text-heading);
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        color 160ms ease,
+        opacity 160ms ease,
+        transform 160ms ease;
+}
+
+.toolButton {
+    @apply w-20 flex-col gap-1 rounded-2xl px-2;
+    background: rgb(255 255 255 / 0.06);
+}
+
+.toolButton:not(:disabled):hover,
+.endTurnButton:hover {
+    border-color: rgb(103 232 249 / 0.42);
+    box-shadow: 0 0 20px rgb(34 211 238 / 0.16);
+    transform: translateY(-1px);
+}
+
+.toolButton[data-active='true'] {
+    background: var(--accent);
+    border-color: var(--accent-strong);
+    color: var(--page-bg);
+    box-shadow:
+        0 0 0 2px rgb(34 211 238 / 0.2),
+        0 0 24px rgb(34 211 238 / 0.38);
+}
+
+.toolButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+}
+
+.toolIcon {
+    @apply grid h-6 w-6 place-items-center rounded-full text-xs font-black;
+    background: rgb(255 255 255 / 0.08);
+    color: currentColor;
+    line-height: 1;
+}
+
+.toolButton[data-active='true'] .toolIcon {
+    background: rgb(2 6 23 / 0.16);
+}
+
+.toolLabel {
+    @apply block max-w-full truncate text-[10px] leading-none;
+}
+
+.separator {
+    @apply h-10 w-px shrink-0;
+    background: rgb(255 255 255 / 0.12);
+}
+
+.endTurnButton {
+    @apply rounded-full px-4;
+    background: rgb(251 113 133 / 0.12);
+    border-color: rgb(251 113 133 / 0.28);
+    color: var(--text-heading);
+    white-space: nowrap;
+}
+
+.endTurnButton:hover {
+    background: rgb(251 113 133 / 0.18);
+    border-color: rgb(251 113 133 / 0.42);
+}
+
+@media (width >=768px) {
+    .toolbar {
+        @apply px-6 pb-5;
+    }
+
+    .panel {
+        @apply gap-3 px-3;
+    }
+
+    .toolButton {
+        @apply w-24;
+    }
+
+    .endTurnButton {
+        @apply px-5;
+    }
+}

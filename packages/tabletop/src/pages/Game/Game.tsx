@@ -1,9 +1,8 @@
 import { memo } from 'react';
 
-import { Tabletop } from './components/Tabletop';
 import { Round } from './components/Round';
-
-// import './Game.css';
+import { Tabletop } from './components/Tabletop';
+import { Toolbar } from './components/Toolbar';
 
 export type GameProps = {};
 
@@ -12,9 +11,9 @@ export const Game = memo((props: GameProps) => {
         <div>
             <Round />
             <Tabletop />
+            <Toolbar />
         </div>
     );
-    // return <Tabletop />;
 });
 
 Game.displayName = 'Game';

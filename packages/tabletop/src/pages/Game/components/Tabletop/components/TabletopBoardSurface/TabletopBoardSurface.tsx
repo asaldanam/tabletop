@@ -35,8 +35,9 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
 
     const currentRound = rounds[0];
     const currentTurnCharacterId = currentRound?.turns[currentRound.currentTurnIndex]?.character.id ?? null;
+    const currentTurnCharacter = characters.find((character) => character.id === currentTurnCharacterId);
     const anyCharMoving = characters.some((character) => character.movement.isMoving);
-    const canMoveCurrentTurnCharacter = Boolean(currentTurnCharacterId) && !anyCharMoving;
+    const canMoveCurrentTurnCharacter = Boolean(currentTurnCharacter?.movement.isActive) && !anyCharMoving;
 
     return (
         <>
@@ -53,7 +54,9 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 className={S.surface}
                 aria-label="Tablero"
                 type="button"
-                onMouseLeave={() => {}}
+                onMouseLeave={() => {
+                    setActiveCell(null);
+                }}
                 onMouseMove={(event) => {
                     if (!canMoveCurrentTurnCharacter) return;
 
@@ -66,6 +69,8 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     setActiveCell(nextCell);
                 }}
                 onClick={(event) => {
+                    if (!canMoveCurrentTurnCharacter) return;
+
                     const nextCell = calcNextCell(event);
                     if (!nextCell) return;
 
@@ -81,7 +86,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     } as CSSProperties
                 }
             />
-            {(canMoveCurrentTurnCharacter || anyCharMoving) && (
+            {canMoveCurrentTurnCharacter && (
                 <div
                     aria-hidden="true"
                     className={S.hoverCell}

@@ -1,5 +1,6 @@
 import React, { createContext, memo, useMemo, useState } from 'react';
 
+import { useTurnActions } from './hooks/useTurnActions';
 import { useCharacterMovement } from './hooks/useCharacterMovement';
 import type { Character, CharacterMovementView, Map, Position, Round } from './types';
 
@@ -10,8 +11,10 @@ export type State = {
 };
 
 export type Actions = {
+    endCurrentTurn: () => void;
     getCharacterMovement: (characterId: string) => CharacterMovementView;
     moveSelectedCharacterTo: (position: Position) => void;
+    toggleCurrentTurnCharacterMovement: () => void;
 };
 
 const Context = createContext<{ actions: Actions; state: State } | null>(null);
@@ -40,6 +43,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -53,6 +57,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -66,6 +71,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -79,6 +85,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -92,6 +99,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -105,6 +113,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -118,6 +127,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 },
@@ -131,6 +141,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
+                        isActive: false,
                         isMoving: false
                     }
                 }
@@ -155,7 +166,12 @@ export const GameState = {
         // Actions
         // Las acciones deben ir en un custom hook independiente para separar responsabilidad y evitar que el provider se vuelva demasiado grande.
 
-        const { getCharacterMovement, moveSelectedCharacterTo } = useCharacterMovement({ state, setState });
+        const { getCharacterMovement, moveSelectedCharacterTo, toggleCurrentTurnCharacterMovement } =
+            useCharacterMovement({
+                state,
+                setState
+            });
+        const { endCurrentTurn } = useTurnActions({ setState });
 
         return (
             <Context.Provider
@@ -163,10 +179,17 @@ export const GameState = {
                     state,
                     actions: useMemo(
                         (): Actions => ({
+                            endCurrentTurn,
                             getCharacterMovement,
-                            moveSelectedCharacterTo
+                            moveSelectedCharacterTo,
+                            toggleCurrentTurnCharacterMovement
                         }),
-                        [getCharacterMovement, moveSelectedCharacterTo]
+                        [
+                            endCurrentTurn,
+                            getCharacterMovement,
+                            moveSelectedCharacterTo,
+                            toggleCurrentTurnCharacterMovement
+                        ]
                     )
                 }}
             >
