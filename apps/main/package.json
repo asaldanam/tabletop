@@ -5,6 +5,7 @@
     "version": "0.0.1",
     "scripts": {
         "dev": "astro dev",
+        "ts:watch": "tsc --noEmit --pretty --watch",
         "build": "astro build",
         "preview": "astro preview",
         "cf:preview": "wrangler dev",

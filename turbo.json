@@ -1,16 +1,30 @@
 {
     "$schema": "https://turbo.build/schema.json",
+    "ui": "stream",
     "tasks": {
         "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**", ".astro/**"]
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**",
+                ".astro/**"
+            ]
         },
         "dev": {
             "cache": false,
             "persistent": true
         },
+        "ts:watch": {
+            "cache": false,
+            "dependsOn": [
+                "^ts:watch"
+            ]
+        },
         "preview": {
-            "dependsOn": ["build"],
+            "dependsOn": [
+                "build"
+            ],
             "cache": false,
             "persistent": true
         },
@@ -19,7 +33,9 @@
             "persistent": true
         },
         "cf:deploy": {
-            "dependsOn": ["build"],
+            "dependsOn": [
+                "build"
+            ],
             "cache": false
         },
         "astro": {
