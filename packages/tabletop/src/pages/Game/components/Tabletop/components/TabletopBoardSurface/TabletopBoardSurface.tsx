@@ -65,19 +65,12 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
 
                     setActiveCell(nextCell);
                 }}
-                onPointerDown={(event) => {
-                    if (!canMoveCurrentTurnCharacter) return;
-
+                onClick={(event) => {
                     const nextCell = calcNextCell(event);
                     if (!nextCell) return;
 
+                    onCellClick(nextCell);
                     setActiveCell(nextCell);
-                }}
-                onPointerUp={(event) => {
-                    if (!canMoveCurrentTurnCharacter) return;
-                    if (!activeCell) return;
-
-                    onCellClick(activeCell);
                 }}
                 style={
                     {
