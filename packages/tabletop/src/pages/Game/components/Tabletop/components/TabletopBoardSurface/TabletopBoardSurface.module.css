@@ -5,8 +5,8 @@
     @apply ring-1 ring-gray-600;
     transform: translateZ(0);
     background-image:
-        linear-gradient(rgb(75 85 99 / 0.9) 1px, transparent 1px),
-        linear-gradient(90deg, rgb(75 85 99 / 0.9) 1px, transparent 1px);
+        linear-gradient(rgb(75 85 99 / 0.5) 2px, transparent 2px),
+        linear-gradient(90deg, rgb(75 85 99 / 0.5) 2px, transparent 2px);
     background-size: var(--cell-size) var(--cell-size);
 }
 
