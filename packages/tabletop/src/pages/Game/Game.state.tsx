@@ -18,6 +18,9 @@ const Context = createContext<{ actions: Actions; state: State } | null>(null);
 
 export const GameState = {
     Provider: memo((props: { children: React.ReactNode }) => {
+        // State
+        // El estado de gestiona de forma global para todo el Game
+
         const [state, setState] = useState<State>({
             map: {
                 image: {
@@ -59,17 +62,28 @@ export const GameState = {
                 }
             ]
         });
-        const characterMovement = useCharacterMovement({ setState, state });
 
-        const actions = useMemo(
-            (): Actions => ({
-                getCharacterMovement: characterMovement.getCharacterMovement,
-                moveSelectedCharacterTo: characterMovement.moveSelectedCharacterTo
-            }),
-            [characterMovement.getCharacterMovement, characterMovement.moveSelectedCharacterTo]
+        // Actions
+        // Las acciones deben ir en un custom hook independiente para separar responsabilidad y evitar que el provider se vuelva demasiado grande.
+
+        const { getCharacterMovement, moveSelectedCharacterTo } = useCharacterMovement({ state, setState });
+
+        return (
+            <Context.Provider
+                value={{
+                    state,
+                    actions: useMemo(
+                        (): Actions => ({
+                            getCharacterMovement,
+                            moveSelectedCharacterTo
+                        }),
+                        [getCharacterMovement, moveSelectedCharacterTo]
+                    )
+                }}
+            >
+                {props.children}
+            </Context.Provider>
         );
-
-        return <Context.Provider value={{ actions, state }}>{props.children}</Context.Provider>;
     }),
     useContext: () => {
         const context = React.useContext(Context);
