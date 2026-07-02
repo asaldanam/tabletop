@@ -6,7 +6,7 @@
 }
 
 .panel {
-    @apply max-w-[calc(100dvw-2rem)] overflow-x-auto rounded-b-3xl rounded-t-none border border-t-0 px-3 pb-2.5 pt-1.5 shadow-2xl;
+    @apply max-w-[calc(100dvw-2rem)] overflow-x-auto rounded-b-3xl rounded-t-none border border-t-0 shadow-2xl;
     pointer-events: auto;
     background:
         linear-gradient(180deg, rgb(248 250 252 / 0.08), transparent 42%),
@@ -17,6 +17,7 @@
         inset 0 1px 0 rgb(248 250 252 / 0.08);
     backdrop-filter: blur(18px);
     scrollbar-width: none;
+    padding: 0.5rem 1rem 0.5rem;
 }
 
 .panel::-webkit-scrollbar {
@@ -24,7 +25,7 @@
 }
 
 .track {
-    @apply flex list-none items-start justify-center gap-1.5 p-0;
+    @apply flex list-none items-start justify-center gap-1 p-0;
     margin: 0;
 }
 
@@ -95,27 +96,4 @@
 .name {
     @apply block max-w-full truncate pb-px text-center text-[10px] font-bold leading-3;
     color: currentColor;
-}
-
-@media (width >=768px) {
-    .panel {
-        @apply px-4 pb-3 pt-2;
-    }
-
-    .track {
-        @apply gap-2;
-    }
-
-    .turn {
-        @apply w-16;
-    }
-
-    .portrait {
-        @apply h-14 w-14 rounded-2xl;
-    }
-
-    .sprite {
-        --portrait-width: 52px;
-        --portrait-height: 56px;
-    }
 }
