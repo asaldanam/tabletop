@@ -47,7 +47,7 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
             <TransformComponent wrapperClass={S.viewport} contentClass={S.content}>
                 {props.children}
             </TransformComponent>
-            <StateBadge />
+            {/* <StateBadge /> */}
         </TransformWrapper>
     );
 });
