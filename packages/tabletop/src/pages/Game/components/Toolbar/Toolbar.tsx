@@ -49,7 +49,7 @@ export const Toolbar = memo(() => {
     ];
 
     const activeTool = tools.find((tool) => tool.isActive);
-    const activeLabel = activeTool?.label ?? 'Herramientas';
+    const activeLabel = activeTool?.label ?? '';
     const activeContextTool = activeTool?.hasContextPanel ? activeTool : null;
 
     return (
@@ -61,9 +61,23 @@ export const Toolbar = memo(() => {
                     </div>
                 )}
 
-                <div className={S.activeDivider} aria-live="polite">
+                <div
+                    className={S.activeDivider}
+                    aria-live="polite"
+                    style={{
+                        opacity: activeLabel ? 1 : 0,
+                        transform: activeLabel ? 'translateY(0)' : 'translateY(50%)'
+                    }}
+                >
                     <span className={S.activeLine} aria-hidden="true" />
-                    <span className={S.activeLabel}>{activeLabel}</span>
+                    <span
+                        className={S.activeLabel}
+                        style={{
+                            opacity: activeLabel ? 1 : 0
+                        }}
+                    >
+                        {activeLabel ?? ''}
+                    </span>
                     <span className={S.activeLine} aria-hidden="true" />
                 </div>
 

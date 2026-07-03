@@ -55,7 +55,6 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                 aria-label="Tablero"
                 type="button"
                 onMouseLeave={(e) => {
-                    console.log(e);
                     setActiveCell(null);
                 }}
                 onMouseMove={(event) => {

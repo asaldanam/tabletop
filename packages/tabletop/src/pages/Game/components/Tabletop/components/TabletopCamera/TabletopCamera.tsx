@@ -16,7 +16,7 @@ type TabletopCameraProps = {
     focusPosition?: Position;
 };
 
-const FOCUS_SCALE = 1.5;
+const FOCUS_SCALE = 1;
 const FOCUS_ANIMATION_MS = 500;
 const FOCUS_MAX_ATTEMPTS = 8;
 

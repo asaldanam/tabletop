@@ -43,7 +43,7 @@ export const GameState = {
                     },
                     movement: {
                         direction: undefined,
-                        isActive: false,
+                        isActive: true,
                         isMoving: false
                     }
                 },
