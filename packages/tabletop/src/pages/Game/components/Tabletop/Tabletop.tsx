@@ -54,19 +54,9 @@ export const Tabletop = memo((props: TabletopProps) => {
                                 moveSelectedCharacterTo(position);
                             }}
                         />
-                        {characters.map((character) => {
-                            const movement = getCharacterMovement(character.id);
-
-                            return (
-                                <TabletopCharacter
-                                    key={character.id}
-                                    character={character}
-                                    direction={movement.direction}
-                                    isMoving={movement.isMoving}
-                                    isSelected={movement.isSelected}
-                                />
-                            );
-                        })}
+                        {characters.map((character) => (
+                            <TabletopCharacter key={character.id} character={character} />
+                        ))}
                     </div>
                 </div>
             </div>

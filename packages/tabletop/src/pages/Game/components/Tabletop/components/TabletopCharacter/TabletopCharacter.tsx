@@ -1,7 +1,8 @@
 import { CSSProperties, memo } from 'react';
 import { GAME_CONFIG } from '../../../../Game.config';
-import type { Character, CharacterDirection } from '../../../../types';
+import type { Character } from '../../../../types';
 
+import { GameState } from '../../../../Game.state';
 import { TabletopCharacterPin } from './components/TabletopCharacterPin';
 import { TabletopCharacterShadow } from './components/TabletopCharacterShadow';
 import S from './TabletopCharacter.module.css';
@@ -10,24 +11,30 @@ const cell = GAME_CONFIG.map.cell;
 
 type TabletopCharacterProps = {
     character: Character;
-    direction: CharacterDirection;
-    isMoving: boolean;
-    isSelected: boolean;
 };
 
 export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
-    const { character, direction, isMoving, isSelected } = props;
-    const animation = isMoving ? `running-${direction}` : 'idle';
+    const { character } = props;
+    const { movement } = character;
+
+    const {
+        state: { rounds, map }
+    } = GameState.useContext();
+    const round = rounds[0];
+    const turn = round.turns[round.currentTurnIndex];
+    const isCharacterTurn = turn.character.id === character.id;
+
+    const animation = movement.isMoving ? `running-${movement.direction}` : 'idle';
 
     return (
         <div
             className={S.box}
             aria-label={`Personaje ${character.id}`}
             data-tabletop-character-id={character.id}
-            data-direction={direction}
+            data-direction={movement.direction}
             data-animation={animation}
-            data-moving={isMoving}
-            data-selected={isSelected}
+            data-moving={movement.isMoving}
+            data-selected={movement.isActive}
             style={
                 {
                     '--cell-size': `${cell.size}px`,
@@ -35,14 +42,14 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
                 } as CSSProperties
             }
         >
-            {isSelected ? <TabletopCharacterShadow /> : null}
+            {movement.isActive ? <TabletopCharacterShadow /> : null}
             <div
                 className={S.sprite}
                 style={{
                     backgroundImage: `url(/${character.sprite})`
                 }}
             />
-            {isSelected ? <TabletopCharacterPin /> : null}
+            {isCharacterTurn ? <TabletopCharacterPin /> : null}
         </div>
     );
 });
