@@ -3,11 +3,12 @@
 .surface {
     @apply absolute left-0 top-0 border-0 bg-transparent p-0;
     @apply ring-1 ring-gray-600;
-    transform: translateZ(0);
     background-image:
         linear-gradient(rgb(75 85 99 / 0.5) 2px, transparent 2px),
         linear-gradient(90deg, rgb(75 85 99 / 0.5) 2px, transparent 2px);
     background-size: var(--cell-size) var(--cell-size);
+    /* Workaround: previene que los eventos de cursor seleccionen la isolayer */
+    transform: translateZ(0.001px);
 }
 
 .map {
