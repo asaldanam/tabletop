@@ -90,7 +90,7 @@ export const TabletopCamera = memo((props: TabletopCameraProps) => {
                 {props.children}
             </TransformComponent>
             <TabletopCameraFocus focusId={props.focusId} focusPosition={props.focusPosition} />
-            <StateBadge />
+            {/* <StateBadge /> */}
         </TransformWrapper>
     );
 });
