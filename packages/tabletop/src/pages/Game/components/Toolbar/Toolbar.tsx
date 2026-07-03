@@ -41,7 +41,7 @@ export const Toolbar = memo(() => {
         },
         {
             id: 'endTurn',
-            icon: `${ICON_BASE}/lorc/hourglass.svg`,
+            icon: `${ICON_BASE}/delapouite/player-next.svg`,
             label: 'Finalizar',
             onClick: endCurrentTurn,
             variant: 'danger'
