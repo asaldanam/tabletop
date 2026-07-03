@@ -23,6 +23,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
         <div
             className={S.box}
             aria-label={`Personaje ${character.id}`}
+            data-tabletop-character-id={character.id}
             data-direction={direction}
             data-animation={animation}
             data-moving={isMoving}

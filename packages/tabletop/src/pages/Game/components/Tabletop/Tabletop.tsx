@@ -14,8 +14,13 @@ type TabletopProps = {};
 export const Tabletop = memo((props: TabletopProps) => {
     const {
         actions: { getCharacterMovement, moveSelectedCharacterTo },
-        state: { map, characters }
+        state: { map, characters, rounds }
     } = GameState.useContext();
+
+    const currentRound = rounds[0];
+    const currentTurnCharacterId = currentRound?.turns[currentRound.currentTurnIndex]?.character.id ?? null;
+    const currentTurnCharacter = characters.find((character) => character.id === currentTurnCharacterId);
+    const cameraFocusPosition = currentTurnCharacter?.movement.isMoving ? undefined : currentTurnCharacter?.position;
 
     const px = window.innerWidth;
     const py = window.innerHeight;
@@ -26,7 +31,7 @@ export const Tabletop = memo((props: TabletopProps) => {
     const projectedHeight = projectedWidth / 2;
 
     return (
-        <TabletopCamera>
+        <TabletopCamera focusId={currentTurnCharacterId ?? undefined} focusPosition={cameraFocusPosition}>
             <div className={S.isoBounds} style={{ width: `${projectedWidth}px`, height: `${projectedHeight}px` }}>
                 <div
                     className={S.isoLayer}
