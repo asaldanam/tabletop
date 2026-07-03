@@ -1,34 +1,71 @@
 @reference "tailwindcss";
 
 .toolbar {
-    @apply fixed inset-x-0 bottom-0 z-20 flex justify-center px-3 pb-3;
+    @apply fixed inset-x-0 bottom-0 z-20 flex justify-center px-3 pb-4;
     pointer-events: none;
 }
 
-.panel {
-    @apply flex max-w-[calc(100dvw-1.5rem)] items-center gap-2 overflow-x-auto rounded-3xl border px-2 py-2 shadow-2xl;
-    pointer-events: auto;
-    background: linear-gradient(180deg, rgb(248 250 252 / 0.08), transparent 48%), var(--panel-bg);
-    border-color: var(--panel-border);
-    box-shadow:
-        0 18px 54px rgb(2 6 23 / 0.56),
-        inset 0 1px 0 rgb(248 250 252 / 0.08);
-    backdrop-filter: blur(18px);
-    scrollbar-width: none;
+.toolbar::before {
+    @apply absolute inset-x-0 bottom-0 h-36;
+    content: '';
+    background: linear-gradient(0deg, rgb(2 6 23 / 0.72), rgb(2 6 23 / 0.34) 52%, transparent);
 }
 
-.panel::-webkit-scrollbar {
+.panel {
+    @apply relative flex max-w-[calc(100dvw-1.5rem)] flex-col items-stretch px-2 py-1;
+    pointer-events: auto;
+}
+
+.contextBar {
+    @apply mb-2 min-h-16 rounded-2xl border px-2 py-2;
+    background: rgb(2 6 23 / 0.38);
+    border-color: rgb(255 255 255 / 0.1);
+}
+
+.contextTrack {
+    @apply h-12 rounded-xl border border-dashed;
+    border-color: rgb(103 232 249 / 0.26);
+    background:
+        linear-gradient(90deg, rgb(103 232 249 / 0.08), transparent 18%, transparent 82%, rgb(103 232 249 / 0.08)),
+        rgb(255 255 255 / 0.03);
+}
+
+.activeDivider {
+    @apply mb-2 flex items-center gap-3 px-1;
+    filter: drop-shadow(0 2px 8px rgb(2 6 23 / 0.78));
+}
+
+.activeLine {
+    @apply h-px min-w-10 flex-1;
+    background: linear-gradient(90deg, transparent, rgb(103 232 249 / 0.58), rgb(248 250 252 / 0.18));
+}
+
+.activeLine:last-child {
+    background: linear-gradient(90deg, rgb(248 250 252 / 0.18), rgb(103 232 249 / 0.58), transparent);
+}
+
+.activeLabel {
+    @apply max-w-40 truncate rounded-full border px-4 py-1.5 text-[10px] font-black uppercase leading-none;
+    background: rgb(2 6 23 / 0.7);
+    border-color: rgb(103 232 249 / 0.34);
+    color: var(--accent);
+    letter-spacing: 0.16em;
+    text-shadow: 0 1px 8px rgb(2 6 23 / 0.9);
+}
+
+.toolBar {
+    @apply flex items-center justify-center gap-4 overflow-x-auto px-1 py-1;
+    scrollbar-width: none;
+    filter: drop-shadow(0 10px 18px rgb(2 6 23 / 0.84));
+}
+
+.toolBar::-webkit-scrollbar {
     display: none;
 }
 
-.toolGroup {
-    @apply flex items-center gap-1;
-}
-
-.toolButton,
-.endTurnButton {
-    @apply relative inline-flex h-14 shrink-0 items-center justify-center border text-sm font-extrabold;
-    border-color: rgb(255 255 255 / 0.1);
+.toolButton {
+    @apply relative inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-transparent;
+    background: transparent;
     color: var(--text-heading);
     transition:
         background-color 160ms ease,
@@ -39,79 +76,93 @@
         transform 160ms ease;
 }
 
-.toolButton {
-    @apply w-20 flex-col gap-1 rounded-2xl px-2;
-    background: rgb(255 255 255 / 0.06);
+.toolButton::before {
+    @apply absolute inset-0 rounded-2xl;
+    content: '';
+    background: radial-gradient(circle at 50% 50%, rgb(2 6 23 / 0.5), rgb(2 6 23 / 0.16) 46%, transparent 72%);
+    opacity: 0.78;
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
 }
 
-.toolButton:not(:disabled):hover,
-.endTurnButton:hover {
-    border-color: rgb(103 232 249 / 0.42);
-    box-shadow: 0 0 20px rgb(34 211 238 / 0.16);
+.toolButton:not(:disabled):hover {
+    border-color: transparent;
+    box-shadow: none;
     transform: translateY(-1px);
 }
 
+.toolButton:not(:disabled):hover::before {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
 .toolButton[data-active='true'] {
-    background: var(--accent);
+    background: transparent;
     border-color: var(--accent-strong);
-    color: var(--page-bg);
+    color: var(--accent);
     box-shadow:
-        0 0 0 2px rgb(34 211 238 / 0.2),
-        0 0 24px rgb(34 211 238 / 0.38);
+        0 0 0 1px rgb(2 6 23 / 0.7),
+        0 0 24px rgb(34 211 238 / 0.5);
+}
+
+.toolButton[data-active='true']::before {
+    background: radial-gradient(circle at 50% 50%, rgb(103 232 249 / 0.3), rgb(2 6 23 / 0.36) 54%, transparent 74%);
+    opacity: 1;
+}
+
+.toolButton[data-variant='danger'] {
+    background: transparent;
+    border-color: transparent;
+}
+
+.toolButton[data-variant='danger']:not(:disabled):hover {
+    box-shadow: 0 0 22px rgb(251 113 133 / 0.18);
 }
 
 .toolButton:disabled {
     cursor: not-allowed;
-    opacity: 0.42;
+    opacity: 0.4;
 }
 
 .toolIcon {
-    @apply grid h-6 w-6 place-items-center rounded-full text-xs font-black;
-    background: rgb(255 255 255 / 0.08);
-    color: currentColor;
-    line-height: 1;
+    @apply relative z-10 h-9 w-9 select-none object-contain;
+    filter: invert(96%) sepia(12%) saturate(476%) hue-rotate(173deg) brightness(104%) contrast(98%)
+        drop-shadow(0 2px 2px rgb(2 6 23 / 0.92)) drop-shadow(0 0 10px rgb(2 6 23 / 0.72));
 }
 
 .toolButton[data-active='true'] .toolIcon {
-    background: rgb(2 6 23 / 0.16);
+    filter: invert(88%) sepia(52%) saturate(586%) hue-rotate(141deg) brightness(100%) contrast(98%)
+        drop-shadow(0 2px 2px rgb(2 6 23 / 0.92)) drop-shadow(0 0 12px rgb(34 211 238 / 0.86));
+}
+
+.toolButton[data-variant='danger'] .toolIcon {
+    filter: invert(96%) sepia(12%) saturate(476%) hue-rotate(173deg) brightness(104%) contrast(98%)
+        drop-shadow(0 2px 2px rgb(2 6 23 / 0.92)) drop-shadow(0 0 10px rgb(251 113 133 / 0.28));
 }
 
 .toolLabel {
-    @apply block max-w-full truncate text-[10px] leading-none;
-}
-
-.separator {
-    @apply h-10 w-px shrink-0;
-    background: rgb(255 255 255 / 0.12);
-}
-
-.endTurnButton {
-    @apply rounded-full px-4;
-    background: rgb(251 113 133 / 0.12);
-    border-color: rgb(251 113 133 / 0.28);
-    color: var(--text-heading);
-    white-space: nowrap;
-}
-
-.endTurnButton:hover {
-    background: rgb(251 113 133 / 0.18);
-    border-color: rgb(251 113 133 / 0.42);
+    @apply sr-only;
 }
 
 @media (width >=768px) {
     .toolbar {
-        @apply px-6 pb-5;
+        @apply px-6 pb-6;
     }
 
     .panel {
-        @apply gap-3 px-3;
+        @apply px-3;
+    }
+
+    .toolBar {
+        @apply gap-6;
     }
 
     .toolButton {
-        @apply w-24;
+        @apply h-16 w-16;
     }
 
-    .endTurnButton {
-        @apply px-5;
+    .toolIcon {
+        @apply h-11 w-11;
     }
 }

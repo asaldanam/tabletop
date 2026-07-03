@@ -1,0 +1,10 @@
+export type ToolbarTool = {
+    hasContextPanel?: boolean;
+    icon: string;
+    id: 'actions' | 'endTurn' | 'movement' | 'reactions';
+    isActive?: boolean;
+    isDisabled?: boolean;
+    label: string;
+    onClick?: () => void;
+    variant?: 'danger' | 'default';
+};
