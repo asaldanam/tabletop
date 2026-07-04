@@ -5,6 +5,6 @@ export type ToolbarTool = {
     isActive?: boolean;
     isDisabled?: boolean;
     label: string;
-    onClick?: () => void;
+    onPointerDown?: () => void;
     variant?: 'danger' | 'default';
 };

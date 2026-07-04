@@ -23,7 +23,7 @@ export const Toolbar = memo(() => {
             icon: `${ICON_BASE}/delapouite/move.svg`,
             label: 'Movimiento',
             isActive: currentMovement?.isActive ?? false,
-            onClick: toggleCurrentTurnCharacterMovement
+            onPointerDown: toggleCurrentTurnCharacterMovement
         },
         {
             id: 'actions',
@@ -43,7 +43,7 @@ export const Toolbar = memo(() => {
             id: 'endTurn',
             icon: `${ICON_BASE}/delapouite/player-next.svg`,
             label: 'Finalizar',
-            onClick: endCurrentTurn,
+            onPointerDown: endCurrentTurn,
             variant: 'danger'
         }
     ];
@@ -91,7 +91,7 @@ export const Toolbar = memo(() => {
                             disabled={tool.isDisabled}
                             type="button"
                             aria-pressed={tool.id === 'movement' ? (tool.isActive ?? false) : undefined}
-                            onClick={tool.onClick}
+                            onPointerDown={tool.onPointerDown}
                             title={tool.label}
                         >
                             <img className={S.toolIcon} src={tool.icon} alt="" draggable={false} aria-hidden="true" />
