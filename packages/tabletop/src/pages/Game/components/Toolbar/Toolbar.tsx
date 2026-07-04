@@ -2,6 +2,7 @@ import { memo } from 'react';
 
 import { GameState } from '../../Game.state';
 
+import { ActionPanel } from './components/ActionPanel';
 import S from './Toolbar.module.css';
 import { ToolbarTool } from './types/ToolbarTool';
 
@@ -9,13 +10,24 @@ const ICON_BASE = '/icons/000000/transparent/1x1';
 
 export const Toolbar = memo(() => {
     const {
-        actions: { endCurrentTurn, getCharacterMovement, toggleCurrentTurnCharacterMovement },
-        state: { rounds }
+        actions: {
+            cancelSelectedAction,
+            confirmSelectedAction,
+            endCurrentTurn,
+            getActionConfirmation,
+            getCharacterMovement,
+            selectCurrentTurnCharacterAction,
+            toggleCurrentTurnCharacterActions,
+            toggleCurrentTurnCharacterMovement
+        },
+        state: { action, characters, rounds }
     } = GameState.useContext();
 
     const currentRound = rounds[0];
     const currentTurnCharacterId = currentRound?.turns[currentRound.currentTurnIndex]?.character.id ?? null;
+    const currentTurnCharacter = characters.find((character) => character.id === currentTurnCharacterId) ?? null;
     const currentMovement = currentTurnCharacterId ? getCharacterMovement(currentTurnCharacterId) : null;
+    const actionConfirmation = getActionConfirmation();
 
     const tools: ToolbarTool[] = [
         {
@@ -30,7 +42,8 @@ export const Toolbar = memo(() => {
             hasContextPanel: true,
             icon: `${ICON_BASE}/lorc/crossed-swords.svg`,
             label: 'Acciones',
-            isDisabled: true
+            isActive: action.isPanelOpen,
+            onPointerDown: toggleCurrentTurnCharacterActions
         },
         {
             id: 'reactions',
@@ -57,7 +70,16 @@ export const Toolbar = memo(() => {
             <div className={S.panel}>
                 {activeContextTool && (
                     <div className={S.contextBar} aria-label={`${activeContextTool.label} disponibles`}>
-                        <div className={S.contextTrack} />
+                        {activeContextTool.id === 'actions' && (
+                            <ActionPanel
+                                character={currentTurnCharacter}
+                                confirmation={actionConfirmation}
+                                onCancel={cancelSelectedAction}
+                                onConfirm={confirmSelectedAction}
+                                onSelectAction={selectCurrentTurnCharacterAction}
+                                selectedActionId={action.selected?.actionId ?? null}
+                            />
+                        )}
                     </div>
                 )}
 
@@ -90,7 +112,9 @@ export const Toolbar = memo(() => {
                             data-variant={tool.variant}
                             disabled={tool.isDisabled}
                             type="button"
-                            aria-pressed={tool.id === 'movement' ? (tool.isActive ?? false) : undefined}
+                            aria-pressed={
+                                tool.id === 'movement' || tool.id === 'actions' ? (tool.isActive ?? false) : undefined
+                            }
                             onPointerDown={tool.onPointerDown}
                             title={tool.label}
                         >

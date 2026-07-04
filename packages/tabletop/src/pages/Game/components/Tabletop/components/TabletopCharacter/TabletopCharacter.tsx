@@ -18,23 +18,34 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
     const { movement } = character;
 
     const {
-        state: { rounds, map }
+        actions: { getActionTargeting, selectActionTarget },
+        state: { rounds }
     } = GameState.useContext();
     const round = rounds[0];
-    const turn = round.turns[round.currentTurnIndex];
-    const isCharacterTurn = turn.character.id === character.id;
+    const turn = round?.turns[round.currentTurnIndex];
+    const isCharacterTurn = turn?.character.id === character.id;
+    const targeting = getActionTargeting(character.id);
+    const hasWounds = character.wounds.current > 0;
 
     const animation = movement.isMoving ? `running-${movement.direction}` : 'idle';
 
     return (
-        <div
+        <button
             className={S.box}
             aria-label={`Personaje ${character.id}`}
             data-tabletop-character-id={character.id}
             data-direction={movement.direction}
             data-animation={animation}
+            data-in-range={targeting.isInRange}
             data-moving={movement.isMoving}
             data-selected={movement.isActive}
+            data-target-selected={targeting.isSelectedTarget}
+            data-targetable={targeting.isTargetable}
+            disabled={!targeting.isTargetable}
+            type="button"
+            onPointerDown={() => {
+                selectActionTarget(character.id);
+            }}
             style={
                 {
                     '--cell-size': `${cell.size}px`,
@@ -42,15 +53,16 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
                 } as CSSProperties
             }
         >
-            <TabletopCharacterShadow show={movement.isActive} />
+            <TabletopCharacterShadow show={movement.isActive || targeting.isSelectedTarget} />
             <div
                 className={S.sprite}
                 style={{
                     backgroundImage: `url(/${character.sprite})`
                 }}
             />
+            {hasWounds ? <span className={S.woundBadge}>+{character.wounds.current}</span> : null}
             {isCharacterTurn ? <TabletopCharacterPin /> : null}
-        </div>
+        </button>
     );
 });
 

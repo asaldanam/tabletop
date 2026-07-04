@@ -16,6 +16,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
     const { onCellClick } = props;
 
     const game = GameState.useContext();
+    const { getActionRangeCells } = game.actions;
     const { map, characters, rounds } = game.state;
     const { rows, cols } = map;
 
@@ -38,6 +39,7 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
     const currentTurnCharacter = characters.find((character) => character.id === currentTurnCharacterId);
     const anyCharMoving = characters.some((character) => character.movement.isMoving);
     const canMoveCurrentTurnCharacter = Boolean(currentTurnCharacter?.movement.isActive) && !anyCharMoving;
+    const actionRangeCells = getActionRangeCells();
 
     return (
         <>
@@ -90,6 +92,18 @@ export const TabletopBoardSurface = memo((props: TabletopBoardSurfaceProps) => {
                     } as CSSProperties
                 }
             />
+            {actionRangeCells.map((rangeCell) => (
+                <div
+                    key={`${rangeCell.x}-${rangeCell.y}`}
+                    aria-hidden="true"
+                    className={S.actionRangeCell}
+                    style={{
+                        height: `${cell.size}px`,
+                        transform: `translate3d(${(rangeCell.x - 1) * cell.size}px, ${(rangeCell.y - 1) * cell.size}px, 0)`,
+                        width: `${cell.size}px`
+                    }}
+                />
+            ))}
             {canMoveCurrentTurnCharacter && (
                 <div
                     aria-hidden="true"

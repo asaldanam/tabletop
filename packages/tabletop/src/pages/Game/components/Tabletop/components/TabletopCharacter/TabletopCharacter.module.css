@@ -12,6 +12,22 @@
     transform-style: preserve-3d;
 }
 
+.box:disabled {
+    cursor: default;
+}
+
+.box[data-targetable='true'] {
+    cursor: pointer;
+}
+
+.box[data-in-range='true'] .sprite {
+    filter: drop-shadow(0 0 12px rgb(103 232 249 / 0.42));
+}
+
+.box[data-target-selected='true'] .sprite {
+    filter: drop-shadow(0 0 14px rgb(251 113 133 / 0.62));
+}
+
 .sprite {
     --sprite-cell-width: 192px;
     --sprite-cell-height: 208px;
@@ -23,6 +39,7 @@
     z-index: 1;
     left: 50%;
     bottom: 50%;
+    pointer-events: none;
 
     width: var(--sprite-cell-width);
     height: var(--sprite-cell-height);
@@ -50,6 +67,35 @@
     --sprite-row: 0;
 
     animation: tabletop-character-idle 1056ms steps(6) infinite;
+}
+
+.woundBadge {
+    @apply absolute -right-2 top-0 z-20 rounded-full border px-1.5 py-1 text-[10px] font-black leading-none;
+    background: rgb(251 113 133 / 0.92);
+    border-color: rgb(255 255 255 / 0.7);
+    color: rgb(2 6 23);
+    pointer-events: none;
+    transform: translateZ(16px) rotateZ(-225deg) rotateX(-60deg);
+    box-shadow: 0 2px 10px rgb(2 6 23 / 0.58);
+}
+
+.box[data-targetable='true']::after,
+.box[data-target-selected='true']::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    z-index: 0;
+    border-radius: 9999px;
+    pointer-events: none;
+    transform: translateZ(0.75px);
+}
+
+.box[data-targetable='true']::after {
+    box-shadow: 0 0 14px rgb(103 232 249 / 0.34);
+}
+
+.box[data-target-selected='true']::after {
+    box-shadow: 0 0 18px rgb(251 113 133 / 0.54);
 }
 
 @keyframes tabletop-character-run {

@@ -32,6 +32,10 @@ export const useTurnActions = (params: UseTurnActionsParams) => {
 
                 return {
                     ...currentState,
+                    action: {
+                        isPanelOpen: false,
+                        selected: null
+                    },
                     characters: setActiveMovementCharacter(currentState, nextTurnCharacterId),
                     rounds: currentState.rounds.map((round, index) =>
                         index === 0
@@ -49,6 +53,10 @@ export const useTurnActions = (params: UseTurnActionsParams) => {
 
             return {
                 ...currentState,
+                action: {
+                    isPanelOpen: false,
+                    selected: null
+                },
                 characters: setActiveMovementCharacter(currentState, nextTurnCharacterId),
                 rounds: [
                     {

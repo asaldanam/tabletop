@@ -96,6 +96,10 @@ export const useCharacterMovement = (params: UseCharacterMovementParams) => {
 
             return {
                 ...currentState,
+                action: {
+                    isPanelOpen: false,
+                    selected: null
+                },
                 characters: currentState.characters.map((character) => ({
                     ...character,
                     movement: {
