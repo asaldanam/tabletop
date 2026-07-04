@@ -13,10 +13,10 @@
     },
     "scripts": {
         "dev": "turbo dev ts:watch",
-        "build": "turbo build",
+        "build": "npm --workspace main run build",
         "preview": "turbo preview",
         "cf:preview": "turbo cf:preview",
-        "cf:deploy": "turbo cf:deploy",
+        "cf:deploy": "npm run build && npm --workspace main run cf:deploy",
         "astro": "turbo astro"
     },
     "devDependencies": {
