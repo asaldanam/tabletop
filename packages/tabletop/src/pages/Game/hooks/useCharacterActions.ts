@@ -4,7 +4,6 @@ import type { State } from '../Game.state';
 import type {
     Character,
     CharacterAction,
-    GameActionConfirmationView,
     GameActionRangeCell,
     GameActionTargetingView,
     Position,
@@ -46,12 +45,10 @@ const isCharacterInActionRange = (actor: Character | null, target: Character | n
 const getActionContext = (state: State) => {
     const actor = getCharacterById(state.characters, state.action.selected?.actorCharacterId ?? null);
     const action = getCharacterAction(actor, state.action.selected?.actionId ?? null);
-    const target = getCharacterById(state.characters, state.action.selected?.targetCharacterId ?? null);
 
     return {
         action,
-        actor,
-        target
+        actor
     };
 };
 
@@ -102,8 +99,7 @@ export const useCharacterActions = (params: UseCharacterActionsParams) => {
                         isPanelOpen: true,
                         selected: {
                             actionId: action.id,
-                            actorCharacterId: actor.id,
-                            targetCharacterId: null
+                            actorCharacterId: actor.id
                         }
                     },
                     characters: currentState.characters.map((character) => ({
@@ -125,82 +121,36 @@ export const useCharacterActions = (params: UseCharacterActionsParams) => {
                 const { action, actor } = getActionContext(currentState);
                 const target = getCharacterById(currentState.characters, characterId);
                 const isValidTarget = isCharacterInActionRange(actor, target, action);
-                if (!currentState.action.selected || !isValidTarget) return currentState;
+                if (!currentState.action.selected || !action || !target || !isValidTarget) return currentState;
 
                 return {
                     ...currentState,
-                    action: {
-                        ...currentState.action,
-                        selected: {
-                            ...currentState.action.selected,
-                            targetCharacterId: characterId
-                        }
-                    }
+                    characters: currentState.characters.map((character) =>
+                        character.id === target.id
+                            ? {
+                                  ...character,
+                                  wounds: {
+                                      ...character.wounds,
+                                      current: character.wounds.current + action.effect.value
+                                  }
+                              }
+                            : character
+                    )
                 };
             });
         },
         [setState]
     );
 
-    const cancelSelectedAction = useCallback(() => {
-        setState((currentState) => {
-            if (!currentState.action.selected) return currentState;
-
-            return {
-                ...currentState,
-                action: {
-                    ...currentState.action,
-                    selected: currentState.action.selected.targetCharacterId
-                        ? {
-                              ...currentState.action.selected,
-                              targetCharacterId: null
-                          }
-                        : null
-                }
-            };
-        });
-    }, [setState]);
-
-    const confirmSelectedAction = useCallback(() => {
-        setState((currentState) => {
-            const { action, actor, target } = getActionContext(currentState);
-            const isValidTarget = isCharacterInActionRange(actor, target, action);
-            if (!currentState.action.selected || !action || !target || !isValidTarget) return currentState;
-
-            return {
-                ...currentState,
-                action: {
-                    ...currentState.action,
-                    selected: {
-                        ...currentState.action.selected,
-                        targetCharacterId: null
-                    }
-                },
-                characters: currentState.characters.map((character) =>
-                    character.id === target.id
-                        ? {
-                              ...character,
-                              wounds: {
-                                  ...character.wounds,
-                                  current: character.wounds.current + action.effect.value
-                              }
-                          }
-                        : character
-                )
-            };
-        });
-    }, [setState]);
-
     const getActionTargeting = useCallback(
         (characterId: string): GameActionTargetingView => {
             const { action, actor } = getActionContext(state);
             const target = charactersById.get(characterId) ?? null;
             const isInRange = isCharacterInActionRange(actor, target, action);
-            const isSelectedTarget = state.action.selected?.targetCharacterId === characterId;
 
             return {
                 isInRange,
-                isSelectedTarget,
+                isSelectedTarget: false,
                 isTargetable: Boolean(state.action.isPanelOpen && state.action.selected && isInRange)
             };
         },
@@ -225,24 +175,7 @@ export const useCharacterActions = (params: UseCharacterActionsParams) => {
         return rangeCells;
     }, [state]);
 
-    const getActionConfirmation = useCallback((): GameActionConfirmationView | null => {
-        const { action, actor, target } = getActionContext(state);
-        if (!state.action.isPanelOpen || !state.action.selected?.targetCharacterId || !action || !actor || !target) {
-            return null;
-        }
-
-        return {
-            action,
-            actorName: actor.name ?? `Personaje ${actor.id}`,
-            damage: action.effect.value,
-            targetName: target.name ?? `Personaje ${target.id}`
-        };
-    }, [state]);
-
     return {
-        cancelSelectedAction,
-        confirmSelectedAction,
-        getActionConfirmation,
         getActionRangeCells,
         getActionTargeting,
         selectActionTarget,

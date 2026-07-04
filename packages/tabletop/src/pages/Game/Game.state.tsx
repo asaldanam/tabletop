@@ -6,7 +6,6 @@ import { useCharacterMovement } from './hooks/useCharacterMovement';
 import type {
     Character,
     CharacterMovementView,
-    GameActionConfirmationView,
     GameActionRangeCell,
     GameActionState,
     GameActionTargetingView,
@@ -23,10 +22,7 @@ export type State = {
 };
 
 export type Actions = {
-    cancelSelectedAction: () => void;
-    confirmSelectedAction: () => void;
     endCurrentTurn: () => void;
-    getActionConfirmation: () => GameActionConfirmationView | null;
     getActionRangeCells: () => GameActionRangeCell[];
     getActionTargeting: (characterId: string) => GameActionTargetingView;
     getCharacterMovement: (characterId: string) => CharacterMovementView;
@@ -835,9 +831,6 @@ export const GameState = {
             });
 
         const {
-            cancelSelectedAction,
-            confirmSelectedAction,
-            getActionConfirmation,
             getActionRangeCells,
             getActionTargeting,
             selectActionTarget,
@@ -856,10 +849,7 @@ export const GameState = {
                     state,
                     actions: useMemo(
                         (): Actions => ({
-                            cancelSelectedAction,
-                            confirmSelectedAction,
                             endCurrentTurn,
-                            getActionConfirmation,
                             getActionRangeCells,
                             getActionTargeting,
                             getCharacterMovement,
@@ -870,10 +860,7 @@ export const GameState = {
                             toggleCurrentTurnCharacterMovement
                         }),
                         [
-                            cancelSelectedAction,
-                            confirmSelectedAction,
                             endCurrentTurn,
-                            getActionConfirmation,
                             getActionRangeCells,
                             getActionTargeting,
                             getCharacterMovement,

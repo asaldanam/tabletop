@@ -1,20 +1,17 @@
 import { memo } from 'react';
 
-import type { Character, GameActionConfirmationView } from '../../../../types';
+import type { Character } from '../../../../types';
 
 import S from './ActionPanel.module.css';
 
 type ActionPanelProps = {
     character: Character | null;
-    confirmation: GameActionConfirmationView | null;
-    onCancel: () => void;
-    onConfirm: () => void;
     onSelectAction: (actionId: string) => void;
     selectedActionId: string | null;
 };
 
 export const ActionPanel = memo((props: ActionPanelProps) => {
-    const { character, confirmation, onCancel, onConfirm, onSelectAction, selectedActionId } = props;
+    const { character, onSelectAction, selectedActionId } = props;
     const actions = character?.actions.list ?? [];
     const selectedAction = actions.find((action) => action.id === selectedActionId) ?? null;
 
@@ -67,23 +64,6 @@ export const ActionPanel = memo((props: ActionPanelProps) => {
                     <span className={S.empty}>Sin acciones</span>
                 )}
             </div>
-
-            {confirmation && (
-                <div className={S.confirmation} aria-live="polite">
-                    <span className={S.confirmationText}>
-                        {confirmation.actorName} usa {confirmation.action.name} contra {confirmation.targetName}
-                    </span>
-                    <span className={S.damageBadge}>+{confirmation.damage}</span>
-                    <div className={S.confirmationActions}>
-                        <button className={S.secondaryButton} type="button" onPointerDown={onCancel}>
-                            Cancelar
-                        </button>
-                        <button className={S.primaryButton} type="button" onPointerDown={onConfirm}>
-                            Confirmar
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 });

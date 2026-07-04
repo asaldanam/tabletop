@@ -3,7 +3,6 @@ export type { CharacterAction, CharacterActionEffect, CharacterActionTarget } fr
 export type { CharacterDirection, CharacterMovement, CharacterMovementView } from './CharacterMovement';
 export type { CharacterWounds } from './CharacterWounds';
 export type {
-    GameActionConfirmationView,
     GameActionRangeCell,
     GameActionSelection,
     GameActionState,

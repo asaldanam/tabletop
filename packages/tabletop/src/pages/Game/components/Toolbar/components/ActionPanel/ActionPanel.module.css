@@ -96,50 +96,6 @@
     color: var(--text-muted);
 }
 
-.confirmation {
-    @apply flex w-full max-w-[min(28rem,calc(100dvw-2.5rem))] flex-wrap items-center justify-center gap-2 px-3 py-2;
-    background: transparent;
-    border-color: transparent;
-}
-
-.confirmationText {
-    @apply min-w-0 flex-1 text-xs font-bold leading-snug;
-    color: var(--text-heading);
-}
-
-.damageBadge {
-    @apply rounded-full border px-2 py-1 text-xs font-black leading-none;
-    background: rgb(251 113 133 / 0.12);
-    border-color: rgb(251 113 133 / 0.34);
-    color: var(--danger);
-}
-
-.confirmationActions {
-    @apply flex shrink-0 items-center gap-2;
-}
-
-.secondaryButton,
-.primaryButton {
-    @apply rounded-full px-3 py-1.5 text-xs font-extrabold leading-none;
-    transition:
-        background-color 160ms ease,
-        border-color 160ms ease,
-        color 160ms ease;
-}
-
-.secondaryButton {
-    @apply border;
-    background: transparent;
-    border-color: rgb(255 255 255 / 0.14);
-    color: var(--text-heading);
-}
-
-.primaryButton {
-    border: 1px solid transparent;
-    background: var(--accent);
-    color: var(--page-bg);
-}
-
 @media (width >=768px) {
     .actionTrack {
         max-width: min(720px, calc(100dvw - 4rem));

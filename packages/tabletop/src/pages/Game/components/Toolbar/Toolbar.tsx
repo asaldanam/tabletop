@@ -11,10 +11,7 @@ const ICON_BASE = '/icons/000000/transparent/1x1';
 export const Toolbar = memo(() => {
     const {
         actions: {
-            cancelSelectedAction,
-            confirmSelectedAction,
             endCurrentTurn,
-            getActionConfirmation,
             getCharacterMovement,
             selectCurrentTurnCharacterAction,
             toggleCurrentTurnCharacterActions,
@@ -27,7 +24,6 @@ export const Toolbar = memo(() => {
     const currentTurnCharacterId = currentRound?.turns[currentRound.currentTurnIndex]?.character.id ?? null;
     const currentTurnCharacter = characters.find((character) => character.id === currentTurnCharacterId) ?? null;
     const currentMovement = currentTurnCharacterId ? getCharacterMovement(currentTurnCharacterId) : null;
-    const actionConfirmation = getActionConfirmation();
 
     const tools: ToolbarTool[] = [
         {
@@ -73,9 +69,6 @@ export const Toolbar = memo(() => {
                         {activeContextTool.id === 'actions' && (
                             <ActionPanel
                                 character={currentTurnCharacter}
-                                confirmation={actionConfirmation}
-                                onCancel={cancelSelectedAction}
-                                onConfirm={confirmSelectedAction}
                                 onSelectAction={selectCurrentTurnCharacterAction}
                                 selectedActionId={action.selected?.actionId ?? null}
                             />
