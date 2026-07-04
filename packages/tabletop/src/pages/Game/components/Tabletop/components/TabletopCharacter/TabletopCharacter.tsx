@@ -42,7 +42,7 @@ export const TabletopCharacter = memo((props: TabletopCharacterProps) => {
                 } as CSSProperties
             }
         >
-            {movement.isActive ? <TabletopCharacterShadow /> : null}
+            <TabletopCharacterShadow show={movement.isActive} />
             <div
                 className={S.sprite}
                 style={{
