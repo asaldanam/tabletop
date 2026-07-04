@@ -16,13 +16,26 @@ type ActionPanelProps = {
 export const ActionPanel = memo((props: ActionPanelProps) => {
     const { character, confirmation, onCancel, onConfirm, onSelectAction, selectedActionId } = props;
     const actions = character?.actions.list ?? [];
+    const selectedAction = actions.find((action) => action.id === selectedActionId) ?? null;
 
     return (
         <div className={S.panel}>
+            {selectedAction && (
+                <div className={S.actionTooltip} id={`action-tooltip-${selectedAction.id}`} role="tooltip">
+                    <span className={S.tooltipTitle}>{selectedAction.name}</span>
+                    <span className={S.tooltipDescription}>{selectedAction.description}</span>
+                    <span className={S.tooltipMeta}>
+                        Alcance {selectedAction.target.range} <span aria-hidden="true">/</span> Daño{' '}
+                        {selectedAction.effect.value}
+                    </span>
+                </div>
+            )}
+
             <div className={S.actionTrack} role="group" aria-label="Acciones disponibles">
                 {actions.length > 0 ? (
                     actions.map((action) => {
                         const isSelected = selectedActionId === action.id;
+                        const describedBy = isSelected ? `action-tooltip-${action.id}` : undefined;
 
                         return (
                             <button
@@ -30,11 +43,12 @@ export const ActionPanel = memo((props: ActionPanelProps) => {
                                 className={S.actionButton}
                                 data-selected={isSelected ? 'true' : undefined}
                                 type="button"
+                                aria-label={`${action.name}: ${action.description} Alcance ${action.target.range}. Daño ${action.effect.value}.`}
                                 aria-pressed={isSelected}
+                                aria-describedby={describedBy}
                                 onPointerDown={() => {
                                     onSelectAction(action.id);
                                 }}
-                                title={action.description}
                             >
                                 <span className={S.actionIconFrame}>
                                     <img
@@ -45,10 +59,7 @@ export const ActionPanel = memo((props: ActionPanelProps) => {
                                         aria-hidden="true"
                                     />
                                 </span>
-                                <span className={S.actionCopy}>
-                                    <span className={S.actionName}>{action.name}</span>
-                                    <span className={S.actionMeta}>R{action.target.range} / D{action.effect.value}</span>
-                                </span>
+                                <span className={S.actionLabel}>{action.name}</span>
                             </button>
                         );
                     })

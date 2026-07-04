@@ -17,9 +17,15 @@
 }
 
 .contextBar {
-    @apply mb-2 min-h-16 rounded-2xl border px-2 py-2;
-    background: rgb(2 6 23 / 0.38);
-    border-color: rgb(255 255 255 / 0.1);
+    @apply mb-2 min-h-16 overflow-visible px-3 py-2;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgb(2 6 23 / 0.68) 10%,
+        rgb(15 23 42 / 0.72) 50%,
+        rgb(2 6 23 / 0.68) 90%,
+        transparent
+    );
 }
 
 .contextTrack {
