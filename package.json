@@ -16,8 +16,7 @@
         "build": "npm --workspace main run build",
         "preview": "turbo preview",
         "cf:preview": "turbo cf:preview",
-        "cf:deploy": "npm run build && npm --workspace main run cf:deploy",
-        "astro": "turbo astro"
+        "cf:deploy": "npm run build && npm --workspace main run cf:deploy"
     },
     "devDependencies": {
         "turbo": "2.6.1"
